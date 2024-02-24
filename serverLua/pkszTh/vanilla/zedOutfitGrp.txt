@@ -1,0 +1,111 @@
+-- "--" is can be used as a comment out
+-- Zombies included in "outfitGrp" will spawn with a probability
+-- The number specifies the rate at which female zombies appear
+-- 0 = male / 50 = mix / 100 = female (This is by specification. Please check the official website for details)
+--
+outfitGrpCD = None
+None = 50
+---
+outfitGrpCD = Farmer
+Farmer = 50
+None = 50
+---
+outfitGrpCD = PrivateMilitia
+PrivateMilitia = 50
+---
+outfitGrpCD = Constructionworker
+Constructionworker = 50
+---
+outfitGrpCD = Young
+Young = 50
+None = 50
+---
+outfitGrpCD = Student
+Student = 50
+None = 50
+---
+outfitGrpCD = Camper
+Camper = 50
+---
+outfitGrpCD = Officeworker
+Officeworker = 50
+---
+outfitGrpCD = OfficeworkerSkirt
+OfficeworkerSkirt = 50
+---
+outfitGrpCD = Trader
+Trader = 50
+---
+outfitGrpCD = Bikar
+Bikar = 50
+---
+outfitGrpCD = Bandit
+Bandit = 50
+---
+outfitGrpCD = Fireman
+Fireman = 50
+---
+outfitGrpCD = Police
+Police = 50
+---
+outfitGrpCD = Mix
+Student = 50
+Young = 50
+DressLong = 100
+DressNormal = 100
+DressShort = 100
+Bandit = 50
+Bikar = 50
+AmbulanceDriver = 50
+OfficeWorker = 50
+OfficeWorkerSkirt = 50
+ConstructionWorker = 50
+Trader = 50
+Fireman = 50
+Priest = 0
+Police = 50
+PrivateMilitia = 80
+Ranger = 50
+Camper = 50
+Survivalist = 50
+Survivalist02 = 50
+Survivalist03 = 50
+---
+outfitGrpCD = teenager
+Student = 50
+Young = 50
+---
+outfitGrpCD = Dress
+DressLong = 100
+DressNormal = 100
+DressShort = 100
+---
+outfitGrpCD = rogue
+Bikar = 50
+Bandit = 50
+---
+outfitGrpCD = medic
+AmbulanceDriver = 50
+Doctor = 50
+Nurse = 100
+---
+outfitGrpCD = worker
+OfficeWorker = 50
+OfficeWorkerSkirt = 50
+ConstructionWorker = 50
+---
+outfitGrpCD = Survivor
+Camper = 50
+Bandit = 50
+Bikar = 50
+None = 50
+Survivalist = 50
+Survivalist02 = 50
+Survivalist03 = 50
+Naked = 50
+Trader = 50
+Police = 50
+Ranger = 50
+---
+outfitGrpCD = Naked
+Naked = 50

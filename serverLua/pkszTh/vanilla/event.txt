@@ -1,0 +1,120 @@
+--
+-- "--" is can be used as a comment out
+-- eventTimeout = 6 is 1 hour in-game
+--
+eventID = food1
+eventDescription = Food supply
+eventTimeout = 60
+HordeDensity = 12
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = food1
+cordListSelectCD = food,common
+leaderOutfit = Camper
+--
+eventID = food2
+eventDescription = Meat supply
+eventTimeout = 60
+HordeDensity = 12
+InventoryItem = Base.Cooler
+loadOutSelectCD = food2
+cordListSelectCD = food,common
+leaderOutfit = Survivalist
+--
+eventID = food3
+eventDescription = Junk food
+eventTimeout = 60
+HordeDensity = 12
+InventoryItem = Base.Bag_Satchel
+loadOutSelectCD = food3
+cordListSelectCD = food,common
+leaderOutfit = Police
+--
+eventID = Weapon1
+eventDescription = Survivor's Armament
+eventTimeout = 72
+HordeDensity = 18
+InventoryItem = Base.RifleCase1
+loadOutSelectCD = Weapon1
+cordListSelectCD = civilWeapon,common
+leaderOutfit = Survivalist
+--
+eventID = Weapon2
+eventDescription = supply of Guns and Ammos
+eventTimeout = 30
+HordeDensity = 24
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = Weapon2
+cordListSelectCD = militaryWeapon,common
+leaderOutfit = PrivateMilitia
+--
+eventID = Weapon3
+eventDescription = Military supply
+eventTimeout = 30
+HordeDensity = 20
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = Weapon3
+cordListSelectCD = militaryWeapon,common
+leaderOutfit = PrivateMilitia
+--
+eventID = misc1
+eventDescription = Support supply
+eventTimeout = 72
+HordeDensity = 16
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = misc1
+cordListSelectCD = supply,common
+leaderOutfit = Young
+--
+eventID = misc2
+eventDescription = Supply of need to survive
+eventTimeout = 72
+HordeDensity = 14
+InventoryItem = Base.Bag_MedicalBag
+loadOutSelectCD = misc2
+cordListSelectCD = supply,common
+leaderOutfit = Camper
+--
+eventID = medic
+eventDescription = Medical supply
+eventTimeout = 60
+HordeDensity = 12
+InventoryItem = Base.Bag_MedicalBag
+loadOutSelectCD = medic
+cordListSelectCD = medic,common
+leaderOutfit = AmbulanceDriver
+--
+eventID = clothing
+eventDescription = Apocalypse fashion
+eventTimeout = 18
+HordeDensity = 12
+InventoryItem = Base.Suitcase
+loadOutSelectCD = clothing
+cordListSelectCD = clothing,common
+leaderOutfit = Bikar
+--
+eventID = misc3
+eventDescription = Really? need this? okay...
+eventTimeout = 30
+HordeDensity = 24
+InventoryItem = Base.Suitcase
+loadOutSelectCD = misc3
+cordListSelectCD = common
+leaderOutfit = Spiffo
+--
+eventID = funbox
+eventDescription = Huh? What did I put in that bag?
+eventTimeout = 24
+HordeDensity = 18
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = funBox
+cordListSelectCD = common
+leaderOutfit = Santa
+--
+-- eventID = horde
+-- eventDescription = What a Hell... help... I need help....
+-- eventTimeout = 120
+-- HordeDensity = 300
+-- InventoryItem = Base.Bag_BigHikingBag
+-- loadOutSelectCD = horde
+-- cordListSelectCD = largeplace
+-- leaderOutfit = Spiffo

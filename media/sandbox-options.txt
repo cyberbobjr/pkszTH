@@ -1,0 +1,29 @@
+VERSION = 1,
+
+option pkszTHopt.eventDisabled
+{
+    type = boolean,
+    default = false,
+    page = pkszTH,
+    translation = pkszTH_eventDisabled,
+}
+
+option pkszTHopt.eventStartChance
+{
+    type = integer,
+    min = 0,
+    default = 7,
+    max = 9,
+    page = pkszTH,
+    translation = pkszTH_eventStartChance,
+}
+
+option pkszTHopt.eventStartWaitTick
+{
+    type = integer,
+    min = 0,
+    default = 1,
+    max = 999,
+    page = pkszTH,
+    translation = pkszTH_eventStartWaitTick,
+}

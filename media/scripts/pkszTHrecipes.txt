@@ -1,0 +1,34 @@
+module Base
+{
+
+    recipe Dismantle THpagerBlue
+    {
+       destroy pkszTHitem.THpagerBlue,
+       keep [Recipe.GetItemTypes.Screwdriver],
+       NoBrokenItems:true,
+       Result:ElectronicsScrap,
+       Time:100.0,
+       OnCreate:DismantleTHpagerDest,
+       OnGiveXP:Recipe.OnGiveXP.DismantleRadio,
+       Category:Electrical,
+       AnimNode:Disassemble,
+       Prop1:Screwdriver,
+       Sound:Dismantle,
+	}
+
+    recipe Dismantle THpagerRed
+    {
+       destroy pkszTHitem.THpagerRed,
+       keep [Recipe.GetItemTypes.Screwdriver],
+       NoBrokenItems:true,
+       Result:ElectronicsScrap,
+       Time:100.0,
+       OnCreate:DismantleTHpagerDest,
+       OnGiveXP:Recipe.OnGiveXP.DismantleRadio,
+       Category:Electrical,
+       AnimNode:Disassemble,
+       Prop1:Screwdriver,
+       Sound:Dismantle,
+	}
+
+}

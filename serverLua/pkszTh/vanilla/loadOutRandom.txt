@@ -1,0 +1,252 @@
+-- "--" is can be used as a comment out
+-- One will be selected from the group
+-- will spawn as many times as the " = number"
+-- randomGP = CivilRifle / One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-----
+loadOutRandomCD = melee
+Base.Nightstick = 2
+Base.MeatCleaver = 2
+Base.HandAxe = 2
+Base.HandScythe = 2
+Base.Machete = 1
+Base.ClubHammer = 1
+Base.Hammer = 1
+Base.Chainsaw = 1
+Base.Katana = 1
+Base.PickAxe = 1
+Base.BaseballBat = 2
+Base.BaseballBatNails = 1
+Base.Axe = 1
+Base.WoodAxe = 1
+Base.Sledgehammer = 1
+Base.Sledgehammer2 = 1
+---
+loadOutRandomCD = civilmix
+Base.HuntingKnife = 1
+Base.MeatCleaver = 1
+Base.HandAxe = 2
+Base.PickAxe = 1
+randomGP = Revolver
+randomGP = Pistol
+randomGP = CivilRifle
+---
+loadOutRandomCD = spear
+Base.SpearScrewdriver = 2
+Base.SpearHuntingKnife = 2
+Base.SpearMachete = 2
+Base.SpearIcePick = 2
+Base.SpearKnife = 2
+---
+loadOutRandomCD = weaponPart
+Base.x2Scope = 1
+Base.x4Scope = 1
+Base.x8Scope = 1
+Base.AmmoStraps = 1
+Base.Sling = 1
+Base.FiberglassStock = 1
+Base.IronSight = 1
+Base.RecoilPad = 1
+Base.Laser = 1
+Base.RedDot = 1
+Base.GunLight = 1
+Base.Bayonnet = 1
+Base.ChokeTubeFull = 1
+---
+loadOutRandomCD = militalyMisc
+Base.WristWatch_Right_ClassicMilitary = 1
+Base.HolsterDouble = 1
+Base.AmmoStrap_Bullets = 1
+Base.Necklace_DogTag = 1
+---
+loadOutRandomCD = ammo
+Base.Bullets9mmBox = 1
+Base.Bullets45Box = 1
+Base.Bullets44Box = 1
+Base.Bullets38Box = 1
+Base.556Box = 1
+Base.308Box = 1
+---
+loadOutRandomCD = clothes
+Base.Hat_Raccoon = 1
+Base.Hat_Ranger = 1
+Base.Scarf_White = 1
+Base.Scarf_StripeBlackWhite = 1
+Base.Scarf_StripeBlueWhite = 1
+Base.Hat_BunnyEarsBlack = 1
+Base.Hat_BunnyEarsWhite = 1
+Base.BunnyTail = 1
+Base.BunnySuitBlack = 1
+Base.BunnySuitPink = 1
+Base.PonchoGreen = 1
+Base.PonchoYellow = 1
+Base.Bracelet_RightFriendshipTINT = 1
+Base.Jacket_LeatherWildRacoons = 1
+Base.Jacket_LeatherIronRodent = 1
+Base.Jacket_LeatherBarrelDogs = 1
+---
+loadOutRandomCD = boots
+Base.Shoes_ArmyBoots = 1
+Base.Shoes_ArmyBootsDesert = 1
+Base.Shoes_BlackBoots = 1
+Base.Shoes_Wellies = 1
+---
+loadOutRandomCD = gloves
+Base.Gloves_LeatherGloves = 1
+Base.Gloves_LeatherGlovesBlack = 1
+Base.Gloves_FingerlessGloves = 1
+Base.Bag_FannyPackFront = 1
+Base.Bag_FannyPackBack = 1
+---
+loadOutRandomCD = Medic
+Base.AlcoholBandage = 1
+Base.AlcoholWipes = 1
+Base.Disinfectant = 1
+Base.AlcoholedCottonBalls = 1
+Base.Pills = 1
+Base.PillsAntiDep = 1
+Base.PillsBeta = 1
+Base.PillsSleepingTablets = 1
+Base.PillsVitamins = 1
+Base.Coldpack = 1
+Base.Needle = 1
+---
+loadOutRandomCD = grain
+Base.Cornmeal = 2
+Base.PancakeMix = 2
+Base.BakingSoda = 2
+Base.Flour = 2
+Base.Yeast = 2
+Base.Vinegar = 2
+Base.Rice = 2
+---
+loadOutRandomCD = sackProduce
+Base.SackProduce_Apple = 1
+Base.SackProduce_BellPepper = 1
+Base.SackProduce_Broccoli = 1
+Base.SackProduce_Corn = 1
+Base.SackProduce_Eggplant = 1
+Base.SackProduce_Grapes = 1
+Base.SackProduce_Leek = 1
+Base.SackProduce_Lettuce = 1
+Base.SackProduce_Onion = 1
+Base.SackProduce_Peach = 1
+Base.SackProduce_Pear = 1
+Base.SackProduce_Strawberry = 1
+Base.SackProduce_Tomato = 1
+---
+loadOutRandomCD = food
+Base.Pumpkin = 1
+Base.Croissant = 1
+Base.Peas = 1
+Base.Cilantro = 1
+Base.Zucchini = 1
+Base.Sausage = 1
+Base.Chicken = 1
+Base.Cheese = 1
+Base.Pear = 1
+Base.Ham = 1
+Base.MixedVegetables = 1
+Base.EggCarton = 1
+---
+loadOutRandomCD = breakfast
+Base.Icecream = 1
+Base.Avocado = 1
+Base.Baguette = 1
+Base.Bread = 1
+Base.Yoghurt = 1
+Base.Processedcheese = 1
+Base.Milk = 1
+---
+loadOutRandomCD = fruits
+Base.Orange = 1
+Base.Lime = 1
+Base.Apple = 1
+Base.Lemon = 1
+Base.Watermelon = 1
+Base.Grapes = 1
+Base.Mango = 1
+Base.Peach = 1
+---
+loadOutRandomCD = TheMeat
+Base.Squid = 1
+Base.Shrimp = 1
+Base.Minced = 1
+Base.MincedMeat = 1
+Base.Oysters = 1
+Base.Steak = 1
+Base.MeatPatty = 1
+Base.PorkChop = 1
+Base.MuttonChop = 1
+Base.Lobster = 1
+Base.EggCarton = 1
+---
+loadOutRandomCD = Liquor
+Base.BeerCan = 1
+Base.BeerCan = 1
+Base.BeerBottle = 1
+Base.BeerBottle = 1
+Base.BeerBottle = 1
+Base.Wine = 1
+Base.Wine2 = 1
+Base.WhiskeyFull = 1
+---
+loadOutRandomCD = seasoning
+Base.Coffee2 = 1
+Base.RiceVinegar = 1
+Base.Pepper = 1
+Base.Salt = 1
+Base.Vinegar = 1
+Base.Wasabi = 1
+Base.Seaweed = 2
+---
+loadOutRandomCD = junkfood
+Base.Corndog = 1
+Base.GrilledCheese = 1
+Base.DoughnutChocolate = 1
+Base.DoughnutFrosted = 1
+Base.DoughnutJelly = 1
+Base.DoughnutPlain = 1
+Base.Burger = 1
+Base.MeatSteamBun = 1
+Base.MeatDumpling = 1
+Base.Onigiri = 2
+---
+loadOutRandomCD = misc
+Base.FishingRod = 1
+Base.FishingLine = 2
+Base.FishingNet = 1
+Base.FishingTackle = 2
+Base.EmptySandbag = 2
+Base.SeedBag = 1
+Base.Candle = 3
+Base.Extinguisher = 1
+Base.Matches = 3
+Base.Lighter = 2
+Base.BoxOfJars = 1
+---
+loadOutRandomCD = hottie
+Base.ComicBook = 1
+Base.HottieZ = 1
+Base.HottieZ = 1
+Base.TVMagazine = 1
+Base.Spiffo = 1
+Base.Spiffo = 1
+Base.SpiffoBig = 1
+Base.Money = 10
+Base.Money = 6
+Base.Money = 3
+randomGP = Revolver
+---
+loadOutRandomCD = cookingMag
+Base.CookingMag1 = 1
+Base.CookingMag2 = 1
+---
+loadOutRandomCD = civilVest
+Base.Vest_BulletCivilian = 1
+Base.Vest_Hunting_Camo = 1
+Base.Vest_Hunting_Orange = 1
+Base.Vest_BulletPolice = 1
+---
+loadOutRandomCD = armyVest
+Base.Vest_BulletArmy = 1
+Base.Vest_BulletPolice = 1

@@ -1,0 +1,14 @@
+Sandbox_EN = {
+
+	Sandbox_pkszTH = "Treasure hunt",
+
+	Sandbox_pkszTH_eventStartChance = "Event start chance",
+	Sandbox_pkszTH_eventStartChance_tooltip = "0-9 The higher the number, the faster the next event will occur",
+
+	Sandbox_pkszTH_eventStartWaitTick = "Event wait tick",
+	Sandbox_pkszTH_eventStartWaitTick_tooltip = "Minimum wait time until next event occurs (par In-Game Hour)",
+
+	Sandbox_pkszTH_eventDisabled = "Event disabled",
+	Sandbox_pkszTH_eventDisabled_tooltip = "Disabled by default.<br>The event will proceed by unchecking it.",
+
+}

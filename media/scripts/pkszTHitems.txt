@@ -1,0 +1,61 @@
+module pkszTHitem
+{   
+    imports
+    {
+        Base
+    }
+
+	item THpagerBlue
+	{
+        DisplayCategory = LightSource,
+        DisplayName	= Pocket Pager(Blue),
+        LightDistance	=	1,
+        LightStrength	=	0.4,
+        Weight	=	0.1,
+        DisappearOnUse	=	FALSE,
+        Type	=	AlarmClock,
+		AlarmSound = WatchAlarmLoop,
+		SoundRadius = 7,
+		Tags = Digital,
+		TorchCone	=	FALSE,
+        UseDelta	=	0.0001,
+        Icon	=	THpagerBlue,
+        StaticModel 	 = THpagerBlue,
+        WorldStaticModel = THpagerBlue,
+	}
+
+	model THpagerBlue
+    {
+        mesh    = WorldItems/Radio_Receiver,
+        texture = THpagerBlue,
+        scale   = 0.4,
+    }
+
+	item THpagerRed
+	{
+        DisplayCategory = LightSource,
+        DisplayName	= Pocket Pager(Red),
+        LightDistance	=	1,
+        LightStrength	=	0.4,
+        Weight	=	0.1,
+        DisappearOnUse	=	FALSE,
+        Type	=	AlarmClock,
+		AlarmSound = WatchAlarmLoop,
+		SoundRadius = 7,
+		Tags = Digital,
+        TorchCone	=	FALSE,
+        UseDelta	=	0.0001,
+        Icon	=	THpagerRed,
+        StaticModel 	 = THpagerRed,
+        WorldStaticModel = THpagerRed,
+	}
+
+	model THpagerRed
+    {
+        mesh    = WorldItems/Radio_Transmitter,
+        texture = THpagerRed,
+        scale   = 0.4,
+    }
+
+
+}
