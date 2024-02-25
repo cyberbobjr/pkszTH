@@ -45,7 +45,7 @@ HordeDensity = 24
 InventoryItem = Base.Bag_BigHikingBag
 loadOutSelectCD = Weapon2
 cordListSelectCD = militaryWeapon,common
-leaderOutfit = PrivateMilitia
+leaderOutfit = Militia
 --
 eventID = Weapon3
 eventDescription = Military supply
@@ -54,7 +54,7 @@ HordeDensity = 20
 InventoryItem = Base.Bag_BigHikingBag
 loadOutSelectCD = Weapon3
 cordListSelectCD = militaryWeapon,common
-leaderOutfit = PrivateMilitia
+leaderOutfit = Militia
 --
 eventID = misc1
 eventDescription = Support supply
@@ -63,7 +63,7 @@ HordeDensity = 16
 InventoryItem = Base.Bag_BigHikingBag
 loadOutSelectCD = misc1
 cordListSelectCD = supply,common
-leaderOutfit = Young
+leaderOutfit = teenager
 --
 eventID = misc2
 eventDescription = Supply of need to survive
@@ -72,7 +72,7 @@ HordeDensity = 14
 InventoryItem = Base.Bag_MedicalBag
 loadOutSelectCD = misc2
 cordListSelectCD = supply,common
-leaderOutfit = Camper
+leaderOutfit = Survivalist
 --
 eventID = medic
 eventDescription = Medical supply
@@ -81,7 +81,7 @@ HordeDensity = 12
 InventoryItem = Base.Bag_MedicalBag
 loadOutSelectCD = medic
 cordListSelectCD = medic,common
-leaderOutfit = AmbulanceDriver
+leaderOutfit = medic
 --
 eventID = clothing
 eventDescription = Apocalypse fashion
@@ -90,7 +90,7 @@ HordeDensity = 12
 InventoryItem = Base.Suitcase
 loadOutSelectCD = clothing
 cordListSelectCD = clothing,common
-leaderOutfit = Bikar
+leaderOutfit = Dress
 --
 eventID = misc3
 eventDescription = Really? need this? okay...

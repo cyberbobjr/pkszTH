@@ -3,10 +3,10 @@ pkszTHsingle = {}
 pkszTHsingle.toServer = function(player,module,command,args)
 
 	print("pkszTHsingle.toServer ----------- ",pkszTHsv.Phase)
-	print("toServer player ",player)
-	print("toServer module ",module)
-	print("toServer command ",command)
-	print("toServer args ",args)
+	-- print("toServer player ",player)
+	-- print("toServer module ",module)
+	-- print("toServer command ",command)
+	-- print("toServer args ",args)
 
 
     if command == "doSpawnObject" then
@@ -60,10 +60,10 @@ end
 pkszTHsingle.toClient = function(player,module,command,args)
 
 	print("pkszTHsingle.toClient ----------- ",pkszThCli.phase)
-	print("toClient player ",player)
-	print("toClient module ",module)
-	print("toClient command ",command)
-	print("toClient args ",args)
+	-- print("toClient player ",player)
+	-- print("toClient module ",module)
+	-- print("toClient command ",command)
+	-- print("toClient args ",args)
 
 	local player = getPlayer();
     local playerInv = player:getInventory()
@@ -95,7 +95,7 @@ pkszTHsingle.toClient = function(player,module,command,args)
 
 	-- has pager member
 	if command == "IncomingPager" then
-		print("pkszTHsingle.toClient IncomingPager ",args.massege[1])
+		-- print("pkszTHsingle.toClient IncomingPager ",args.massege[1])
 		if pkszThCli.isPager == true then
 			pkszThCli.curEvent = {}
 			pkszThCli.curEvent = args

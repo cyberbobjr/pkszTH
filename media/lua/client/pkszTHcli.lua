@@ -1,6 +1,5 @@
 pkszThCli = {}
-pkszThCli.debug = false
-pkszThCli.triggerRadius = 10
+pkszThCli.debug = true
 
 -- [ phase ]
 -- init (initial)

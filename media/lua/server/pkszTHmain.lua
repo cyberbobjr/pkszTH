@@ -53,8 +53,8 @@ pkszTHmain.tick = function()
 	end
 
 end
--- Events.EveryTenMinutes.Add(pkszTHmain.tick)
-Events.EveryOneMinute.Add(pkszTHmain.tick)
+Events.EveryTenMinutes.Add(pkszTHmain.tick)
+-- Events.EveryOneMinute.Add(pkszTHmain.tick)
 
 pkszTHmain.buildSendMessageFormat = function(cur)
 
@@ -217,6 +217,17 @@ pkszTHmain.getNewEvent = function()
 	-- print("outfitGrpCD ---- " ..pkszTHsv.curEvent.outfitGrpCD)
 	-- print("spawnDesc ---- " ..pkszTHsv.curEvent.spawnDesc)
 
+	-- leader
+	if not pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.leaderOutfit] then
+		pkszTHsv.logger("ERROR : leaderOutfitGrp CD not found " ..pkszTHsv.curEvent.leaderOutfit,true)
+		pkszTHsv.curEvent.leaderOutfitGrp = "None"
+		return
+	end
+	pkszTHsv.curEvent.leaderOutfitGrp = pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.leaderOutfit]
+	pkszTHsv.logger("leaderOutfitGrp = "..pkszTHsv.curEvent.leaderOutfit,true)
+	print("pkszTHsv.curEvent.leaderOutfitGrp" ,pkszTHsv.curEvent.leaderOutfitGrp[1]["item"])
+
+	-- guards
 	if not pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.outfitGrpCD] then
 		pkszTHsv.logger("ERROR : zedOutfitGrp CD not found " ..pkszTHsv.curEvent.outfitGrpCD,true)
 		pkszTHsv.curEvent.outfitGrpCD = "None"
@@ -329,23 +340,24 @@ local function onServerCommand(module,command,player,args)
     end
 
     if command == "requestCurEvent" then
-		print("catch requestCurEvent")
+		print("pkszTH catch requestCurEvent")
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
     if command == "initRequest" then
-		print("catch initRequest")
+		print("pkszTH catch initRequest")
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
     if command == "debugPrint" then
-		print("progress = " .. pkszTHsv.Progress)
-		print("mainTick = " .. pkszTHsv.mainTick)
-		print("startTick "..pkszTHsv.curEvent.startTick)
-		print("eventTimeout "..pkszTHsv.curEvent.eventTimeout)
-		print("endTick "..pkszTHsv.curEvent.endTick)
-		print("Phase sv "..pkszTHsv.Phase)
-		print("Phase cl "..args.phase)
+		print("pkszTH debug monitor by Server ------------")
+		print("pkszTH progress = " .. pkszTHsv.Progress)
+		print("pkszTH mainTick = " .. pkszTHsv.mainTick)
+		print("pkszTH startTick "..pkszTHsv.curEvent.startTick)
+		print("pkszTH eventTimeout "..pkszTHsv.curEvent.eventTimeout)
+		print("pkszTH endTick "..pkszTHsv.curEvent.endTick)
+		print("pkszTH Phase sv "..pkszTHsv.Phase)
+		print("pkszTH Phase cl "..args.phase)
 		pkszTHmain.getSafehouseList()
     end
 
@@ -362,10 +374,11 @@ pkszTHmain.spawnZombie = function()
 	local squareY = pkszTHsv.curEvent.spawnVector.y
 	local squareZ = pkszTHsv.curEvent.spawnVector.z
 
-
 	-- 1 Zed down in the center (Leader)
-	local zedType = pkszTHsv.strSplit(pkszTHsv.curEvent.leaderOutfit,"/")
-	addZombiesInOutfit(squareX, squareY, squareZ, 1, zedType[1], tonumber(zedType[2]), true, true, true, true, 1)
+	local LDoutfits = pkszTHsv.curEvent.leaderOutfitGrp
+	local LDoutfitNo = ZombRand(#LDoutfits) + 1
+	local LDOutfit = LDoutfits[LDoutfitNo]
+	addZombiesInOutfit(squareX, squareY, squareZ, 1,LDOutfit["item"], tonumber(LDOutfit["num"]), true, true, true, true, 1)
 
 	local square = getSquare(
 		pkszTHsv.curEvent.spawnVector.x,
@@ -388,7 +401,7 @@ pkszTHmain.spawnZombie = function()
 		addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
 	end
 
-	pkszTHsv.logger("spawnLeader "..zedType[1].. " id = "..zedId,true)
+	pkszTHsv.logger("spawnLeader "..LDOutfit["item"].. " id = "..zedId,true)
 	pkszTHsv.logger("spawnZed "..squareX.."-"..squareY.."-"..squareZ.." Density "..density.." Radius "..radius,true)
 
 end
@@ -400,7 +413,7 @@ pkszTHmain.syncLoadout = function()
 	for key in pairs(pkszTHsv.curEvent.LoadOut) do
 		for keyB,valueB in pairs(pkszTHsv.curEvent.LoadOut[key]) do
 			if keyB == "item" then
-				print("on Inventory:" ..valueB.. " num = " ..pkszTHsv.curEvent.LoadOut[key]["num"])
+				-- print("on Inventory:" ..valueB.. " num = " ..pkszTHsv.curEvent.LoadOut[key]["num"])
 				item:getItemContainer():AddItems( valueB ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
 			end
 		end
@@ -420,10 +433,11 @@ end
 pkszTHmain.dataConnect = function(act)
 
 	if isClient() then return end
+	print("isServer ",isServer())
 	pkszTHsv.logger(pkszTHsv.Phase .. " / to client send message " .. act ,true)
 	pkszTHsv.curEvent.phase = pkszTHsv.Phase
 	if isServer() then
-		sendClientCommand(player, "pkszTHctrl", act, pkszTHsv.curEvent);
+		sendServerCommand('pkszTHpager', act, pkszTHsv.curEvent)
 	else
 		pkszTHsingle.toClient(player, "pkszTHctrl", act, pkszTHsv.curEvent);
 	end
@@ -432,6 +446,7 @@ end
 
 
 -- safehouseList
+-- under develop now
 pkszTHmain.getSafehouseList = function()
 	-- print(" getSafehouseList ")
 	local safeVector = {}
@@ -440,7 +455,7 @@ pkszTHmain.getSafehouseList = function()
 		if safe:isRespawnInSafehouse(username) and (safe:getPlayers():contains(username) or (safe:getOwner() == username)) then
 			safeVector.x = safe:getX() + (safe:getH() / 2);
 			safeVector.y = safe:getX() + (safe:getH() / 2);
-			print("safe x=" ..safeVector.x.. " y=" ..safeVector.y)
+			-- print("safe x=" ..safeVector.x.. " y=" ..safeVector.y)
 		end
 	end
 end

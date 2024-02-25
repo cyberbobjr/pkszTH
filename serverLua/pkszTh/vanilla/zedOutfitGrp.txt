@@ -107,5 +107,26 @@ Trader = 50
 Police = 50
 Ranger = 50
 ---
+outfitGrpCD = Survivalist
+Survivalist = 50
+Survivalist02 = 50
+Survivalist03 = 50
+---
+outfitGrpCD = Militia
+PrivateMilitia = 50
+ArmyCamoDesert = 50
+ArmyInstructor = 0
+ArmyServiceUniform = 50
+---
+outfitGrpCD = Spiffo
+Spiffo = 50
+---
+outfitGrpCD = Santa
+Santa = 50
+---
+outfitGrpCD = costume
+Spiffo = 50
+Santa = 50
+---
 outfitGrpCD = Naked
 Naked = 50

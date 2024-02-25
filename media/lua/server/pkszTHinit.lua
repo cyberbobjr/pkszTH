@@ -12,6 +12,8 @@ pkszTHsv.loadOutRandomIndex = {}
 pkszTHsv.loadOutRandomIndexCnt = 1
 pkszTHsv.loadOutDebug = {}
 
+pkszTHsv.forceSuspend = false
+
 pkszTHsv.Progress = 0
 
 -- init (initial)
@@ -69,6 +71,8 @@ pkszTHsv.restart = function()
 
 	pkszTHsv.Settings.eventStartChance = SandboxVars.pkszTHopt.eventStartChance;
 	pkszTHsv.Settings.eventStartWaitTick = SandboxVars.pkszTHopt.eventStartWaitTick;
+
+	pkszTHsv.Settings.eventModsFilename = "/pkszTh/eventMods.txt";
 
 	pkszTHsv.Settings.eventFilename = "/pkszTh/vanilla/event.txt";
 	pkszTHsv.Settings.cordlistFilename = "/pkszTh/vanilla/cordinates.txt";

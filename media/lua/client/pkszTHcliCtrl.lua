@@ -13,7 +13,7 @@ pkszThCliCtrl.clientWatch = function()
 	end
 
 	if pkszThCli.signal == "noSignal" then
-		print("signal ctrl")
+		-- print("signal ctrl")
 		pkszThCli.phase = "init"
 		pkszThCliCtrl.initConnect()
 	end
@@ -60,12 +60,9 @@ pkszThCliCtrl.clientWatch = function()
 		end
 	end
 
---	if pkszThCli.phase == "close" then
---		pkszThCli.phase = "wait"
---		pkszThPagerCli.sayMessage("--- Clear this Mission ---")
---		pkszThPagerCli.sayMessage("You killed the target zombie!")
---		pkszThCliCtrl.dataConnect("doClose")
---	end
+	if pkszThCli.phase == "close" then
+		pkszThCli.phase = "wait"
+	end
 
 
 end
@@ -191,18 +188,45 @@ pkszThCliCtrl.removeObject = function(square)
 		square:removeWorldObject(removeList[key])
 	end
 
+	local cx = pkszThCli.curEvent.spawnVector.x
+	local cy = pkszThCli.curEvent.spawnVector.y
+	local cz = pkszThCli.curEvent.spawnVector.z
+
+	local radius = 4
+	local rmCnt = 0
+	for x=0,radius do
+		local tx = cx + x;
+		for y=0,radius do
+			local ty = cy + y;
+			local rmSq = getSquare(
+				tx-2,
+				ty-2,
+				cz
+			)
+			if rmSq then
+				local deadBodys = rmSq:getDeadBodys()
+				for i=0, deadBodys:size()-1 do
+					local deadBody = deadBodys:get(i)
+					if instanceof(deadBody, "IsoDeadBody") then
+						rmSq:removeCorpse(rmSq:getDeadBody(), false)
+						rmCnt = rmCnt + 1
+					end
+				end
+			end
+		end
+	end
+	print("pkszTH - remove dead body "..rmCnt)
+
 end
 
 -- debug KEY_TOOL
 pkszThCliCtrl.onKeyPressed = function(keyCode)
 
-	-- if SandboxVars.pkszTHopt.eventDisabled == true then
-	-- 	return
-	-- end
+	if pkszThCli.debug == false then return end
 
 	-- delete
 	if keyCode == 211 then
-		print("debug monitor ------------")
+		print("pkszTH debug monitor by Client ------------")
 		print("SandboxVars.pkszTHopt.eventDisabled : " ,SandboxVars.pkszTHopt.eventDisabled)
 		print("Event phase : " .. pkszThCli.phase)
 
@@ -221,33 +245,56 @@ pkszThCliCtrl.onKeyPressed = function(keyCode)
 			if player then
 				local x = round(player:getX());
 				local y = round(player:getY());
-				local pos = x .. ", " .. y;
+				local pos = x .. ", " .. y .. ", " ..pPos.z;
 				print("pleyer pos : " ..pos)
 			end
 			pkszThPagerCli.checkMonitor()
+
+			-- test dead body
+			local radius = 4
+			for x=0,radius do
+				local tx = pPos.x + x;
+				for y=0,radius do
+					local ty = pPos.y + y;
+					local rmSq = getSquare(
+						tx-2,
+						ty-2,
+						pPos.z
+					)
+					if rmSq then
+						local deadBodys = rmSq:getDeadBodys()
+						for i=0, deadBodys:size()-1 do
+							local deadBody = deadBodys:get(i)
+							if instanceof(deadBody, "IsoDeadBody") then
+								rmSq:removeCorpse(rmSq:getDeadBody(), false)
+							end
+						end
+					end
+				end
+			end
+
 		end
+
+		-- Ç†Ç∆Ç≈ê‚ëŒè¡Ç∑Ç‚Ç¬
+		-- pkszTHsetup.proc()
 
 	end
 
-	-- if pkszThCli.debug == false then return end
 
 	-- insert
-	if keyCode == 210 then
-		print("debug spawn ------------")
-	 	local square = getSquare(
-	 		pkszThCli.curEvent.spawnVector.x,
-	 		pkszThCli.curEvent.spawnVector.y,
-	 		pkszThCli.curEvent.spawnVector.z
-		)
-	 	if square then
-	 		print("clientWatch x= " ..pkszThCli.curEvent.spawnVector.x)
-	 		print("clientWatch y= " ..pkszThCli.curEvent.spawnVector.y)
-			pkszThCli.phase = "open"
-	 		-- pkszThCli.phase = "enter"
-	 		-- pkszThCliCtrl.spawnObjectGround()
-	 		-- pkszThCliCtrl.dataConnect("doSpawnObjectSurely")
-	 	end
- 	end
+--	if keyCode == 210 then
+--		print("debug spawn ------------")
+--	 	local square = getSquare(
+--	 		pkszThCli.curEvent.spawnVector.x,
+--	 		pkszThCli.curEvent.spawnVector.y,
+--	 		pkszThCli.curEvent.spawnVector.z
+--		)
+--	 	if square then
+--	 		print("clientWatch x= " ..pkszThCli.curEvent.spawnVector.x)
+--	 		print("clientWatch y= " ..pkszThCli.curEvent.spawnVector.y)
+--			pkszThCli.phase = "open"
+--	 	end
+-- 	end
 
 end
 Events.OnKeyPressed.Add(pkszThCliCtrl.onKeyPressed)
