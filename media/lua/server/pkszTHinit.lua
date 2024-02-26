@@ -1,6 +1,8 @@
 pkszTHsv = {}
 if isClient() then return end
 
+pkszTHsv.EventFileVer = "pkszTHv20240227"
+
 pkszTHsv.Events = {}
 pkszTHsv.EventIDs = {}
 pkszTHsv.EventNum = 0
@@ -40,16 +42,6 @@ pkszTHsv.curEvent.lootZedId = 0
 pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
 
-local SettingsValidator = {}
-SettingsValidator.eventId = "string"
-SettingsValidator.eventDescription = "string"
-SettingsValidator.eventTimeout = "integer"
-SettingsValidator.HordeDensity = "integer"
-SettingsValidator.HordeRadius = "integer"
-SettingsValidator.InventoryItem = "string"
-SettingsValidator.loadOutSelectCD = "string"
-SettingsValidator.cordListSelectCD = "string"
-SettingsValidator.leaderOutfit = "string"
 
 pkszTHsv.restart = function()
 
@@ -72,208 +64,27 @@ pkszTHsv.restart = function()
 	pkszTHsv.Settings.eventStartChance = SandboxVars.pkszTHopt.eventStartChance;
 	pkszTHsv.Settings.eventStartWaitTick = SandboxVars.pkszTHopt.eventStartWaitTick;
 
-	pkszTHsv.Settings.eventModsFilename = "/pkszTh/eventMods.txt";
-
-	pkszTHsv.Settings.eventFilename = "/pkszTh/vanilla/event.txt";
-	pkszTHsv.Settings.cordlistFilename = "/pkszTh/vanilla/cordinates.txt";
-	pkszTHsv.Settings.loadoutFilename = "/pkszTh/vanilla/loadOut.txt";
-	pkszTHsv.Settings.loadoutRandomFilename = "/pkszTh/vanilla/loadOutRandom.txt";
-	pkszTHsv.Settings.loadoutRandomGPFilename = "/pkszTh/vanilla/loadOutRandomGP.txt";
-	pkszTHsv.Settings.zedOutfitGrpFilename = "/pkszTh/vanilla/zedOutfitGrp.txt";
-
-	pkszTHsv.Settings.logFilename = "/pkszTh/log.txt";
-	pkszTHsv.Settings.historyFilename = "/pkszTh/history.txt";
 
 
-	-- getEvents
-	pkszTHsv.getEvents()
-	pkszTHsv.logger("Events count "..pkszTHsv.EventNum,false)
+	-- event file check
+	pkszTHsetup.eventFileCheck()
 
-	-- getCordList
-	pkszTHsv.getCordList()
+	pkszTHsv.Settings.logFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.history;
+	pkszTHsv.Settings.historyFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.log;
 
-	-- getLoadOut
-	pkszTHsv.getLoadOut()
-	pkszTHsv.getLoadOutRandom()
-	pkszTHsv.getLoadOutRandomGP()
+	pkszTHsv.logger("-- Log files are now available --",false)
 
-	-- getLoadZedOutfitGrp
-	pkszTHsv.getLoadZedOutfitGrp()
-	-- logger restart
-	pkszTHsv.logger("-- restart --",false)
+	-- event File Loader
+	pkszTHsetup.eventFileLoader()
+
+
+	pkszTHsv.logger("-- restart --",true)
 
 	-- end
 
 end
 Events.OnGameBoot.Add(pkszTHsv.restart)
 
-
-pkszTHsv.getEvents = function()
-
-	local temp = {}
-	local eventID = ""
-	local cnt = 1
-
-	local file = getFileReader(pkszTHsv.Settings.eventFilename, true)
-	if not file then
-		pkszTHsv.logger("Events file not found "..pkszTHsv.Settings.eventFilenam,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-        for key, value in string.gmatch(line, "(%w+) *= *(.+)") do
-			if key == "eventID" then
-				pkszTHsv.EventNum = cnt
-				eventID = value
-				pkszTHsv.Events[eventID] = {}
-				pkszTHsv.EventIDs[cnt] = eventID
-				cnt = cnt + 1
-			else
-				pkszTHsv.Events[eventID][key] = value
-			end
-		end
-    until true end
-end
-
-pkszTHsv.getCordList = function()
-
-	local cordCD = ""
-	local cnt = 1
-
-	local file = getFileReader(pkszTHsv.Settings.cordlistFilename, true)
-	if not file then
-		pkszTHsv.logger("cordlist file not found "..pkszTHsv.Settings.cordlistFilename,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-		if string.sub(line, 1, 10) == "cordListCD" then
-	        for key, value in string.gmatch(line, "(%w+) *= *(.+)") do
-				cordCD = value
-				pkszTHsv.CordinateList[cordCD] = {}
-				cnt = 1
-			end
-		else
-			pkszTHsv.CordinateList[cordCD][cnt] = line
-			cnt = cnt + 1
-		end
-
-
-    until true end
-end
-
-pkszTHsv.getLoadOut = function()
-
-	local temp = {}
-	local loadoutID = ""
-	local cnt = 1
-	local file = getFileReader(pkszTHsv.Settings.loadoutFilename, true)
-	if not file then
-		pkszTHsv.logger("LoadOut file not found "..pkszTHsv.Settings.loadoutFilename,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-        for key, value in string.gmatch(line, "([%w%.%_]+) *= *(.+)") do
-			if key == "loadOutCD" then
-				loadoutID = value
-				pkszTHsv.loadOut[loadoutID] = {}
-				cnt = 1
-			else
-				pkszTHsv.loadOut[loadoutID][cnt] = {item=key,num=value}
-				cnt = cnt + 1
-			end
-		end
-    until true end
-
-end
-
-pkszTHsv.getLoadOutRandom = function()
-
-	local temp = {}
-	local loadoutID = ""
-	local cnt = 1
-	local file = getFileReader(pkszTHsv.Settings.loadoutRandomFilename, true)
-	if not file then
-		pkszTHsv.logger("LoadOutRandom file not found "..pkszTHsv.Settings.loadoutRandomFilename,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-        for key, value in string.gmatch(line, "([%w%.%_]+) *= *(.+)") do
-			if key == "loadOutRandomCD" then
-				loadoutID = value
-				pkszTHsv.loadOutRandom[loadoutID] = {}
-				cnt = 1
-			else
-				pkszTHsv.loadOutRandom[loadoutID][cnt] = {item=key,num=value}
-				pkszTHsv.loadOutRandomIndex[pkszTHsv.loadOutRandomIndexCnt] = {item=key,num=value}
-				pkszTHsv.loadOutRandomIndexCnt = pkszTHsv.loadOutRandomIndexCnt + 1
-				cnt = cnt + 1
-			end
-		end
-    until true end
-
-end
-
-pkszTHsv.getLoadOutRandomGP = function()
-
-	local myKey = ""
-	local iCnt = 1
-
-
-	local file = getFileReader(pkszTHsv.Settings.loadoutRandomGPFilename, true)
-	if not file then
-		pkszTHsv.logger("loadoutRandomGP file not found "..pkszTHsv.Settings.loadoutRandomGPFilename,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-		-- print(line)
-		if string.sub(line, 1, 17) == "loadOutRandomGPCD" then
-			for key, value in string.gmatch(line, "([%w%.%_]+) *= *(.+)") do
-				myKey = value
-			end
-			pkszTHsv.loadOutRandomGP[myKey] = {}
-			iCnt = 1
-		else
-			-- pkszTHsv.getRandomGPLineSplit(line)
-			pkszTHsv.loadOutRandomGP[myKey][iCnt] = line
-			iCnt = iCnt + 1
-		end
-    until true end
-
-end
 
 pkszTHsv.getRandomGPLineSplit = function(rec)
 
@@ -287,38 +98,6 @@ pkszTHsv.getRandomGPLineSplit = function(rec)
 		cnt = cnt + 1
 	end
 	return result
-
-end
-
-pkszTHsv.getLoadZedOutfitGrp = function()
-
-	local temp = {}
-	local loadoutID = ""
-	local cnt = 1
-	local file = getFileReader(pkszTHsv.Settings.zedOutfitGrpFilename, true)
-	if not file then
-		pkszTHsv.logger("LoadZedOutfitGrp file not found "..pkszTHsv.Settings.zedOutfitGrpFilename,false)
-		return
-	end
-    while true do repeat
-		local line = file:readLine()
-		if line == nil then
-			file:close()
-			return
-		end
-		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
-		if line == "" or string.sub(line, 1, 2) == "--" then break end
-        for key, value in string.gmatch(line, "([%w%.%_]+) *= *(.+)") do
-			if key == "outfitGrpCD" then
-				GrpCD = value
-				pkszTHsv.zedOutfitGrp[GrpCD] = {}
-				cnt = 1
-			else
-				pkszTHsv.zedOutfitGrp[GrpCD][cnt] = {item=key,num=value}
-				cnt = cnt + 1
-			end
-		end
-    until true end
 
 end
 
@@ -342,6 +121,16 @@ pkszTHsv.logger = function(msg,mode)
 	local dataFile = getFileWriter(pkszTHsv.Settings.logFilename, true, mode);
 	dataFile:write(thisStr .. "\n");
 	dataFile:close();
+end
+
+pkszTHsv.errorhandling = function(msg,force)
+
+	pkszTHsv.forceSuspend = force
+	print("pkszTH - server ERROR : " ..msg)
+	if force then
+		print("pkszTH - server ERROR : This error is fatal, mod process to be force suspend.")
+	end
+
 end
 
 pkszTHsv.tableMonitor = function(tbl)

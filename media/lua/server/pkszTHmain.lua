@@ -161,19 +161,23 @@ pkszTHmain.getNewEvent = function()
 				if valueB == "random" then
 					if tempLoadOut[key]["num"] == "random" then
 						local getRandomItem = pkszTHmain.getAllLoadOutRandomItem()
-						if getRandomItem.item == "randomGP" then
-							rGPitems = pkszTHmain.getLoadOutRandomGP(getRandomItem["num"])
-							if rGPitems then
-								for rKey in pairs(rGPitems) do
-									pkszTHsv.curEvent.LoadOut[cnt] = rGPitems[rKey]
-									pkszTHsv.logger("loadout=randomAllandGP/"..getRandomItem["num"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
-									cnt = cnt + 1
+						if getRandomItem then
+							if getRandomItem.item == "randomGP" then
+								rGPitems = pkszTHmain.getLoadOutRandomGP(getRandomItem["num"])
+								if rGPitems then
+									for rKey in pairs(rGPitems) do
+										pkszTHsv.curEvent.LoadOut[cnt] = rGPitems[rKey]
+										pkszTHsv.logger("loadout=randomAllandGP/"..getRandomItem["num"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+										cnt = cnt + 1
+									end
 								end
+							else
+								pkszTHsv.curEvent.LoadOut[cnt] = getRandomItem
+								pkszTHsv.logger("loadout=randomAll/"..getRandomItem["item"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+								cnt = cnt + 1
 							end
 						else
-							pkszTHsv.curEvent.LoadOut[cnt] = getRandomItem
-							pkszTHsv.logger("loadout=randomAll/"..getRandomItem["item"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
-							cnt = cnt + 1
+								pkszTHsv.logger("getRandomGP Error by "..getRandomItem["num"],true)
 						end
 					else
 						changeThis = pkszTHmain.lotRandomItem(tempLoadOut[key]["num"])

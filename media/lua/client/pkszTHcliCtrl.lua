@@ -250,32 +250,13 @@ pkszThCliCtrl.onKeyPressed = function(keyCode)
 			end
 			pkszThPagerCli.checkMonitor()
 
-			-- test dead body
-			local radius = 4
-			for x=0,radius do
-				local tx = pPos.x + x;
-				for y=0,radius do
-					local ty = pPos.y + y;
-					local rmSq = getSquare(
-						tx-2,
-						ty-2,
-						pPos.z
-					)
-					if rmSq then
-						local deadBodys = rmSq:getDeadBodys()
-						for i=0, deadBodys:size()-1 do
-							local deadBody = deadBodys:get(i)
-							if instanceof(deadBody, "IsoDeadBody") then
-								rmSq:removeCorpse(rmSq:getDeadBody(), false)
-							end
-						end
-					end
-				end
-			end
+			-- test eventFileCheck
+			-- pkszTHsetup.eventFileCheck()
+			pkszTHsetup.eventFileLoader()
 
 		end
 
-		-- Ç†Ç∆Ç≈ê‚ëŒè¡Ç∑Ç‚Ç¬
+		-- after delete
 		-- pkszTHsetup.proc()
 
 	end

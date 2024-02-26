@@ -28,6 +28,8 @@ pkszThPagerCli.checkMonitor = function()
 		pkszThPagerCli.sayMessage("Initializing...");
 		pkszThPagerCli.sayMessage("Please wait a moment and check again.");
 		pkszThCliCtrl.initConnect()
+	else
+		pkszThCliCtrl.dataConnect("requestCurEvent")
 	end
 
 	-- print current message
