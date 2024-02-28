@@ -8,7 +8,7 @@ module pkszTHitem
 	item THpagerBlue
 	{
         DisplayCategory = LightSource,
-        DisplayName	= Pocket Pager(Blue),
+        DisplayName	= ItemName_Base.THpagerBlue,
         LightDistance	=	1,
         LightStrength	=	0.4,
         Weight	=	0.1,
@@ -34,7 +34,7 @@ module pkszTHitem
 	item THpagerRed
 	{
         DisplayCategory = LightSource,
-        DisplayName	= Pocket Pager(Red),
+        DisplayName	= ItemName_Base.THpagerRed,
         LightDistance	=	1,
         LightStrength	=	0.4,
         Weight	=	0.1,

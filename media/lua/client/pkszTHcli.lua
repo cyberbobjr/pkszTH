@@ -11,6 +11,8 @@ pkszThCli.debug = true
 pkszThCli.phase = "init"
 pkszThCli.signal = "noSignal"
 
+pkszThCli.forceSuspend = false
+
 pkszThCli.curEvent = {}
 pkszThCli.massege = {}
 pkszThCli.massege[1] = "no signal"

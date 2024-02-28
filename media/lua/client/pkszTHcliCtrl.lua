@@ -11,6 +11,9 @@ pkszThCliCtrl.clientWatch = function()
 	if SandboxVars.pkszTHopt.eventDisabled == true then
 		return
 	end
+	if pkszThCli.forceSuspend == true then
+		return
+	end
 
 	if pkszThCli.signal == "noSignal" then
 		-- print("signal ctrl")
@@ -143,14 +146,27 @@ local function onServerCommand(module, command, args)
 			pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
 			pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
 			-- Play Incoming call
-			ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			if pkszThPagerCli.mute == "OFF" then
+				ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			end
 		end
 	end
+
+	-- forceSuspend
+	if command == "forceSuspend" then
+		print("pkszTH - Client ERROR : Processing will be force suspend because a fatal error has been detected.")
+		pkszThCli.forceSuspend = true
+	end
+
 
 end
 Events.OnServerCommand.Add(onServerCommand)
 
 pkszThCliCtrl.syncSpawnBag = function()
+
+	if pkszThCli.forceSuspend == true then
+		return
+	end
 
 	print("pkszTH - sync spawn bag")
 

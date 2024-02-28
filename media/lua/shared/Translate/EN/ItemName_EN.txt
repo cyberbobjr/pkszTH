@@ -1,3 +1,7 @@
 ItemName_EN = {
 
+	ItemName_pkszTHitem.THpagerBlue = "Pocket Pager(Blue)",
+	ItemName_pkszTHitem.THpagerRed = "Pocket Pager(Red)",
+	ItemName_pkszTHitem.THpagerGray = "Pocket Pager(Gray)",
+
 }

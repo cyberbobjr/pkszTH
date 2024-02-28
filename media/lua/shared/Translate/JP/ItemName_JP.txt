@@ -1,0 +1,7 @@
+ItemName_JP = {
+
+	ItemName_pkszTHitem.THpagerBlue = "ポケベル(青)",
+	ItemName_pkszTHitem.THpagerRed = "ポケベル(赤)",
+	ItemName_pkszTHitem.THpagerGray = "ポケベル(グレー)",
+
+}

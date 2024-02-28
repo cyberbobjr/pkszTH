@@ -5,6 +5,9 @@ function ISWorldMap:render()
 	if SandboxVars.pkszTHopt.eventDisabled == true then
 		return
 	end
+	if pkszThCli.forceSuspend == true then
+		return
+	end
 
 	if ISWorldMap.IsAllowed() then end
 	if isServer() then return end

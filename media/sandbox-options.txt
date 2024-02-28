@@ -27,3 +27,13 @@ option pkszTHopt.eventStartWaitTick
     page = pkszTH,
     translation = pkszTH_eventStartWaitTick,
 }
+
+option pkszTHopt.eventTickAverage
+{
+    type = integer,
+    min = 1,
+    default = 10,
+    max = 100,
+    page = pkszTH,
+    translation = pkszTH_eventTickAverage,
+}

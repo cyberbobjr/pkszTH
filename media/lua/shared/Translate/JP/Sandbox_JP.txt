@@ -1,0 +1,17 @@
+Sandbox_EN = {
+
+	Sandbox_pkszTH = "トレジャーハントイベント",
+
+	Sandbox_pkszTH_eventStartChance = "Event start chance",
+	Sandbox_pkszTH_eventStartChance_tooltip = "0-9 数値が大きいほど、次のイベントの発生が速くなります",
+
+	Sandbox_pkszTH_eventStartWaitTick = "Event wait tick",
+	Sandbox_pkszTH_eventStartWaitTick_tooltip = "次のイベントが発生するまでの最小待機時間 (ゲーム内で 10 分)",
+
+	Sandbox_pkszTH_eventDisabled = "Event disabled",
+	Sandbox_pkszTH_eventDisabled_tooltip = "Disabled by default.<br>チェックをするとイベント制御の全てが停止します",
+
+	Sandbox_pkszTH_eventTickAverage = "Time average",
+	Sandbox_pkszTH_eventTickAverage_tooltip = "このMODは2時間でゲーム1日の速度に調整されています<br>数字を大きくするとよりゆっくりとイベントが進行します",
+
+}

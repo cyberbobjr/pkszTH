@@ -8,6 +8,9 @@ pkszTHmain.tick = function()
 	if SandboxVars.pkszTHopt.eventDisabled == true then
 		return
 	end
+	if pkszTHsv.forceSuspend == true then
+		return
+	end
 
 	if pkszTHsv.initialize == 0 then
 		pkszTHsv.initialize = 1;
@@ -84,6 +87,7 @@ pkszTHmain.newEventSetup = function()
 			pkszTHsv.logger("new eventID = "..pkszTHsv.curEvent.EventId,true)
 			pkszTHsv.logger("new event start tick = "..pkszTHsv.curEvent.startTick,true)
 			pkszTHsv.logger("new event end tick = "..pkszTHsv.curEvent.endTick,true)
+			pkszTHsv.logger("base timeout = "..pkszTHsv.curEvent.eventTimeout,true)
 			pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
 			-- event mst / pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
 			-- Coordinate / pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
@@ -107,6 +111,7 @@ pkszTHmain.getNewEvent = function()
 	local setEventNo = ZombRand(pkszTHsv.EventNum)
 	setEventNo = setEventNo + 1
 	local myEventId = pkszTHsv.EventIDs[setEventNo]
+	local timeAvg = SandboxVars.pkszTHopt.eventTickAverage / 10
 
 	-- set Event ---------------------------------------
 	pkszTHsv.curEvent = {}
@@ -121,7 +126,7 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.EventId = myEventId
 	pkszTHsv.curEvent.startDateTime = pkszTHsv.getGameTime()
 	pkszTHsv.curEvent.startTick = pkszTHsv.mainTick
-	pkszTHsv.curEvent.endTick = pkszTHsv.mainTick + pkszTHsv.curEvent.eventTimeout
+	pkszTHsv.curEvent.endTick = pkszTHsv.mainTick + (pkszTHsv.curEvent.eventTimeout * timeAvg)
 	-- pkszTHsv.curEvent.checkPlayer = "<Unacquired>"
 	pkszTHsv.curEvent.phase = pkszTHsv.Phase
 
@@ -229,7 +234,7 @@ pkszTHmain.getNewEvent = function()
 	end
 	pkszTHsv.curEvent.leaderOutfitGrp = pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.leaderOutfit]
 	pkszTHsv.logger("leaderOutfitGrp = "..pkszTHsv.curEvent.leaderOutfit,true)
-	print("pkszTHsv.curEvent.leaderOutfitGrp" ,pkszTHsv.curEvent.leaderOutfitGrp[1]["item"])
+	-- print("pkszTHsv.curEvent.leaderOutfitGrp" ,pkszTHsv.curEvent.leaderOutfitGrp[1]["item"])
 
 	-- guards
 	if not pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.outfitGrpCD] then
@@ -344,12 +349,12 @@ local function onServerCommand(module,command,player,args)
     end
 
     if command == "requestCurEvent" then
-		print("pkszTH catch requestCurEvent")
+		-- print("pkszTH catch requestCurEvent")
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
     if command == "initRequest" then
-		print("pkszTH catch initRequest")
+		-- print("pkszTH catch initRequest")
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
@@ -437,7 +442,7 @@ end
 pkszTHmain.dataConnect = function(act)
 
 	if isClient() then return end
-	print("isServer ",isServer())
+	-- print("isServer ",isServer())
 	pkszTHsv.logger(pkszTHsv.Phase .. " / to client send message " .. act ,true)
 	pkszTHsv.curEvent.phase = pkszTHsv.Phase
 	if isServer() then

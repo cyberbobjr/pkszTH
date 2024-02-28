@@ -1,0 +1,11 @@
+IG_UI_EN = {
+
+	IGUI_pkszTH_toggleMuteON = "ミュートした",
+	IGUI_pkszTH_toggleMuteOFF = "ミュートを解除した",
+
+	IGUI_pkszTH_Initializ = "起動中です...",
+	IGUI_pkszTH_PleaseWait = "少し時間を置いてから、もう一度確認してください.",
+
+	IGUI_pkszTH_CheckYourMap = "----- マップを確認してください -----",
+
+}

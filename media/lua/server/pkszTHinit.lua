@@ -72,6 +72,10 @@ pkszTHsv.restart = function()
 	pkszTHsv.Settings.logFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.history;
 	pkszTHsv.Settings.historyFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.log;
 
+	if pkszTHsv.forceSuspend == true then
+		return
+	end
+
 	pkszTHsv.logger("-- Log files are now available --",false)
 
 	-- event File Loader
@@ -130,6 +134,7 @@ pkszTHsv.errorhandling = function(msg,force)
 	if force then
 		print("pkszTH - server ERROR : This error is fatal, mod process to be force suspend.")
 	end
+	pkszTHmain.dataConnect('forceSuspend')
 
 end
 
