@@ -12,6 +12,6 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventDisabled_tooltip = "Disabled by default.<br>The event will proceed by unchecking it.",
 
 	Sandbox_pkszTH_eventTickAverage = "Time average",
-	Sandbox_pkszTH_eventTickAverage_tooltip = "This MOD is adjusted at the rate that in-game one day passes in two hours.<br>The higher the number, the slower the progress.",
+	Sandbox_pkszTH_eventTickAverage_tooltip = "The event time limit is adjusted at the rate that in-game one day passes in two hours.<br>The higher the number, the longer the time limit.",
 
 }

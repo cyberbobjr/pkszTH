@@ -50,7 +50,7 @@ pkszThCliCtrl.clientWatch = function()
 			local pPos = pkszThCli.getPlayerPos()
 			if pkszThCli.curEvent.spawnVector.z == pPos.z then
 				local distance = (pPos.x - pkszThCli.curEvent.spawnVector.x) ^ 2 + (pPos.y - pkszThCli.curEvent.spawnVector.y) ^ 2
-				if distance < 2 then
+				if distance < 3 then
 					local player = getSpecificPlayer(0)
 					print("--------- pkszTH catch item ----------")
 					pkszThPagerCli.sayMessage("---- Clear this Mission ----")
@@ -66,7 +66,6 @@ pkszThCliCtrl.clientWatch = function()
 	if pkszThCli.phase == "close" then
 		pkszThCli.phase = "wait"
 	end
-
 
 end
 Events.OnPlayerUpdate.Add(pkszThCliCtrl.clientWatch)

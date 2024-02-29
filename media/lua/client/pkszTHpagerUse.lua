@@ -45,19 +45,21 @@ pkszThPagerCli.checkMonitor = function()
 	end
 
 	if pkszThCli.phase == "init" then
-		pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_Initializ"));
-		pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_PleaseWait"));
-		pkszThCliCtrl.initConnect()
+		if isClient() then
+			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_Initializ"));
+			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_PleaseWait"));
+		end
+		pkszThCli.phase = "wait"
+		pkszThCliCtrl.dataConnect("requestCurEvent")
 	else
 		pkszThCliCtrl.dataConnect("requestCurEvent")
-	end
-
-	-- print current message
-	pkszThPagerCli.sayMessage(pkszThCli.massege[1]);
-	pkszThPagerCli.sayMessage(pkszThCli.massege[2]);
-	pkszThPagerCli.sayMessage(pkszThCli.massege[3]);
-	if pkszThCli.phase == "open" then
-		pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_CheckYourMap"));
+		-- print current message
+		pkszThPagerCli.sayMessage(pkszThCli.massege[1]);
+		pkszThPagerCli.sayMessage(pkszThCli.massege[2]);
+		pkszThPagerCli.sayMessage(pkszThCli.massege[3]);
+		if pkszThCli.phase == "open" then
+			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_CheckYourMap"));
+		end
 	end
 
 end

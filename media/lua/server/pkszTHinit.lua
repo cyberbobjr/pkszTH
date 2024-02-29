@@ -1,7 +1,13 @@
 pkszTHsv = {}
 if isClient() then return end
 
-pkszTHsv.EventFileVer = "pkszTHv20240227"
+pkszTHsv.nextEventDebug = false
+pkszTHsv.nextEventID = "cqc"
+pkszTHsv.nextEventCoordinate = nil
+-- "10057,12751,1,1,None,2F Reading room"
+
+
+pkszTHsv.EventFileVer = "pkszTHv202403"
 
 pkszTHsv.Events = {}
 pkszTHsv.EventIDs = {}
@@ -41,7 +47,7 @@ pkszTHsv.curEvent.phase = "init"
 pkszTHsv.curEvent.lootZedId = 0
 pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
-
+pkszTHsv.curEvent.eventNote = ""
 
 pkszTHsv.restart = function()
 

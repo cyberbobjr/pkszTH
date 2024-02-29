@@ -12,6 +12,6 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventDisabled_tooltip = "Disabled by default.<br>チェックをするとイベント制御の全てが停止します",
 
 	Sandbox_pkszTH_eventTickAverage = "Time average",
-	Sandbox_pkszTH_eventTickAverage_tooltip = "このMODは2時間でゲーム1日の速度に調整されています<br>数字を大きくするとよりゆっくりとイベントが進行します",
+	Sandbox_pkszTH_eventTickAverage_tooltip = "イベントのタイムリミットは2時間でゲーム1日の速度に調整されています<br>数字が大きいほどタイムリミットが長くなります",
 
 }

@@ -68,7 +68,7 @@ pkszTHmain.buildSendMessageFormat = function(cur)
 
 	sendString[1] = gameTime
 	sendString[2] = cur.eventDescription
-	sendString[3] = cords[6]
+	sendString[3] = pkszTHsv.curEvent.eventNote
 
 	return sendString
 end
@@ -88,7 +88,8 @@ pkszTHmain.newEventSetup = function()
 			pkszTHsv.logger("new event start tick = "..pkszTHsv.curEvent.startTick,true)
 			pkszTHsv.logger("new event end tick = "..pkszTHsv.curEvent.endTick,true)
 			pkszTHsv.logger("base timeout = "..pkszTHsv.curEvent.eventTimeout,true)
-			pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
+			-- pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
+			pkszTHsv.logger("InventoryItem = "..pkszTHsv.curEvent.InventoryItem,true)
 			-- event mst / pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
 			-- Coordinate / pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
 			-- LoadOut / pkszTHsv.curEvent.LoadOut
@@ -111,7 +112,7 @@ pkszTHmain.getNewEvent = function()
 	local setEventNo = ZombRand(pkszTHsv.EventNum)
 	setEventNo = setEventNo + 1
 	local myEventId = pkszTHsv.EventIDs[setEventNo]
-	local timeAvg = SandboxVars.pkszTHopt.eventTickAverage / 10
+	local timeAvg = math.floor(SandboxVars.pkszTHopt.eventTickAverage / 10)
 
 	-- set Event ---------------------------------------
 	pkszTHsv.curEvent = {}
@@ -121,6 +122,13 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.massege[3] = ""
 	pkszTHsv.curEvent.objBag = nil
 	pkszTHsv.curEvent.zedSquare = nil
+	pkszTHsv.curEvent.eventNote = ""
+
+-- next event debug
+	if pkszTHsv.nextEventDebug then
+		pkszTHsv.logger("nextEventDebug On " .. pkszTHsv.nextEventID,true)
+		myEventId = pkszTHsv.nextEventID
+	end
 
 	pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
 	pkszTHsv.curEvent.EventId = myEventId
@@ -134,11 +142,22 @@ pkszTHmain.getNewEvent = function()
 	local myCordList = pkszTHmain.getCordList(pkszTHsv.curEvent.cordListSelectCD)
 	local setCordNo = ZombRand(#myCordList) + 1
 
+	print("myCordList[setCordNo] ",myCordList[1])
+
 	pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
+
+-- next event debug
+	if pkszTHsv.nextEventDebug then
+		if pkszTHsv.nextEventCoordinate then
+			pkszTHsv.logger("nextEventDebug On " .. pkszTHsv.nextEventCoordinate,true)
+			pkszTHsv.curEvent.Coordinate = pkszTHsv.nextEventCoordinate
+		end
+	end
 
 	pkszTHsv.logger("eventID " ..myEventId,true)
 	pkszTHsv.logger("getCordList " ..pkszTHsv.curEvent.cordListSelectCD.. " setCordNo = " ..setCordNo.. " / " ..#myCordList,true)
 	pkszTHsv.logger("getCoordinate " ..pkszTHsv.curEvent.Coordinate,true)
+	pkszTHsv.logger("event note  " ..pkszTHsv.curEvent.eventNote,true)
 
 	-- set coordinate vector3
 	pkszTHsv.curEvent.spawnVector = {}
@@ -182,7 +201,7 @@ pkszTHmain.getNewEvent = function()
 								cnt = cnt + 1
 							end
 						else
-								pkszTHsv.logger("getRandomGP Error by "..getRandomItem["num"],true)
+							pkszTHsv.logger("getRandomGP Error ",true)
 						end
 					else
 						changeThis = pkszTHmain.lotRandomItem(tempLoadOut[key]["num"])
@@ -237,6 +256,7 @@ pkszTHmain.getNewEvent = function()
 	-- print("pkszTHsv.curEvent.leaderOutfitGrp" ,pkszTHsv.curEvent.leaderOutfitGrp[1]["item"])
 
 	-- guards
+	pkszTHsv.logger("zedOutfitGrp = "..pkszTHsv.curEvent.outfitGrpCD,true)
 	if not pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.outfitGrpCD] then
 		pkszTHsv.logger("ERROR : zedOutfitGrp CD not found " ..pkszTHsv.curEvent.outfitGrpCD,true)
 		pkszTHsv.curEvent.outfitGrpCD = "None"
@@ -401,6 +421,10 @@ pkszTHmain.spawnZombie = function()
 
 	-- Spawn Horde
 	local outfits = pkszTHsv.curEvent.zedOutfitGrp
+	if not isServer() then
+		outfits = pkszTHsv.zedOutfitGrp["sNone"]
+		pkszTHsv.logger("Using single sNone ",true)
+	end
 	for i=1,density do
 		local outfitNo = ZombRand(#outfits) + 1
 		local thisOutfit = outfits[outfitNo]
@@ -419,11 +443,18 @@ end
 pkszTHmain.syncLoadout = function()
 
 	local item = InventoryItemFactory.CreateItem(pkszTHsv.curEvent.InventoryItem)
+	if not item then
+		item = InventoryItemFactory.CreateItem("Base.Bag_ToolBag")
+		pkszTHsv.logger("EChanged to Base.Bag_ToolBag because bag creation failed "..pkszTHsv.curEvent.InventoryItem,true)
+	end
 	for key in pairs(pkszTHsv.curEvent.LoadOut) do
 		for keyB,valueB in pairs(pkszTHsv.curEvent.LoadOut[key]) do
 			if keyB == "item" then
-				-- print("on Inventory:" ..valueB.. " num = " ..pkszTHsv.curEvent.LoadOut[key]["num"])
-				item:getItemContainer():AddItems( valueB ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
+				local test = item:getItemContainer():AddItems( valueB ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
+				if not test then
+					item:getItemContainer():AddItems( "Base.Frog" ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
+					pkszTHsv.logger("Changed it to a frog because I failed to get the item.",true)
+				end
 			end
 		end
 	end

@@ -181,6 +181,7 @@ pkszTHsetup.getEvents = function(file)
 				cnt = cnt + 1
 				pkszTHsetup.dataCheck["event"] = pkszTHsetup.dataCheck["event"] + 1
 			else
+				-- print("Events key = "..key)
 				pkszTHsv.Events[eventID][key] = value
 			end
 		end
@@ -350,6 +351,13 @@ end
 ------------------------------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
+-- This is the default setting
+-- When customizing an event, please edit the files in the USER folder
+-- When customizing an event, please edit the files in the USER folder
+-- When customizing an event, please edit the files in the USER folder
+-- thank you
+------------------------------------------------------------
+------------------------------------------------------------
 
 pkszTHsetup.getVanillaEvent = function()
 
@@ -368,488 +376,1060 @@ pkszTH/pkszTH
 pkszTHsetup.ve.log = ""
 pkszTHsetup.ve.history = ""
 
+---------------------------------------
+---------------------------------------
+-- event
+---------------------------------------
+pkszTHsetup.ve.event = [[-- "--" is can be used as a comment out
+-- eventTimeout = 6 is 1 hour in-game / 30 = 5 hour in-game
+-- eventType is currently defunct
+-- 
+eventID = food1
+eventDescription = Food supply
+eventNote = Risk : Be careful of zombies
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 12
+InventoryItem = Base.Bag_DuffelBag
+loadOutSelectCD = food1
+cordListSelectCD = food,common
+leaderOutfit = Camper
+-- = 
+eventID = food2
+eventDescription = Meat supply
+eventNote = Risk : Be careful of zombies
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 12
+InventoryItem = Base.Cooler
+loadOutSelectCD = food2
+cordListSelectCD = food,common
+leaderOutfit = Mix
+-- = 
+eventID = food3
+eventDescription = Junk food
+eventNote = Risk : better hurry
+eventType = nomal
+eventTimeout = 24
+HordeDensity = 12
+InventoryItem = Base.Lunchbox
+loadOutSelectCD = food3
+cordListSelectCD = food,common
+leaderOutfit = Police
+-- = 
+eventID = Weapon1
+eventDescription = Survivor's Armament
+eventNote = Risk : Difficult
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 20
+InventoryItem = Base.RifleCase1
+loadOutSelectCD = Weapon1
+cordListSelectCD = civilWeapon,common
+leaderOutfit = Camper
+-- = 
+eventID = Weapon2
+eventDescription = supply of Guns and Ammos
+eventNote = Risk : Difficult
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 22
+InventoryItem = Base.PistolCase1
+loadOutSelectCD = Weapon2
+cordListSelectCD = militaryWeapon,common
+leaderOutfit = Militia
+-- = 
+eventID = Weapon3
+eventDescription = Military supply
+eventNote = Risk : Difficult
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 20
+InventoryItem = Base.Bag_ALICEpack
+loadOutSelectCD = Weapon3
+cordListSelectCD = militaryWeapon,common
+leaderOutfit = Militia
+-- = 
+eventID = misc1
+eventDescription = Support supply
+eventNote = Risk : Be careful of zombies
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 14
+InventoryItem = Base.Bag_ToolBag
+loadOutSelectCD = misc1
+cordListSelectCD = supply,common
+leaderOutfit = teenager
+-- = 
+eventID = misc2
+eventDescription = Supply of need to survive
+eventNote = Risk : Be careful of zombies
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 14
+InventoryItem = Base.Bag_SurvivorBag
+loadOutSelectCD = misc2
+cordListSelectCD = supply,common
+leaderOutfit = Mix
+-- = 
+eventID = medic
+eventDescription = Medical supply
+eventNote = Risk : Be careful of zombies
+ventType = nomal
+eventTimeout = 30
+HordeDensity = 12
+InventoryItem = Base.Bag_MedicalBag
+loadOutSelectCD = medic
+cordListSelectCD = medic,common
+leaderOutfit = medic
+-- = 
+eventID = clothing
+eventDescription = Apocalypse fashion
+eventNote = Risk : Be careful of zombies
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 12
+InventoryItem = Base.Suitcase
+loadOutSelectCD = clothing
+cordListSelectCD = clothing,common
+leaderOutfit = Dress
+-- = 
+eventID = misc3
+eventDescription = Really? need this? okay...
+eventNote = Risk : Difficult
+eventType = nomal
+eventTimeout = 24
+HordeDensity = 24
+InventoryItem = Base.Bag_Satchel
+loadOutSelectCD = misc3
+cordListSelectCD = common,ComeToLouisville
+leaderOutfit = Spiffo
+-- = 
+eventID = funbox
+eventDescription = Huh? What did I put in that bag?
+eventNote = Risk : Difficult
+eventType = nomal
+eventTimeout = 24
+HordeDensity = 22
+InventoryItem = Base.Bag_GolfBag
+loadOutSelectCD = funBox
+cordListSelectCD = common,ComeToLouisville
+leaderOutfit = Santa
+-- = 
+eventID = horde
+eventDescription = What a Hell... help... I need help....
+eventNote = Risk : Very difficult
+eventType = nomal
+eventTimeout = 36
+HordeDensity = 100
+InventoryItem = Base.Bag_BigHikingBag
+loadOutSelectCD = horde
+cordListSelectCD = largeplace
+leaderOutfit = costume
+-- = 
+eventID = beginner
+eventDescription = Welcome to Knox!
+eventNote = Risk : For Beginner
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 7
+InventoryItem = Base.Bag_DuffelBagTINT
+loadOutSelectCD = beginner
+cordListSelectCD = beginner
+leaderOutfit = Young
+-- = 
+eventID = Ranger
+eventDescription = Basics of survival life
+eventNote = Risk : For Beginner
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 8
+InventoryItem = Base.Bag_NormalHikingBag
+loadOutSelectCD = ranger
+cordListSelectCD = beginner
+leaderOutfit = Camper
+-- = 
+eventID = worstTrip
+eventDescription = Really worst trip
+eventNote = Risk : Extremely difficult
+eventType = nomal
+eventTimeout = 42
+HordeDensity = 36
+InventoryItem = Base.Bag_ALICEpack_Army
+loadOutSelectCD = goodReward
+cordListSelectCD = nowhere
+leaderOutfit = Priest
+-- = 
+eventID = roomHorde
+eventDescription = Kill them all!
+eventNote = Risk : Very difficult
+eventType = nomal
+eventTimeout = 36
+HordeDensity = 54
+InventoryItem = Base.Bag_DoctorBag
+loadOutSelectCD = niceReward
+cordListSelectCD = largeRoom
+leaderOutfit = Santa
+-- = 
+eventID = candySupply
+eventDescription = Happy Candy Supply :)
+eventNote = Risk : Sweetie
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 5
+InventoryItem = Base.Tote
+loadOutSelectCD = CandySupply
+cordListSelectCD = beginner,food,clothing
+leaderOutfit = costume
+-- = 
+eventID = cqc
+eventDescription = Are you good at CQC?
+eventNote = Risk : Be ready to DIE
+eventType = nomal
+eventTimeout = 36
+HordeDensity = 50
+InventoryItem = Base.Bag_SurvivorBag
+loadOutSelectCD = goodReward
+cordListSelectCD = CQC
+leaderOutfit = costume
+]]
+
+
+---------------------------------------
+---------------------------------------
+-- cordinates
+---------------------------------------
 pkszTHsetup.ve.cordinates = [[-- "--" is can be used as a comment out
+--
 -- x,y,z,spawnRadius,zombioOutfit,description
----
+--
+-- Please note that "," cannot be used in the description.
+-- 
 cordListCD = error
-9000,9000,0,3,None,Cordinate Error
----
+9000,9000,0,3,None,get coordinate failed
+--
+--
 cordListCD = food
-13891,6689,0,2,Camper,Be careful zombies
-7663,11872,0,2,Naked,Be careful zombies
-13913,5765,0,4,teenager,Be careful zombies
-12073,6796,1,5,None,Be careful zombies
-12073,6796,0,3,None,Be careful zombies
-12067,6796,1,5,None,Be careful zombies
-12062,6797,0,4,None,Be careful zombies
-11977,6815,0,2,teenager,Be careful zombies
-11666,8296,0,2,None,Be careful zombies
-11665,8798,0,3,Trader,Be careful zombies
-10851,9761,0,3,Trader,Be careful zombies
-10846,10029,0,3,Trader,Be careful zombies
-10612,10251,0,2,Trader,Be careful zombies
-8073,11344,0,3,None,Be careful zombies
-6120,5303,0,3,teenager,Be careful zombies
-12985,2026,0,3,medic,Be careful zombies
-12964,2028,0,3,medic,Be careful zombies
-12950,2028,0,3,medic,Be careful zombies
-12946,2081,0,3,medic,Be careful zombies
-13849,6767,0,2,None,Be careful zombies
-3852,6197,2,2,rogue,Be careful zombies
----
+13946,2245,0,1,None,Kept in the stockroom
+13248,1698,1,1,None,Find the president's office
+13012,5263,0,2,None,Find poker table
+12985,2026,0,3,medic,Emergency way
+12975,2022,0,3,medic,Nurses station
+12956,2001,0,3,medic,autopsy room
+12946,2081,0,3,medic,Front reception
+12538,5292,0,1,None,Here is the to pay
+12528,1545,1,2,Officeworker,2F Staircase
+13913,5765,0,4,teenager,Food court
+13891,6689,0,2,Camper,Pond campsite
+13849,6767,0,2,None,Cafeteria
+13804,6751,0,3,Student,Be careful zombies
+13603,5753,0,2,None,Crepe kitchen
+12073,6796,1,5,None,2nd floor of the bar
+12073,6796,0,3,None,Restroom
+12067,6796,0,5,None,bartender counter
+12062,6797,0,4,None,back room
+11977,6815,0,2,teenager,Inside Spiffo
+11666,8296,0,2,None,Inside Spiffo
+11665,8798,0,3,Trader,Food market
+11664,7085,0,1,Young,Let's go buy pizza
+11656,7083,0,1,Young,Let's go buy pizza
+10851,9761,0,3,Trader,Food market
+10846,10029,0,3,Trader,store
+10652,9922,0,1,None,Here is the to pay
+10632,9768,0,1,None,Here is the to pay
+10620,9608,0,1,None,Here is the to pay
+10615,9562,0,1,None,Here is the to pay
+10612,10251,0,2,Trader,Food market
+10609,10457,0,1,None,Here is the to pay
+10607,10114,0,1,Young,Let's go buy pizza
+10606,10108,0,1,Young,Let's go buy pizza
+10147,12750,0,1,None,Here is the to pay
+10123,12794,0,1,None,Here is the to pay
+8133,11485,0,1,None,Here is the to pay
+8133,11482,0,1,None,Here is the to pay
+8078,11311,0,1,Young,Let's go buy pizza
+8074,11311,0,1,Young,Let's go buy pizza
+8073,11344,0,3,None,Inside Spiffo
+8071,11315,0,1,Young,Let's go buy pizza
+7663,11872,0,2,Naked,Courtyard
+7644,11887,0,2,None,cafeteria
+7401,8333,0,3,Camper,Be careful zombies
+6514,5358,0,1,None,Here is the to pay
+6514,5350,0,1,None,Here is the to pay
+6492,5265,0,1,None,Here is the to pay
+6477,5309,0,1,None,Here is the to pay
+6120,5303,0,3,teenager,Inside Spiffo
+3852,6197,2,2,rogue,3rd floor dining
+7134,8976,0,1,None,Here is the to pay
+5463,9575,0,1,None,Here is the to pay
+--
+--
 cordListCD = civilWeapon
-13849,6767,0,2,None,Be careful zombies
-3836,6207,1,1,rogue,Be careful zombies
-13593,3023,0,1,Officeworker,Be careful zombies
-3852,6197,2,2,rogue,Be careful zombies
-14012,3238,0,5,None,Be careful zombies
-4975,8712,0,4,Survivor,Be careful zombies
-4753,7536,0,4,Survivor,Be careful zombies
-4397,7247,0,4,Survivor,Be careful zombies
-4240,8431,0,5,Survivor,Be careful zombies
-4112,7854,0,5,Survivor,Be careful zombies
-13404,5341,0,4,Camper,Be careful zombies
-13402,5339,0,6,Camper,Be careful zombies
-13115,5300,0,2,Mix,Be careful zombies
-13109,5299,0,3,Camper,Be careful zombies
-13100,5304,0,4,Camper,Be careful zombies
-13091,5120,0,4,Camper,Be careful zombies
-13090,5122,0,4,Camper,Be careful zombies
-13090,5122,0,3,None,Be careful zombies
-4644,8109,0,3,Survivor,Be careful zombies
-4278,7288,0,1,Survivor,Be careful zombies
-3830,6215,0,4,rogue,Be careful zombies
-12327,1262,0,3,Dress,Be careful zombies
-12308,1272,0,3,Dress,Be careful zombies
----
+13946,3234,0,5,None,Gun shop backyard
+13593,3023,0,1,Officeworker,SDB Room
+13573,1297,0,3,None,Ground floor. Stand by me?
+13406,5336,0,4,Camper,In the forest Hunting stand
+13403,5344,0,6,Camper,In the forest Hunting stand
+13328,5450,0,4,None,Behind the shooting target
+13115,5300,0,2,Mix,Hunting Logde
+13109,5299,0,3,Camper,Hunting Logde
+13100,5304,0,4,Camper,Hunting Logde
+13092,5125,0,3,None,Hunter hut
+13091,5120,0,4,Camper,Hunter hut
+13090,5122,0,4,Camper,Hunter hut
+12550,1551,0,2,OfficeworkerSkirt,Completed speech draft?
+12331,1264,0,3,Dress,Staff Room
+12309,1277,0,3,Dress,bar counter
+13995,5864,2,1,Bandit,Up floor stockroom
+11934,6863,0,1,OfficeworkerSkirt,Completed speech draft?
+10966,9162,0,3,Bandit,Be careful zombies
+10061,9571,0,3,worker,Be careful zombies
+8060,11678,0,1,OfficeworkerSkirt,Completed speech draft?
+4644,8109,0,3,Survivor,public lavatory
+4277,7289,0,1,Survivor,under the tree
+3857,6173,2,2,rogue,Garage
+3836,6207,1,1,rogue,Control room
+3830,6215,0,4,rogue,workshop
+5439,9678,0,3,PrivateMilitia,want to join the military?
+5440,9685,0,3,PrivateMilitia,want to join the military?
+--
+--
 cordListCD = militaryWeapon
-10642,10401,0,2,Police,Be careful zombies
-13780,2561,0,2,Police,Be careful zombies
-7601,11971,0,1,PrivateMilitia,Be careful zombies
-7593,11969,0,3,Police,Be careful zombies
-5544,12499,0,2,Mix,Be careful zombies
-5537,12468,0,2,rogue,Be careful zombies
-13593,3023,0,1,Officeworker,Be careful zombies
-14012,3238,0,5,None,Be careful zombies
-4975,8712,0,4,Survivor,Be careful zombies
-4753,7536,0,4,Survivor,Be careful zombies
-4397,7247,0,4,Survivor,Be careful zombies
-4240,8431,0,5,Survivor,Be careful zombies
-4112,7854,0,5,Survivor,Be careful zombies
----
+12596,4201,0,1,PrivateMilitia,Approach from the west
+12446,4350,0,1,PrivateMilitia,Be careful zombies
+13957,3227,0,5,None,Gun shop
+13780,2561,0,2,Police,Police Station
+13601,3030,0,1,Officeworker,VIP room
+10642,10401,0,2,Police,Police Station
+7801,11818,0,1,Police,escapee's lost article
+7700,11857,0,3,Police,Patrol passage
+7662,11890,0,2,Police,Courtyard
+5439,9678,0,3,PrivateMilitia,want to join the military?
+5440,9685,0,3,PrivateMilitia,want to join the military?
+--
+--
 cordListCD = supply
-12414,9007,0,2,Survivor,Be careful zombies
-11249,8947,0,3,Survivor,Be careful zombies
-10642,10401,0,2,Police,Be careful zombies
-13891,6689,0,2,Camper,Be careful zombies
-7663,11872,0,2,Naked,Be careful zombies
-3836,6207,1,1,rogue,Be careful zombies
-13404,5341,0,4,Camper,Be careful zombies
-12985,2026,0,3,medic,Be careful zombies
-12964,2028,0,3,medic,Be careful zombies
-12950,2028,0,3,medic,Be careful zombies
-12946,2081,0,3,medic,Be careful zombies
-13593,3023,0,1,Officeworker,Be careful zombies
----
+13593,3029,1,1,Officeworker,2nd floor break room
+13401,5343,0,4,Camper,Near hunting stand
+12985,2026,0,3,medic,Emergency way
+12964,2028,0,3,medic,main hall
+12946,2081,0,3,medic,Front reception
+12930,2030,1,3,medic,2nd floor ward
+13891,6689,0,2,Camper,campground
+12414,9007,0,2,Survivor,abandoned forest hut
+11249,8947,0,3,Survivor,One tree near forest hut
+10642,10401,0,2,Police,Police Station
+7663,11872,0,2,Naked,Courtyard
+3836,6207,1,1,rogue,Control room
+5439,9678,0,3,PrivateMilitia,want to join the military?
+5440,9685,0,3,PrivateMilitia,want to join the military?
+7134,8976,0,1,None,Here is the to pay
+5463,9575,0,1,None,Here is the to pay
+--
+--
 cordListCD = medic
-12985,2026,0,3,medic,Be careful zombies
-12964,2028,0,3,medic,Be careful zombies
-12950,2028,0,3,medic,Be careful zombies
-12946,2081,0,3,medic,Be careful zombies
-10642,10401,0,2,Police,Be careful zombies
-13891,6689,0,2,Camper,Be careful zombies
-3836,6207,1,1,rogue,Be careful zombies
-13849,6767,0,2,None,Be careful zombies
----
+12948,2008,1,3,medic,linen room
+12944,2053,0,3,medic,Dispensing pharmacy
+12924,2068,0,3,medic,Head doctor office
+13891,6689,0,2,Camper,camp site
+13849,6767,0,2,None,Cafeteria
+10642,10401,0,2,Police,Police Station
+7660,11896,0,1,Police,library
+3836,6207,1,1,rogue,Control room
+--
+--
 cordListCD = clothing
-12327,1262,0,3,Dress,Be careful zombies
-12308,1272,0,3,Dress,Be careful zombies
+12311,1248,0,3,None,empty tenant
+12310,1261,0,3,Dress,VIP pole
 11860,6886,0,2,teenager,Be careful zombies
-11600,8249,0,3,None,Be careful zombies
-10631,9906,0,2,teenager,Be careful zombies
-10616,10155,0,3,teenager,Be careful zombies
-10613,9436,0,2,Young,Be careful zombies
-10612,10372,0,3,teenager,Be careful zombies
-10068,12816,0,2,teenager,Be careful zombies
----
+11740,8865,0,3,Biker,Be careful zombies
+11600,8249,0,3,None,apparel shop
+10631,9906,0,2,teenager,apparel shop
+10616,10155,0,3,teenager,apparel shop
+10613,9436,0,2,Young,apparel shop
+10612,10372,0,3,teenager,apparel shop
+10068,12816,0,2,teenager,apparel shop
+6506,5261,0,1,None,Here is the to pay
+--
+--
 cordListCD = largeplace
-11521,11235,0,10,None,Horde is comming
-11608,7919,0,10,None,Horde is comming
-10857,6908,0,10,None,Horde is comming
-8622,8106,0,10,None,Horde is comming
-9642,12272,0,10,None,Horde is comming
-12570,6569,0,10,None,Horde is comming
-10597,6677,0,10,None,Horde is comming
-11631,8312,0,10,None,Horde is comming
-11864,7203,0,10,None,Horde is comming
-12677,6304,0,10,None,Horde is comming
-8234,11180,0,10,None,Horde is comming
 13733,6042,0,10,None,Horde is comming
+12677,6304,0,10,None,Horde is comming
+12570,6569,0,10,None,Horde is comming
 12256,7057,0,10,None,Horde is comming
+11864,7203,0,10,None,Horde is comming
+11631,8312,0,10,None,Horde is comming
+11608,7919,0,10,None,Horde is comming
+11521,11235,0,10,None,Horde is comming
+10857,6908,0,10,None,Horde is comming
 10619,8783,0,10,None,Horde is comming
----
+10597,6677,0,10,None,Horde is comming
+9642,12272,0,10,None,Horde is comming
+8622,8106,0,10,None,Horde is comming
+8234,11180,0,10,None,Horde is comming
+--
+--
+cordListCD = beginner
+12073,6914,0,3,worker,Be careful zombies
+11987,7105,0,3,None,In the usual place
+11960,6675,0,3,None,In the usual place
+11890,6628,0,3,None,In the usual place
+11739,6646,0,3,None,In the usual place
+11656,6990,0,3,None,In the usual place
+11549,6665,0,3,None,In the usual place
+11451,8830,0,1,Police,Be careful zombies
+11365,6614,0,3,None,In the usual place
+11297,6617,0,3,None,In the usual place
+11207,6678,0,3,None,In the usual place
+11153,6917,0,3,None,In the usual place
+10929,9646,0,3,None,In the usual place
+10897,9343,0,3,None,In the usual place
+10889,6725,0,3,None,In the usual place
+10886,9781,0,3,None,In the usual place
+10833,10476,0,3,None,In the usual place
+10789,9565,0,3,None,In the usual place
+10764,10480,0,3,None,In the usual place
+10693,9232,0,3,None,In the usual place
+10677,9979,0,3,None,In the usual place
+10565,9377,0,3,None,In the usual place
+10539,9163,0,3,None,In the usual place
+10513,10419,0,3,None,In the usual place
+10509,10275,0,3,None,In the usual place
+10483,9494,0,4,Survivor,Be careful zombies
+10246,11009,1,2,Bandit,On the catwalk
+8570,11558,0,3,None,In the usual place
+8520,11740,0,3,None,In the usual place
+8515,11875,0,3,None,In the usual place
+8514,11645,0,3,None,In the usual place
+8496,11886,0,3,None,In the usual place
+8458,11880,0,3,None,In the usual place
+8389,11883,0,3,None,In the usual place
+8072,12275,0,3,Farmer,In the usual place
+8071,12039,0,3,Farmer,In the usual place
+8049,11843,0,3,Farmer,In the usual place
+7952,12117,0,3,Farmer,In the usual place
+7383,6410,0,3,None,In the usual place
+7342,6641,0,3,None,In the usual place
+7214,5501,0,3,Farmer,In the usual place
+6994,5449,0,3,None,In the usual place
+6859,5490,0,3,None,In the usual place
+6801,5223,0,3,None,In the usual place
+6657,5193,0,3,None,In the usual place
+6413,5631,0,3,None,In the usual place
+6281,5188,0,3,None,In the usual place
+6278,5561,0,3,None,In the usual place
+6128,5189,0,3,None,In the usual place
+6032,5192,0,2,None,In the usual place
+5907,5207,0,3,None,In the usual place
+5863,5337,0,3,None,In the usual place
+5859,5525,0,2,None,In the usual place
+--
+--
+cordListCD = nowhere
+14434,2177,0,1,Mix,Be ready for everything.
+14432,2143,0,1,Mix,Be ready for everything.
+14405,2125,0,3,Mix,Be ready for everything.
+14009,6987,0,3,Mix,Be ready for everything.
+13913,6732,0,3,Mix,Be ready for everything.
+13632,7224,0,2,Mix,Be ready for everything.
+7606,11967,0,2,Mix,Be ready for everything.
+7593,11969,0,3,Mix,Be ready for everything.
+6730,6182,0,4,Mix,Be ready for everything.
+5544,12499,0,2,Mix,Be ready for everything.
+5538,12471,0,2,Mix,Be ready for everything.
+5011,8038,0,3,Mix,Be ready for everything.
+4884,7863,0,3,Mix,Be ready for everything.
+4645,8181,0,3,Mix,Be ready for everything.
+4596,8311,0,2,Naked,Be ready for everything.
+4534,7998,0,3,Mix,Be ready for everything.
+4319,8226,0,3,Mix,Be ready for everything.
+4234,7236,0,1,Mix,Be ready for everything.
+4072,8154,0,1,Mix,Be ready for everything.
+4061,8132,0,5,Mix,Be ready for everything.
+4975,8712,0,5,Survivor,Be ready for everything.
+4753,7536,0,5,Survivor,Be ready for everything.
+4397,7247,0,5,Survivor,Be ready for everything.
+4240,8431,0,5,Survivor,Be ready for everything.
+4112,7854,0,5,Survivor,Be ready for everything.
+--
+--
+cordListCD = largeRoom
+12312,3256,0,3,None,Let's Roll
+12864,4955,0,2,None,Let's Roll
+12422,3065,0,4,None,Let's Roll
+11977,6981,0,2,None,Let's Roll
+11933,6871,0,3,None,Let's Roll
+11826,9769,0,3,None,Let's Roll
+11668,10030,0,3,None,Let's Roll
+11602,8256,0,3,None,Let's Roll
+11377,6781,0,3,None,Let's Roll
+10335,12808,0,3,None,Let's Roll
+10335,9257,0,3,None,Let's Roll
+10312,9258,0,3,None,Let's Roll
+10300,9257,0,2,None,Let's Roll
+10050,12719,0,3,None,Let's Roll
+8064,11678,0,3,None,Let's Roll
+7421,8383,0,3,None,Let's Roll
+7413,8382,0,3,None,Let's Roll
+6584,5214,0,3,None,Let's Roll
+6565,5308,0,4,None,Let's Roll
+6459,5465,0,4,None,Let's Roll
+5768,6442,0,4,None,Let's Roll
+5583,5908,0,3,None,Let's Roll
+--
+--
+cordListCD = ComeToLouisville
+12662,3714,0,2,Mix,Come to Louisville!
+12634,3940,0,5,None,Come to Louisville!
+12127,3465,0,2,None,Come to Louisville!
+13211,3524,0,1,rogue,Come to Louisville!
+12642,3303,0,3,None,Come to Louisville!
+12575,3270,0,3,Mix,Come to Louisville!
+12341,3250,0,2,None,Come to Louisville!
+12326,3255,0,1,None,Come to Louisville!
+12664,3450,0,6,Biker,Come to Louisville!
+12801,2620,0,6,Biker,Come to Louisville!
+12741,2614,0,6,Biker,Come to Louisville!
+12645,2984,0,6,Biker,Come to Louisville!
+13713,3630,0,3,Young,Come to Louisville!
+13619,3824,0,3,Farmer,Come to Louisville!
+12119,2254,0,3,Survivor,Come to Louisville!
+--
+--
+cordListCD = CQC
+10700,10361,0,4,None,The target is 1F
+10700,10365,0,4,None,The target is 1F
+10678,10361,0,4,None,The target is 1F
+10680,10313,0,3,None,The target is 1F
+10031,12738,1,4,None,The target is 2F
+10033,12733,1,4,None,The target is 2F
+10001,12653,1,4,None,The target is 2F
+8346,11611,0,4,None,The target is 1F
+8341,11612,0,4,None,The target is 1F
+8067,11660,0,4,None,The target is 1F
+7674,11884,0,4,None,Target is courtyard
+5736,6447,1,4,None,The target is 2F
+6582,5226,1,5,None,The target is 2F
+11524,9652,0,4,None,The target is 1F
+12143,7094,0,4,None,The target is 1F
+12628,3751,1,4,None,The target is 2F
+12564,3698,1,4,None,The target is 2F
+11315,6784,1,4,None,The target is 2F
+11313,6774,1,4,None,The target is 2F
+10311,9337,0,4,None,The target is 1F
+3864,6203,2,6,None,The target is 3F
+10095,12619,1,4,None,The target is 2F
+10070,12625,2,5,None,The target is 3F
+10082,12632,3,6,None,The target is 4F
+--
+--
 cordListCD = common
-14598,3449,0,4,PrivateMilitia,Be careful zombies
-14526,4012,0,2,PrivateMilitia,Be careful zombies
-14511,3440,0,6,None,Be careful zombies
-14508,3932,0,4,Mix,Be careful zombies
-14484,4269,0,8,Farmer,Be careful zombies
-14433,2145,0,1,Mix,Be careful zombies
-14140,4291,0,8,Farmer,Be careful zombies
-14139,2623,0,5,worker,Be careful zombies
-14124,2758,0,2,None,Be careful zombies
+12663,4622,0,6,Biker,Along railroad
+12661,4814,0,6,Biker,Stopped ringing Crossing
+12656,4354,0,6,Biker,Stopped ringing Crossing
+12620,6382,0,6,Biker,Along railroad
+12292,6700,0,6,Biker,Along railroad
+12181,7171,0,6,Biker,Stopped ringing Crossing
+12177,6855,0,6,Biker,Along railroad
+12105,8317,0,6,Biker,Along railroad
+12103,9308,0,6,Biker,Along railroad
+11898,10361,0,6,Biker,Along railroad
+11897,11196,0,6,Biker,Along railroad
+11885,11483,0,6,Biker,Along railroad
+11645,9624,0,6,Biker,Along railroad
+12988,5159,0,3,None,Bit into the fores
+12988,5313,0,2,Survivor,riverside chair
+12965,5453,0,1,Survivor,riverside
+12953,5134,0,2,None,rive side
+12665,5359,0,3,None,Stopped ringing Crossing
+12664,5347,0,3,None,Stopped ringing Crossing
+12663,4035,0,6,Biker,Along railroad
+12646,4345,1,2,None,2nd floor of the bar
+12579,4112,0,3,Mix,Be careful zombies
+12555,4157,0,3,Mix,Be careful zombies
+12453,4979,0,2,None,River side
+14598,3449,0,4,PrivateMilitia,Median divider
+14570,4972,0,4,Mix,Really wish.Rest in peace
+14526,4012,0,2,PrivateMilitia,Army Checkpoint
+14512,3449,0,6,None,Median divider
+14508,3932,0,4,Mix,Corn farm
+14484,4269,0,8,Farmer,shade of trees along filed  
+14314,5478,0,3,Farmer,Be careful zombies
+14140,4291,0,8,Farmer,Outer of field
+14139,2622,0,5,worker,Hedge
+14124,2758,0,2,None,park
 14061,5215,0,2,None,Near the pond
-13959,3555,0,2,None,Be careful zombies
-13947,7395,0,2,None,Be careful zombies
-13891,6685,0,2,None,Be careful zombies
-13891,5810,2,2,None,Be careful zombies
-13880,5792,2,2,Bandit,Be careful zombies
-13867,1196,0,2,None,Be careful zombies
-13850,3264,0,2,Mix,Be careful zombies
-13838,2147,0,2,Survivor,Be careful zombies
-13758,1614,0,4,Constructionworker,Be careful zombies
-13720,2918,0,2,None,Be careful zombies
-13715,3688,0,5,Mix,Be careful zombies
-13712,3577,0,4,None,Be careful zombies
-13705,2799,0,3,None,Be careful zombies
-13703,4560,0,8,Farmer,Be careful zombies
-13702,1985,0,8,Dress,Be careful zombies
-13698,6702,0,3,None,Be careful zombies
-13678,2547,0,2,None,Be careful zombies
-13660,1769,2,2,Fireman,Be careful zombies
-13636,4014,1,5,Naked,Be careful zombies
-13631,7224,0,2,Survivor,Be careful zombies
-13624,5871,2,2,None,Be careful zombies
-13598,3018,0,3,None,Be careful zombies
-13595,1898,0,3,None,Be careful zombies
-13577,2908,0,3,None,Be careful zombies
-13572,1576,1,2,Officeworker,Be careful zombies
-13566,2762,0,2,teenager,Be careful zombies
-13558,5130,0,8,Farmer,Be careful zombies
-13536,3270,0,3,None,Be careful zombies
-13356,5108,0,8,Farmer,Be careful zombies
-13354,3073,1,2,Officeworker,Be careful zombies
-13249,2414,0,3,None,Be careful zombies
-13235,2289,0,4,None,Be careful zombies
-13228,2587,0,1,None,Be careful zombies
-13211,3524,0,1,rogue,Be careful zombies
-13165,6406,0,2,Survivor,Be careful zombies
-13090,3091,0,3,None,Be careful zombies
-13008,2226,0,5,worker,Be careful zombies
-13003,5266,0,2,worker,Be careful zombies
-12988,1542,0,4,Naked,Be careful zombies
-12984,5312,0,2,Survivor,Be careful zombies
+13964,4867,0,1,None,Be careful zombies
+13959,3555,0,2,None,Pig farm
+13937,4864,0,1,None,Be careful zombies
+13863,1198,0,2,None,Rive side
+13850,3264,0,2,Mix,woods road
+13837,2146,0,2,Survivor,Pond side
+13759,5029,0,3,Farmer,Be careful zombies
+13758,1614,0,4,Constructionworker,Construction site
+13720,2918,0,2,None,Neighborhood
+13715,3688,0,5,Mix,maze central
+13712,3577,0,4,None,main stage
+13710,2778,0,1,Student,Pool side
+13705,2799,0,3,None,men's
+13703,4560,0,8,Farmer,Outer of field
+13702,1985,0,8,Dress,beside the stage
+13678,2547,0,2,None,eternal vow
+13660,1769,0,2,Fireman,Be careful zombies
+13630,4015,0,5,Naked,burnt down house
+13598,3018,0,3,None,reception desk
+13596,1897,0,3,None,Be careful zombies
+13577,2908,0,3,None,baron on horseback
+13574,2899,0,2,Dress,Couple date location. still lingers
+13572,1576,1,2,Officeworker,Knox Radio 2F
+13564,2756,0,2,teenager,classroom
+13558,5130,0,8,Farmer,in the field
+13356,5108,0,8,Farmer,in the field
+13354,3073,1,2,Officeworker,2F Boardroom
+13260,5445,0,1,None,Be careful zombies
+13249,2414,0,3,None,Deepest of park road
+13235,2289,0,4,None,golf course bunker sand
+13228,2587,0,1,None,Bench on Plank Bridge
+13222,2573,0,1,Naked,Along the lake
+13107,2828,0,2,Dress,Couple date location. still lingers
+13091,5452,0,1,None,Be careful zombies
+13090,5322,0,1,None,Be careful zombies
+13090,3091,0,3,None,The park
+13082,2022,0,5,None,Nursing home
+13066,5485,0,3,None,Along roadside
+13062,2650,0,3,None,Park west
+13055,2003,0,2,None,Nursing home cafeteria
+13032,5069,0,3,None,Forest Behind Someone House
+13008,2226,0,5,worker,Hedge
+13003,5266,0,2,worker,Bar counter
+12985,1541,0,4,Naked,left-handed hitter
 12983,1130,0,2,None,Be careful zombies
-12968,5459,0,1,Survivor,Be careful zombies
-12967,1538,2,2,Mix,Be careful zombies
-12951,5134,0,2,None,Be careful zombies
-12867,1689,0,3,Mix,Indoor court
+12967,1538,2,2,Mix,broadcast room
+12942,2113,0,2,Dress,Couple date location. still lingers
+12926,2012,2,3,medic,Operating room
 12874,1698,0,3,Mix,Warehouse
-12864,4865,0,2,None,Be careful zombies
-12861,6761,0,3,None,Be careful zombies
-12858,2839,1,2,rogue,Be careful zombies
-12855,2048,0,2,None,Be careful zombies
-12794,2419,4,1,Mix,Be careful zombies
-12786,2500,2,4,None,Be careful zombies
-12785,5805,0,1,Survivor,Be careful zombies
-12765,1595,0,4,None,Be careful zombies
+12870,4856,0,1,None,Let's go to school
+12867,1689,0,3,Mix,Indoor court
+12866,4867,0,2,None,teachers
+12859,4855,0,1,None,Let's go to school
+12858,2839,1,2,rogue,2F lounge
+12852,2052,0,1,None,Be careful zombies
+12848,4877,0,1,None,Let's go to school
+12840,4391,0,1,None,Be careful zombies
+12823,4792,0,4,Student,Be careful zombies
+12794,2419,4,1,Mix,Top floor
+12786,2500,2,4,None,Cat walk
+12765,1595,0,4,None,Be careful at open the door
 12764,4402,0,4,None,There is a risk of death
 12739,4183,0,1,None,Be careful zombies
-12730,8759,0,1,Survivor,Be careful zombies
 12730,1443,0,2,None,Be careful zombies
-12729,8760,0,1,Survivor,Be careful zombies
-12715,1614,0,4,None,Be careful zombies
-12662,3714,0,2,Mix,Be careful zombies
-12646,4345,1,2,None,Be careful zombies
-12642,3303,0,3,Mix,Be careful zombies
-12639,1827,0,3,Mix,Be careful zombies
+12715,1614,0,4,None,Head office of Spiffo
+12705,4130,0,2,Naked,Along the lake
+12701,2720,0,3,PrivateMilitia,Be careful zombies
+12639,1827,0,3,Mix,1F Main hall
 12638,1536,0,5,worker,Be careful zombies
-12634,3940,0,5,None,Be careful zombies
-12617,5860,0,2,None,Be careful zombies
-12617,1363,0,2,worker,Be careful zombies
-12616,3198,0,3,Mix,Be careful zombies
+12618,3200,0,3,Mix,Really wish.Rest in peace
+12617,1363,0,2,worker,1F Bar counter
 12592,1004,0,2,PrivateMilitia,Be careful zombies
-12579,4112,0,3,Mix,Be careful zombies
-12575,3270,0,3,Mix,Be careful zombies
-12566,1682,0,1,None,Be careful zombies
-12555,4157,0,3,Mix,Be careful zombies
+12574,5386,0,4,Bandit,Be careful zombies
+12568,1678,1,1,None,2nd floor room
+12542,5214,0,1,None,Be careful zombies
 12479,5297,0,1,Naked,Be careful zombies
-12458,1316,0,3,None,Be careful zombies
-12453,4979,0,2,None,Be careful zombies
-12425,1479,0,2,None,Be careful zombies
+12458,1316,0,3,None,1F Movie theater
+12425,1479,0,2,None,Really wish.Rest in peace
 12404,1489,0,4,None,Be careful zombies
 12363,1739,0,1,Fireman,Fire staiton side allay
-12325,2200,1,2,teenager,Be careful zombies
-12312,6587,0,2,None,Be careful zombies
+12325,2200,1,2,teenager,LSU 2F lounge
+12225,2755,0,5,None,Horstruck
+12217,1349,0,2,rogue,in the factory
+12146,2694,3,3,Mix,Top Floor
+12077,1441,3,4,Constructionworker,3rd floor near helipad
+14345,5751,0,3,Police,Be careful zombies
+13947,7395,0,2,None,River source
+13891,6685,0,2,None,camp site
+13891,5810,2,2,None,3rd floor empty tenant
+13889,5799,2,2,Bandit,2F staff room
+13859,6770,0,2,None,entrance room
+13818,5654,0,3,Young,Be careful zombies
+13698,6703,0,3,Young,Now. let's kick off
+13698,6702,0,3,None,Center circle
+13624,5871,2,2,None,rooftop
+13566,5658,0,3,Bandit,Be careful zombies
+13447,5680,0,3,None,Bit into the fores
+13211,5705,0,3,None,Along roadside
+13165,6406,0,2,Survivor,River side
+12861,6761,0,3,None,rive side
+12853,6345,0,4,Mix,Be careful zombies
+12783,5810,0,1,Survivor,Be careful zombies
+12730,8759,0,1,Survivor,Be careful zombies
+12729,8760,0,1,Survivor,Be careful zombies
+12665,5757,0,3,None,Stopped ringing Crossing
+12664,5767,0,3,None,Stopped ringing Crossing
+12619,5858,0,2,None,Be careful zombies
+12307,6590,0,2,None,River side
+12272,6929,0,1,None,1F Garage
+12266,6927,1,1,None,2F Office
 12264,6700,0,2,None,Be careful zombies
-12225,2755,0,5,None,Be careful zombies
-12225,1348,0,2,rogue,Be careful zombies
-12198,6872,0,2,None,Be careful zombies
-12146,2694,3,3,Mix,Be careful zombies
-12127,3465,0,2,None,Be careful zombies
+12198,6872,0,2,None,Welcome to Westpoint!
+12178,7174,0,3,None,Stopped ringing Crossing
+12150,7076,0,2,None,Need something torch light
+12144,7098,0,1,None,Need something torch light
+12135,7102,0,1,None,Be careful zombies
 12102,9013,0,3,None,Be careful zombies
-12079,1452,3,4,Constructionworker,Be careful zombies
-12051,7373,0,2,None,Be careful zombies
-12036,9463,0,3,None,Be careful zombies
-12016,7368,0,6,None,Be careful zombies
+12066,7370,0,1,Mix,Be careful zombies
+12051,7373,0,2,None,Picnic area
+12050,6860,0,1,None,1F Stockroom
+12048,7366,0,1,None,Be careful zombies
+12041,6851,1,1,None,2F Office
+12036,9463,0,3,None,Along railroad
+12034,6852,1,1,None,2F Office
+12016,7368,0,6,None,Picnic area
 11992,1435,0,1,Mix,Be careful zombies
-11988,6940,2,1,OfficeworkerSkirt,Be careful zombies
-11981,6917,0,2,Trader,Be careful zombies
-11897,10635,0,3,None,Be careful zombies
-11895,10633,0,5,None,Be careful zombies
-11894,6914,0,2,Officeworker,Be careful zombies
-11828,6575,0,1,None,Be careful zombies
-11813,10418,0,3,None,Be careful zombies
+11990,6888,1,1,None,2F Office
+11988,6940,2,1,OfficeworkerSkirt,3F roof balcony
+11986,6946,1,1,None,2F Office
+11977,6946,2,1,None,3F Office
+11977,6885,0,1,None,1F Office
+11972,6882,1,1,None,2F Staircase
+11963,6876,0,1,None,baguette already sold out?
+11953,6882,0,1,None,2F Mayor's room
+11947,6889,1,1,None,2F Mayor's office
+11946,6870,1,1,None,2F Office room
+11946,6869,0,1,None,1F Hallway
+11933,6983,0,2,Trader,Be careful zombies
+11907,6940,0,2,Police,Summons from police
+11907,6924,1,1,None,2F common room
+11906,6944,0,1,Police,Summons from police
+11902,6952,0,2,Police,Summons from police
+11902,6916,1,1,None,2F Office
+11897,10635,0,3,None,Along railroad
+11896,6910,1,1,None,2F Office
+11894,6914,0,2,Officeworker,secure room
+11889,6949,0,2,Police,Summons from police
+11826,6594,0,1,None,Be careful zombies
+11821,6870,0,1,Police,Be careful zombies
+11813,10418,0,3,None,Along railroad
+11807,6654,0,3,None,Forest Behind Someone House
+11769,8970,0,3,None,Be careful zombies
+11740,8928,0,3,None,Be careful zombies
+11736,6930,0,1,None,Let's go to school
+11736,6924,0,1,None,Let's go to school
 11735,10089,0,3,None,Be careful zombies
 11735,10068,0,3,None,Be careful zombies
-11673,8779,0,7,None,Be careful zombies
+11727,6632,0,3,None,Forest Behind Someone House
+11717,6852,0,3,None,Forest Behind Someone House
+11707,8392,0,2,None,Hide out
+11694,8273,0,3,None,Be careful zombies
+11691,8363,0,1,None,Be careful zombies
+11689,8379,0,3,None,Be careful zombies
+11673,8779,0,7,None,Welcome to DIXIE
 11629,9913,0,3,None,Be careful zombies
+11621,9051,0,3,None,Stopped ringing Crossing
 11620,9289,0,3,Mix,Be careful zombies
+11610,10427,0,3,None,Stopped ringing Crossing
+11599,10419,0,3,None,Stopped ringing Crossing
+11598,8300,0,3,None,Be careful zombies
+11588,10066,0,2,None,Be careful zombies
 11586,10118,0,3,None,Be careful zombies
-11264,6575,0,1,None,Be careful zombies
+11566,8860,0,3,None,Be careful zombies
+11552,8862,0,1,None,Be careful zombies
+11551,8856,0,1,None,Be careful zombies
+11545,8901,0,3,None,Be careful zombies
+11544,6694,0,3,None,Forest Behind Someone House
+11513,6678,0,3,None,Forest Behind Someone House
+11470,8810,0,2,None,Be careful zombies
+11465,8804,0,1,None,Be careful zombies
+11456,8809,0,1,None,Be careful zombies
+11373,6917,0,3,None,Forest Behind Someone House
+11367,6663,0,3,None,Forest Behind Someone House
+11347,6783,1,1,None,2F Common room
+11342,6769,1,1,None,2F Daycare
+11338,6917,0,3,None,Forest Behind Someone House
+11332,6779,1,1,None,2F hallway
+11259,6595,0,3,None,Be careful zombies
 11241,8954,0,2,Mix,Be careful zombies
+11102,9315,0,3,None,Stopped ringing Crossing
+11099,9323,0,3,None,Stopped ringing Crossing
+11091,6716,0,2,None,Be careful zombies
+11091,6712,0,1,None,Be careful zombies
+11087,9235,0,1,rogue,Be careful zombies
 11071,9035,0,6,None,Be careful zombies
-11066,6702,0,3,Mix,Be careful zombies
-11065,6708,0,4,Naked,Be careful zombies
-11064,10640,0,3,None,Be careful zombies
-11056,6708,0,3,Mix,Be careful zombies
-11022,10262,0,2,None,Be careful zombies
-11020,10057,0,3,None,Be careful zombies
-10943,6833,0,10,None,Be careful zombies
+11066,6702,0,3,Mix,RIP someone
+11065,6708,0,4,Naked,RIP somebody
+11064,10640,0,3,None,Secret hut
+11056,6708,0,3,Mix,whoever you are.
+11039,9220,0,1,None,Be careful zombies
+11022,10262,0,1,None,Be careful zombies
+11020,10057,0,3,None,Along railroad
+10981,10266,0,2,Naked,Along the lake
+10976,10256,0,2,Naked,Along the lake
+10943,6833,0,6,None,Be careful zombies
+10940,6652,0,3,None,Be careful zombies
 10932,9270,0,3,None,Be careful zombies
-10915,9841,0,2,worker,Be careful zombies
-10829,8937,0,4,Farmer,Be careful zombies
-10785,10171,0,4,None,Be careful zombies
-10765,10546,0,2,Bikar,Be careful zombies
-10697,10005,0,2,None,Be careful zombies
-10667,10615,0,3,OfficeworkerSkirt,Be careful zombies
-10604,10108,0,2,Trader,Be careful zombies
+10922,9342,0,3,None,Forest Behind Someone House
+10916,9841,0,2,worker,Be careful zombies
+10909,6710,0,3,None,Forest Behind Someone House
+10897,6691,0,3,None,Forest Behind Someone House
+10857,9748,0,2,None,Be careful zombies
+10848,9775,0,2,None,Be careful zombies
+10809,8997,0,4,Farmer,Be careful zombies
+10785,10171,0,4,None,Holy Grace
+10765,10546,0,2,Biker,1F Strage
+10697,10005,0,2,None,dressing room
+10697,9833,0,3,None,Be careful zombies
+10682,9827,0,3,None,Be careful zombies
+10667,10615,0,3,OfficeworkerSkirt,ladies
+10641,10408,0,3,Police,Summons from police
+10635,10414,0,3,Police,Summons from police
+10631,9703,1,1,None,2F Restroom
+10630,9971,0,1,None,Let's go to school
+10627,9981,0,1,None,Let's go to school
+10626,9699,1,1,None,2F Office
+10625,9692,1,1,None,2F Office
+10623,9957,0,1,None,Let's go to school
+10618,9964,0,1,None,Let's go to school
+10616,9317,2,1,None,Roof top
+10612,9310,1,1,None,2F Office
+10604,10108,0,2,Trader,Pizza Have Hope?
 10550,9697,0,3,None,Be careful zombies
 10538,11172,0,5,None,Be careful zombies
 10504,12891,0,6,Nurse,Be careful zombies
 10479,7770,0,8,Farmer,Be careful zombies
 10465,7753,0,5,None,Be careful zombies
+10461,7355,0,3,None,Forest Behind Someone House
 10448,12602,0,1,None,Be careful zombies
 10374,10103,0,2,Constructionworker,Be careful zombies
-10322,12787,0,3,None,Be careful zombies
-10318,12787,0,2,Dress,Be careful zombies
-10290,9390,1,3,Constructionworker,Be careful zombies
+10363,12384,0,3,None,Be careful zombies
+10322,12787,0,3,None,Be happy.  itfs you.
+10318,12787,0,2,Dress,Be happy.  itfs you.
+10290,9390,1,3,Constructionworker,on the catwalk
 10278,9589,0,1,rogue,Be careful zombies
+10248,10361,0,2,Naked,Along the lake
 10221,9888,0,3,rogue,Be careful zombies
+10220,7291,0,3,None,Forest Behind Someone House
 10197,7114,0,4,Survivor,Be careful zombies
 10184,6765,0,2,Mix,Be careful zombies
-10180,12781,0,2,worker,Be careful zombies
-10176,12656,0,2,None,Be careful zombies
+10180,12782,0,2,worker,Be careful zombies
+10176,12656,0,2,None,I put it in the toilet
+10172,12728,0,3,None,Be careful zombies
+10150,12716,0,2,worker,Be careful zombies
 10140,8883,0,1,None,Be careful zombies
-10150,12716,1,2,worker,Be careful zombies
+10117,12781,1,1,None,2F staff room
+10081,12633,2,2,None,3F lounge
 10079,12618,3,2,Mix,Top floor residence
-10033,12717,1,2,None,Be careful zombies
-10016,12626,0,3,None,Be careful zombies
-10007,12669,1,2,Naked,Be careful zombies
-9995,10987,1,3,Constructionworker,Be careful zombies
+10075,12782,0,1,Officeworker,Be careful zombies
+10075,12618,0,2,None,1F Play room
+10054,12751,1,1,None,2F Reading room
+10047,7325,0,3,None,Forest Behind Someone House
+10046,12743,1,1,None,2F Stockroom
+10030,12716,1,1,None,2nd floor room
+10016,12626,0,3,None,Open the door carefully
+10009,10278,0,2,Naked,Along the lake
+10007,12669,1,2,Naked,Not on the ground floor
+10002,12643,0,1,Militia,Let's go to school
+9995,10987,1,3,Constructionworker,Find the stairs going up
+9994,12655,0,1,Student,Let's go to school
 9884,13021,0,4,None,Be careful zombies
 9832,13128,0,3,None,Be careful zombies
 9768,12573,0,4,None,Be careful zombies
 9761,13039,0,2,None,Be careful zombies
-9662,8779,0,3,Camper,Be careful zombies
-9612,10149,0,4,None,Be careful zombies
+9730,12312,0,2,Dress,on the way
+9664,8781,0,3,Camper,Don't pollute the well. okay?
+9612,10152,0,4,None,Who will use this toilet?
 9597,6783,0,3,Survivor,Be careful zombies
-9343,10295,0,4,Survivor,Be careful zombies
+9449,9776,0,4,Farmer,Be careful zombies
+9420,12335,0,2,Dress,on the way
+9394,9289,0,2,None,Be careful zombies
+9344,10295,0,4,Survivor,Be careful zombies
+9337,8069,0,1,teenager,on the way
 9335,6613,0,2,None,Be careful zombies
+9334,8642,0,1,None,Boardinghouse
+9330,8626,0,3,None,Be careful zombies
 9324,9038,0,8,Farmer,Be careful zombies
 9297,11622,0,8,Farmer,Be careful zombies
 9283,7749,0,3,Farmer,Be careful zombies
+9185,5354,0,1,None,Need something torch light
 9153,9260,0,8,Farmer,Be careful zombies
 8924,7899,0,8,Farmer,Be careful zombies
 8861,11938,0,6,Farmer,Be careful zombies
 8757,11395,0,4,Survivor,Be careful zombies
 8621,11505,0,4,Survivor,Be careful zombies
 8616,12456,0,6,Farmer,Be careful zombies
+8553,8456,0,3,None,Forest Behind Someone House
 8526,8834,0,6,Farmer,Be careful zombies
-8462,12237,1,1,Mix,Be careful zombies
-8385,12223,0,3,None,Be careful zombies
-8380,11603,0,3,Student,Be careful zombies
+8479,11793,0,3,None,Forest Behind Someone House
+8475,11702,0,3,None,Forest Behind Someone House
+8462,12237,1,1,Mix,to projection room.
+8419,8494,0,3,None,Forest Behind Someone House
+8403,11531,0,1,Mix,Near residential area
+8387,12229,0,3,None,Oh...show time has passed
+8378,11604,0,3,Student,Be careful zombies
+8376,11221,0,1,None,Along roadside
+8375,7923,0,2,Dress,on the way
+8352,11612,0,2,None,Let's go to school
+8347,11604,0,1,None,Let's go to school
 8334,11651,0,3,Student,Be careful zombies
-8333,11646,0,3,Student,Be careful zombies
+8331,11641,0,3,Student,Be careful zombies
+8331,11614,0,1,None,Let's go to school
+8329,11621,0,1,None,Let's go to school
+8329,11598,0,1,None,Let's go to school
 8282,12216,0,4,None,Be careful zombies
 8221,11864,0,6,None,Be careful zombies
 8210,11880,0,3,Constructionworker,Be careful zombies
+8194,12205,0,2,Naked,Along the lake
 8194,8248,0,5,Farmer,Be careful zombies
-8122,11543,0,3,None,Be careful zombies
+8146,11471,1,1,None,2F Manager's room
+8144,11489,1,2,None,2F cafeteria
+8122,11543,0,3,None,Be happy.itfs you.
+8075,11660,1,1,None,2F Hallway
+8075,11658,0,1,None,Enter the front and first
+8074,11667,1,1,None,2F Office
+8073,11647,0,1,None,guilty?
+8072,11728,0,1,Police,Summons from police
+8057,11747,0,1,Police,Summons from police
+8057,11647,0,1,None,Judge Judy
 8045,7115,0,2,None,Be careful zombies
 8035,12307,0,8,Farmer,Be careful zombies
 8026,7499,0,3,None,Be careful zombies
 7989,12235,0,8,Farmer,Be careful zombies
 7969,12098,0,3,Farmer,Be careful zombies
 7961,10037,0,2,Farmer,Be careful zombies
+7951,11473,0,3,None,Forest Behind Someone House
 7946,10986,0,8,Farmer,Be careful zombies
-7884,12464,0,3,Farmer,Be careful zombies
-7881,12476,0,3,Farmer,Be careful zombies
+7886,12474,0,3,Farmer,Be careful zombies
+7886,12468,0,3,Farmer,Be careful zombies
+7700,12348,0,3,None,Be careful zombies
 7680,11486,0,4,Mix,Be careful zombies
-7666,9348,0,2,Mix,Be careful zombies
+7651,9353,0,2,Mix,Be careful zombies
 7638,11436,0,5,None,Be careful zombies
-7501,6209,0,2,None,Be careful zombies
+7501,6209,0,1,None,Be careful zombies
 7498,5330,0,2,None,Be careful zombies
-7382,8354,0,4,None,Be careful zombies
+7410,12336,0,2,None,Be careful zombies
+7382,8354,0,4,None,Be happy.  itfs me?
+7352,8473,0,3,None,Forest Behind Someone House
+7350,6460,0,3,None,Forest Behind Someone House
 7338,5502,0,8,Farmer,Be careful zombies
+7296,5980,0,3,None,Forest Behind Someone House
+7262,8498,0,1,None,Fully enjoy countryside
+7254,8382,0,1,None,Fully enjoy countryside
+7254,8380,0,1,Police,Summons from police
+7250,8523,0,1,None,Fully enjoy countryside
+7235,8207,0,1,None,Fully enjoy countryside
 7177,8985,0,6,None,Be careful zombies
+7168,8497,0,3,None,Forest Behind Someone House
+7112,6422,0,2,Dress,on the way
 7108,5595,0,6,Farmer,Be careful zombies
-6779,9934,0,3,PrivateMilitia,Be careful zombies
-6694,5243,0,4,rogue,Be careful zombies
-6666,6156,0,2,Mix,Be careful zombies
-6613,5860,0,1,Mix,Be careful zombies
-6577,5374,0,4,None,Be careful zombies
-6557,5239,0,5,worker,Be careful zombies
-6474,12000,0,4,Mix,Be careful zombies
+7100,8111,0,2,Naked,Along the lake
+7057,8328,0,3,None,Forest Behind Someone House
+7051,8259,0,3,None,Forest Behind Someone House
+7007,7797,0,3,Farmer,Be careful zombies
+6894,5735,0,2,Dress,on the way
+6882,7362,0,2,Naked,Along the lake
+6774,9934,0,3,PrivateMilitia,Be careful zombies
+6694,5243,0,4,rogue,behind the wall.
+6664,6155,0,2,Mix,Be careful zombies
+6613,5862,0,1,Mix,Be careful zombies
+6597,5207,1,1,None,2F lounge
+6594,5231,1,3,None,2F Room
+6587,5205,0,1,None,1F lounge
+6579,5239,1,1,None,2F Play room
+6577,5374,0,4,None,Be happy.  itfs you?
+6574,5216,1,2,None,2F lounge
+6557,5239,0,5,worker,inside the hedge
+6537,5307,0,2,Dress,Couple date location. still lingers
+6516,5226,0,3,Dress,Couple date location. still lingers
+6460,5465,0,2,None,Let's go to school
+6454,5439,0,2,None,Let's go to school
 6446,5205,0,3,None,Be careful zombies
-6440,5217,0,5,worker,Be careful zombies
-6422,5216,0,5,worker,Be careful zombies
-6380,5219,0,3,Dress,Be careful zombies
-6376,5494,0,3,None,Be careful zombies
+6440,5217,0,5,worker,inside the hedge
+6440,5210,0,2,Dress,Couple date location. still lingers
+6422,5216,0,5,worker,inside the hedge
+6421,5209,0,2,Dress,Couple date location. still lingers
+6394,5204,1,1,None,2F Kitchen
+6390,5210,1,1,None,2F Dining
+6381,5216,0,3,Dress,1F hall
+6377,5494,0,3,None,Be careful zombies
+6372,5212,1,2,None,2F Terrace dining
+6358,6576,0,2,Naked,Along the lake
+6329,6777,0,2,Dress,on the way
+6316,5266,1,2,None,2F Office
+6308,5266,1,1,None,2F Office
 6204,5252,0,4,None,Be careful zombies
-6185,6380,0,5,None,Be careful zombies
-6172,6377,1,1,None,Be careful zombies
+6187,5362,0,1,None,Exam room
+6186,5344,0,3,None,Kitchen
+6186,5339,0,2,None,Hall
+6185,6380,0,5,None,golf course cafe
+6172,6377,1,1,None,golf course cafe
+6087,5257,0,1,Police,Summons from police
+6081,5261,0,1,Police,Summons from police
+5968,6065,0,3,None,15th hole
 5862,9789,0,6,Mix,Be careful zombies
-5782,6423,0,5,worker,Be careful zombies
+5813,6684,0,3,None,Be careful zombies
+5782,6423,0,5,worker,inside the hedge
 5727,6396,0,4,None,Be careful zombies
-5681,5336,0,3,Mix,Be careful zombies
-5678,5315,0,3,Mix,Be careful zombies
-5665,5228,0,2,None,Be careful zombies
-4918,6423,0,3,None,Be careful zombies
+5682,5336,0,3,Mix,Oh my Goddess
+5679,5315,0,3,Mix,RIP somebody
+5665,5228,0,1,None,Be careful zombies
+5477,5550,0,3,None,Forest Behind Someone House
+5465,5515,0,3,None,Forest Behind Someone House
+5412,5878,0,3,None,Be careful zombies
+5215,11200,0,3,None,Be careful zombies
+5156,5468,0,3,None,Forest Behind Someone House
+4947,5934,0,2,Dress,on the way
+4918,6423,0,2,None,Be careful zombies
 4907,5549,0,5,None,Be careful zombies
 4833,6279,0,5,PrivateMilitia,Be careful zombies
 4700,5820,0,8,Farmer,Be careful zombies
 4650,5618,0,2,None,Be careful zombies
-4593,7845,0,3,teenager,Be careful zombies
+4598,6069,0,2,Dress,on the way
+4593,7845,0,3,teenager,Are you good at serving?
+4372,10612,0,3,None,Be careful zombies
 4185,5884,0,8,Farmer,Be careful zombies
 4145,5887,0,8,Farmer,Be careful zombies
-4061,8132,0,5,Mix,Be careful zombies
+4089,6198,0,3,None,Forest Behind Someone House
+4085,5695,0,3,None,Forest Behind Someone House
+4078,6096,0,3,None,Forest Behind Someone House
 4048,5866,0,8,Farmer,Be careful zombies
+3972,6097,0,3,None,Forest Behind Someone House
 3971,6260,0,4,Mix,Be careful zombies
 3801,5699,0,2,None,Be careful zombies
+3763,6068,0,2,Dress,on the way
+10290,9532,0,1,None,Be careful zombies
+10356,9521,0,1,None,Be careful zombies
+10376,8868,0,1,None,Be careful zombies
+11722,8933,0,1,None,Be careful zombies
+5371,6062,0,3,None,Be careful zombies
+5516,6089,0,2,None,Be careful zombies
+5732,6456,0,1,None,Golf course reception
+5460,9570,0,2,None,Be careful zombies
+5505,9568,0,1,None,Be careful zombies
+10260,9343,0,2,Mix,Bench work
+10327,9315,0,2,Mix,Be careful zombies
+10674,9334,0,2,Mix,Bench work
+10999,9646,0,2,Mix,Bench work
+11265,6608,0,2,Mix,Bench work
+11418,6765,0,2,Mix,Bench work
+10344,12795,0,2,Mix,Bench work
+6296,5275,0,2,Mix,Bench work
+3713,5715,0,2,Mix,Bench work
+3692,5716,0,2,Mix,Bench work
+3692,8477,0,2,Mix,Bench work
+5512,9626,0,2,Mix,Bench work
+9082,12199,0,2,Mix,Bench work
+12850,6337,0,2,Mix,Bench work
+12516,5333,0,2,Mix,Bench work
+12519,5347,0,2,Mix,Bench work
+13669,5874,0,2,Mix,Bench work
+13669,5900,0,2,Mix,Bench work
+13801,5662,0,2,Mix,Bench work
+13801,5644,0,2,Mix,Bench work
 ]]
 
-pkszTHsetup.ve.event = [[-- "--" is can be used as a comment out
--- eventTimeout = 6 is 1 hour in-game
---
-eventID = food1
-eventDescription = Food supply
-eventTimeout = 60
-HordeDensity = 12
-InventoryItem = Base.Bag_BigHikingBag
-loadOutSelectCD = food1
-cordListSelectCD = food,common
-leaderOutfit = Camper
---
-eventID = food2
-eventDescription = Meat supply
-eventTimeout = 60
-HordeDensity = 12
-InventoryItem = Base.Cooler
-loadOutSelectCD = food2
-cordListSelectCD = food,common
-leaderOutfit = Survivalist
---
-eventID = food3
-eventDescription = Junk food
-eventTimeout = 60
-HordeDensity = 12
-InventoryItem = Base.Bag_Satchel
-loadOutSelectCD = food3
-cordListSelectCD = food,common
-leaderOutfit = Police
---
-eventID = Weapon1
-eventDescription = Survivor's Armament
-eventTimeout = 72
-HordeDensity = 18
-InventoryItem = Base.RifleCase1
-loadOutSelectCD = Weapon1
-cordListSelectCD = civilWeapon,common
-leaderOutfit = Survivalist
---
-eventID = Weapon2
-eventDescription = supply of Guns and Ammos
-eventTimeout = 30
-HordeDensity = 24
-InventoryItem = Base.Bag_BigHikingBag
-loadOutSelectCD = Weapon2
-cordListSelectCD = militaryWeapon,common
-leaderOutfit = Militia
---
-eventID = Weapon3
-eventDescription = Military supply
-eventTimeout = 30
-HordeDensity = 20
-InventoryItem = Base.Bag_BigHikingBag
-loadOutSelectCD = Weapon3
-cordListSelectCD = militaryWeapon,common
-leaderOutfit = Militia
---
-eventID = misc1
-eventDescription = Support supply
-eventTimeout = 72
-HordeDensity = 16
-InventoryItem = Base.Bag_BigHikingBag
-loadOutSelectCD = misc1
-cordListSelectCD = supply,common
-leaderOutfit = teenager
---
-eventID = misc2
-eventDescription = Supply of need to survive
-eventTimeout = 72
-HordeDensity = 14
-InventoryItem = Base.Bag_MedicalBag
-loadOutSelectCD = misc2
-cordListSelectCD = supply,common
-leaderOutfit = Survivalist
---
-eventID = medic
-eventDescription = Medical supply
-eventTimeout = 60
-HordeDensity = 12
-InventoryItem = Base.Bag_MedicalBag
-loadOutSelectCD = medic
-cordListSelectCD = medic,common
-leaderOutfit = medic
---
-eventID = clothing
-eventDescription = Apocalypse fashion
-eventTimeout = 18
-HordeDensity = 12
-InventoryItem = Base.Suitcase
-loadOutSelectCD = clothing
-cordListSelectCD = clothing,common
-leaderOutfit = Dress
---
-eventID = misc3
-eventDescription = Really? need this? okay...
-eventTimeout = 30
-HordeDensity = 24
-InventoryItem = Base.Suitcase
-loadOutSelectCD = misc3
-cordListSelectCD = common
-leaderOutfit = Spiffo
---
-eventID = funbox
-eventDescription = Huh? What did I put in that bag?
-eventTimeout = 24
-HordeDensity = 18
-InventoryItem = Base.Bag_BigHikingBag
-loadOutSelectCD = funBox
-cordListSelectCD = common
-leaderOutfit = Santa
---
--- eventID = horde
--- eventDescription = What a Hell... help... I need help....
--- eventTimeout = 120
--- HordeDensity = 300
--- InventoryItem = Base.Bag_BigHikingBag
--- loadOutSelectCD = horde
--- cordListSelectCD = largeplace
--- leaderOutfit = Spiffo
-]]
 
+---------------------------------------
+---------------------------------------
+-- loadOut
+---------------------------------------
 pkszTHsetup.ve.loadOut = [[-- "--" is can be used as a comment out
 -- Base.Axe = 1 / One fireaxe will always spawn.
 -- random = food1 / Spawns one from a random of "food1"
@@ -863,16 +1443,13 @@ random = sackProduce
 random = food
 random = breakfast
 random = breakfast
-random = breakfast
-random = fruits
 random = fruits
 random = fruits
 random = seasoning
 random = cookingMag
----
+-- = 
 loadOutCD = food2
-random = TheMeat
-random = TheMeat
+Base.PopBottle = 1
 random = TheMeat
 random = TheMeat
 random = TheMeat
@@ -883,28 +1460,32 @@ random = breakfast
 random = breakfast
 random = seasoning
 random = seasoning
----
+-- = 
 loadOutCD = food3
-Base.Pop = 1
+Base.Pop = 2
 random = junkfood
 random = junkfood
 random = junkfood
 random = junkfood
-random = junkfood
+random = breakfast
+random = Liquor
+random = Liquor
 random = fruits
 random = hottie
 random = civilmix
----
+-- = 
 loadOutCD = Weapon1
-Base.Pop = 2
+Base.Pop = 1
 random = civilVest
 random = melee
 random = melee
 random = melee
 random = spear
+random = spear
 random = civilmix
 random = civilmix
----
+random = gloves
+-- = 
 loadOutCD = Weapon2
 Base.Pop = 2
 random = armyVest
@@ -913,10 +1494,10 @@ random = ammo
 random = militalyMisc
 random = militalyMisc
 random = weaponPart
-randomGP = CivilRifle
+randomGP = Pistol
 randomGP = MilitaryRifle
 randomGP = MilitaryMix
----
+-- = 
 loadOutCD = Weapon3
 Base.Pop = 2
 random = armyVest
@@ -924,12 +1505,13 @@ random = armyVest
 random = weaponPart
 random = weaponPart
 random = weaponPart
-random = weaponPart
 random = militalyMisc
 random = militalyMisc
 random = ammo
+random = ammo
+random = ammo
 randomGP = Pistol
----
+-- = 
 loadOutCD = misc1
 Base.Pop = 2
 Base.BlowTorch = 1
@@ -946,7 +1528,7 @@ random = Medic
 random = Medic
 random = misc
 random = misc
----
+-- = 
 loadOutCD = misc2
 Base.Pop = 2
 random = melee
@@ -955,29 +1537,24 @@ random = boots
 random = gloves
 random = Medic
 random = misc
+random = misc
 random = food
 random = seasoning
 random = fruits
-random = fruits
----
+-- = 
 loadOutCD = medic
 Base.Lollipop = 1
 Base.AlcoholBandage = 1
-Base.AlcoholWipes = 1
-Base.Disinfectant = 1
-Base.AlcoholedCottonBalls = 1
-Base.Pills = 1
-Base.PillsAntiDep = 1
-Base.PillsBeta = 1
-Base.PillsSleepingTablets = 1
-Base.PillsVitamins = 1
-Base.Coldpack = 1
-Base.Needle = 1
+random = Medic
+random = Medic
+random = Medic
+random = Medic
+random = Medic
 random = Medic
 random = Medic
 random = breakfast
 random = fruits
----
+-- = 
 loadOutCD = clothing
 Base.Crisps = 1
 random = clothes
@@ -989,7 +1566,7 @@ random = gloves
 random = gloves
 random = civilVest
 random = civilmix
----
+-- = 
 loadOutCD = misc3
 Base.PopBottle = 1
 Base.HottieZ = 1
@@ -1002,7 +1579,7 @@ random = junkfood
 random = melee
 random = civilmix
 random = random
----
+-- = 
 loadOutCD = funBox
 random = random
 random = random
@@ -1014,7 +1591,7 @@ random = random
 random = random
 random = random
 random = random
----
+-- = 
 loadOutCD = horde
 randomGP = CivilRifle
 randomGP = MilitaryRifle
@@ -1028,47 +1605,133 @@ random = ammo
 random = breakfast
 random = junkfood
 random = Medic
+-- = 
+loadOutCD = beginner
+Base.WaterBottleFull = 1
+random = starterGoods
+random = starterGoods
+random = starterGoods
+random = preservedFoods
+random = preservedFoods
+random = spear
+random = gloves
+random = misc
+random = fruits
+random = Medic
+-- = 
+loadOutCD = ranger
+Base.WaterBottleFull = 1
+random = rangerGoods
+random = rangerGoods
+random = rangerGoods
+random = starterGoods
+random = Medic
+random = Medic
+random = misc
+random = civilVest
+random = civilmix
+-- = 
+loadOutCD = niceReward
+Base.WaterBottleFull = 1
+randomGP = Revolver
+random = civilmix
+random = melee
+random = weaponPart
+random = starterGoods
+random = ammo
+random = preservedFoods
+random = boots
+random = gloves
+random = Medic
+random = breakfast
+random = Liquor
+random = seasoning
+-- = 
+loadOutCD = goodReward
+Base.WaterBottleFull = 1
+randomGP = MilitaryRifle
+randomGP = MilitaryMix
+randomGP = Pistol
+randomGP = Revolver
+random = civilmix
+random = melee
+random = weaponPart
+random = weaponPart
+random = weaponPart
+random = militalyMisc
+random = ammo
+random = ammo
+random = ammo
+random = ammo
+random = boots
+random = gloves
+random = Medic
+random = Medic
+random = preservedFoods
+random = fruits
+random = breakfast
+random = Liquor
+random = seasoning
+-- = 
+loadOutCD = CandySupply
+Base.HardCandies = 2
+random = popdrink
+random = popdrink
+random = popdrink
+random = candy
+random = candy
+random = candy
+random = candy
+random = candy
+random = candy
+random = candybonus
 ]]
 
+
+---------------------------------------
+---------------------------------------
+-- loadOutRandom
+---------------------------------------
 pkszTHsetup.ve.loadOutRandom = [[-- "--" is can be used as a comment out
 -- One will be selected from the group
 -- will spawn as many times as the " = number"
--- randomGP = CivilRifle / One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-- randomGP = CivilRifle //-> One set will be selected and spawned from a RandomGP group of Civil Rifles.
 -----
 loadOutRandomCD = melee
-Base.Nightstick = 2
-Base.MeatCleaver = 2
-Base.HandAxe = 2
-Base.HandScythe = 2
+Base.Nightstick = 1
+Base.MeatCleaver = 1
+Base.HandAxe = 1
+Base.HandScythe = 1
 Base.Machete = 1
 Base.ClubHammer = 1
 Base.Hammer = 1
 Base.Chainsaw = 1
 Base.Katana = 1
 Base.PickAxe = 1
-Base.BaseballBat = 2
+Base.BaseballBat = 1
 Base.BaseballBatNails = 1
 Base.Axe = 1
 Base.WoodAxe = 1
 Base.Sledgehammer = 1
 Base.Sledgehammer2 = 1
----
+--- = 
 loadOutRandomCD = civilmix
 Base.HuntingKnife = 1
 Base.MeatCleaver = 1
-Base.HandAxe = 2
+Base.HandAxe = 1
 Base.PickAxe = 1
+Base.BaseballBat = 1
 randomGP = Revolver
 randomGP = Pistol
 randomGP = CivilRifle
----
+--- = 
 loadOutRandomCD = spear
-Base.SpearScrewdriver = 2
-Base.SpearHuntingKnife = 2
-Base.SpearMachete = 2
-Base.SpearIcePick = 2
-Base.SpearKnife = 2
----
+Base.SpearScrewdriver = 1
+Base.SpearHuntingKnife = 1
+Base.SpearMachete = 1
+Base.SpearIcePick = 1
+Base.SpearKnife = 1
+--- = 
 loadOutRandomCD = weaponPart
 Base.x2Scope = 1
 Base.x4Scope = 1
@@ -1083,13 +1746,13 @@ Base.RedDot = 1
 Base.GunLight = 1
 Base.Bayonnet = 1
 Base.ChokeTubeFull = 1
----
+--- = 
 loadOutRandomCD = militalyMisc
 Base.WristWatch_Right_ClassicMilitary = 1
 Base.HolsterDouble = 1
 Base.AmmoStrap_Bullets = 1
 Base.Necklace_DogTag = 1
----
+--- = 
 loadOutRandomCD = ammo
 Base.Bullets9mmBox = 1
 Base.Bullets45Box = 1
@@ -1097,7 +1760,7 @@ Base.Bullets44Box = 1
 Base.Bullets38Box = 1
 Base.556Box = 1
 Base.308Box = 1
----
+--- = 
 loadOutRandomCD = clothes
 Base.Hat_Raccoon = 1
 Base.Hat_Ranger = 1
@@ -1115,20 +1778,20 @@ Base.Bracelet_RightFriendshipTINT = 1
 Base.Jacket_LeatherWildRacoons = 1
 Base.Jacket_LeatherIronRodent = 1
 Base.Jacket_LeatherBarrelDogs = 1
----
+--- = 
 loadOutRandomCD = boots
 Base.Shoes_ArmyBoots = 1
 Base.Shoes_ArmyBootsDesert = 1
 Base.Shoes_BlackBoots = 1
 Base.Shoes_Wellies = 1
----
+--- = 
 loadOutRandomCD = gloves
 Base.Gloves_LeatherGloves = 1
 Base.Gloves_LeatherGlovesBlack = 1
 Base.Gloves_FingerlessGloves = 1
 Base.Bag_FannyPackFront = 1
 Base.Bag_FannyPackBack = 1
----
+--- = 
 loadOutRandomCD = Medic
 Base.AlcoholBandage = 1
 Base.AlcoholWipes = 1
@@ -1141,16 +1804,17 @@ Base.PillsSleepingTablets = 1
 Base.PillsVitamins = 1
 Base.Coldpack = 1
 Base.Needle = 1
----
+--- = 
 loadOutRandomCD = grain
-Base.Cornmeal = 2
-Base.PancakeMix = 2
-Base.BakingSoda = 2
-Base.Flour = 2
-Base.Yeast = 2
-Base.Vinegar = 2
-Base.Rice = 2
----
+Base.Cornmeal = 1
+Base.PancakeMix = 1
+Base.BakingSoda = 1
+Base.Flour = 1
+Base.Yeast = 1
+Base.Vinegar = 1
+Base.Rice = 1
+Base.Sugar = 1
+--- = 
 loadOutRandomCD = sackProduce
 Base.SackProduce_Apple = 1
 Base.SackProduce_BellPepper = 1
@@ -1165,8 +1829,9 @@ Base.SackProduce_Peach = 1
 Base.SackProduce_Pear = 1
 Base.SackProduce_Strawberry = 1
 Base.SackProduce_Tomato = 1
----
+--- = 
 loadOutRandomCD = food
+Base.Daikon = 1
 Base.Pumpkin = 1
 Base.Croissant = 1
 Base.Peas = 1
@@ -1178,17 +1843,20 @@ Base.Cheese = 1
 Base.Pear = 1
 Base.Ham = 1
 Base.MixedVegetables = 1
+Base.Avocado = 1
 Base.EggCarton = 1
----
+Base.Tofu = 1
+Base.Pasta = 1
+Base.Ramen = 1
+--- = 
 loadOutRandomCD = breakfast
 Base.Icecream = 1
-Base.Avocado = 1
 Base.Baguette = 1
 Base.Bread = 1
 Base.Yoghurt = 1
 Base.Processedcheese = 1
 Base.Milk = 1
----
+--- = 
 loadOutRandomCD = fruits
 Base.Orange = 1
 Base.Lime = 1
@@ -1198,7 +1866,7 @@ Base.Watermelon = 1
 Base.Grapes = 1
 Base.Mango = 1
 Base.Peach = 1
----
+--- = 
 loadOutRandomCD = TheMeat
 Base.Squid = 1
 Base.Shrimp = 1
@@ -1211,7 +1879,9 @@ Base.PorkChop = 1
 Base.MuttonChop = 1
 Base.Lobster = 1
 Base.EggCarton = 1
----
+farming.Bacon = 1
+Base.Salmon = 1
+--- = 
 loadOutRandomCD = Liquor
 Base.BeerCan = 1
 Base.BeerCan = 1
@@ -1221,7 +1891,7 @@ Base.BeerBottle = 1
 Base.Wine = 1
 Base.Wine2 = 1
 Base.WhiskeyFull = 1
----
+--- = 
 loadOutRandomCD = seasoning
 Base.Coffee2 = 1
 Base.RiceVinegar = 1
@@ -1229,8 +1899,15 @@ Base.Pepper = 1
 Base.Salt = 1
 Base.Vinegar = 1
 Base.Wasabi = 1
-Base.Seaweed = 2
----
+Base.Seaweed = 1
+Base.GingerPickled = 1
+farming.MayonnaiseFull = 1
+farming.RemouladeFull = 1
+Base.Ketchup = 1
+Base.Mustard = 1
+Base.Marinara = 1
+Base.Honey = 1
+--- = 
 loadOutRandomCD = junkfood
 Base.Corndog = 1
 Base.GrilledCheese = 1
@@ -1242,7 +1919,7 @@ Base.Burger = 1
 Base.MeatSteamBun = 1
 Base.MeatDumpling = 1
 Base.Onigiri = 2
----
+--- = 
 loadOutRandomCD = misc
 Base.FishingRod = 1
 Base.FishingLine = 2
@@ -1252,10 +1929,10 @@ Base.EmptySandbag = 2
 Base.SeedBag = 1
 Base.Candle = 3
 Base.Extinguisher = 1
-Base.Matches = 3
+Base.Matches = 2
 Base.Lighter = 2
 Base.BoxOfJars = 1
----
+--- = 
 loadOutRandomCD = hottie
 Base.ComicBook = 1
 Base.HottieZ = 1
@@ -1267,31 +1944,134 @@ Base.SpiffoBig = 1
 Base.Money = 10
 Base.Money = 6
 Base.Money = 3
+Base.MugSpiffo = 1
 randomGP = Revolver
----
+--- = 
 loadOutRandomCD = cookingMag
 Base.CookingMag1 = 1
 Base.CookingMag2 = 1
----
+--- = 
 loadOutRandomCD = civilVest
 Base.Vest_BulletCivilian = 1
 Base.Vest_Hunting_Camo = 1
 Base.Vest_Hunting_Orange = 1
 Base.Vest_BulletPolice = 1
----
+--- = 
 loadOutRandomCD = armyVest
 Base.Vest_BulletArmy = 1
 Base.Vest_BulletPolice = 1
+--- = 
+loadOutRandomCD = starterGoods
+Base.BucketEmpty = 1
+Base.Book = 1
+Base.Hammer = 1
+Base.NailsBox = 1
+Base.TinOpener = 1
+Base.Pot = 1
+Base.Kettle = 1
+Base.Bowl = 1
+Base.Battery = 2
+Base.HandAxe = 1
+Base.Matches = 1
+--- = 
+loadOutRandomCD = preservedFoods
+Base.Macandcheese = 1
+Base.OatsRaw = 1
+Base.Cereal = 1
+Base.Popcorn = 1
+Base.CandyPackage = 1
+--- = 
+loadOutRandomCD = farming
+farming.GardeningSprayCigarettes = 2
+farming.GardeningSprayMilk = 2
+farming.WateredCan = 1
+Base.Fertilizer = 1
+Base.FarmingMag1 = 1
+Base.HerbalistMag = 1
+--- = 
+loadOutRandomCD = rangerGoods
+camping.CampingTentKit = 1
+Base.HuntingKnife = 1
+Base.HerbalistMag = 1
+Base.HuntingMag1 = 1
+Base.HuntingMag2 = 1
+Base.HuntingMag3 = 1
+Base.TrapCage = 1
+Base.TrapCage = 1
+Base.TrapMouse = 1
+Base.TrapMouse = 1
+Base.TrapSnare = 1
+Base.TrapSnare = 1
+Base.TrapStick = 1
+Base.TrapStick = 1
+Base.TrapBox = 1
+Base.TrapBox = 1
+Base.TrapCrate = 1
+Base.TrapCrate = 1
+Base.CannedSardines = 1
+Base.CannedCornedBeef = 1
+--- = 
+loadOutRandomCD = candy
+Base.MintCandy = 1
+Base.Peppermint = 1
+Base.Allsorts = 1
+Base.Biscuit = 1
+Base.CakeBlackForest = 1
+Base.CakeSlice = 1
+Base.CandyFruitSlices = 1
+Base.Candycane = 2
+Base.CandyCorn = 1
+Base.CakeCarrot = 1
+Base.CakeCheesecake = 1
+Base.Painauchocolat = 1
+Base.Chococakes = 1
+Base.CakeChocolate = 1
+Base.CinnamonRoll = 1
+Base.Cupcake = 1
+Base.MuffinFruit = 1
+Base.Icecream = 1
+Base.ConeIcecream = 1
+Base.Marshmallows = 1
+Base.QuaggaCakese = 1
+Base.CakeRedVelvete = 1
+Base.Smoree = 1
+Base.CakeStrawberryShortcake = 1
+Base.CookiesSugare = 1
+--- = 
+loadOutRandomCD = popdrink
+Base.PopBottle = 1
+Base.Pop = 1
+Base.Pop2 = 1
+Base.Pop3 = 1
+Base.JuiceBox = 1
+--- = 
+loadOutRandomCD = candybonus
+Base.Tshirt_BusinessSpiffo = 1
+Base.Apron_Spiffos = 1
+Base.Tie_Full_Spiffo = 1
+Base.MugSpiffo = 1
+Base.BorisBadger = 1
+Base.JacquesBeaver = 1
+Base.FluffyfootBunny = 1
+Base.FreddyFox = 1
+Base.PancakeHedgehog = 1
+Base.MoleyMole = 1
+Base.FurbertSquirrel = 1
 ]]
 
+
+---------------------------------------
+---------------------------------------
+-- loadOutRandomGP
+---------------------------------------
 pkszTHsetup.ve.loadOutRandomGP = [[-- "--" is can be used as a comment out
 -- One set is selected from the group and spawned.
 -- 
 loadOutRandomGPCD = CivilRifle
 Base.VarmintRifle = 1;Base.223Box = 2
 Base.HuntingRifle = 1;Base.308Box = 2;Base.308Clip = 2
-Base.ShotgunSawnoff = 1;Base.ShotgunShellsBox = 2
-Base.DoubleBarrelShotgunSawnoff = 1;Base.ShotgunShellsBox = 2
+Base.ShotgunSawnoff = 1;Base.ShotgunShellsBox = 1
+Base.DoubleBarrelShotgunSawnoff = 1;Base.ShotgunShellsBox = 1
 ---
 loadOutRandomGPCD = Pistol
 Base.Pistol = 1;Base.Bullets9mmBox = 2;Base.Base.9mmClip = 2
@@ -1306,8 +2086,8 @@ Base.Revolver_Short = 1;Base.Bullets38Box = 2
 loadOutRandomGPCD = MilitaryRifle
 Base.AssaultRifle = 1;Base.556Box = 2;Base.556Clip = 2
 Base.AssaultRifle2 = 1;Base.308Box = 2;Base.M14Clip = 2
-Base.Shotgun = 1;Base.ShotgunShellsBox = 2
-Base.DoubleBarrelShotgun = 1;Base.ShotgunShellsBox = 2
+Base.Shotgun = 1;Base.ShotgunShellsBox = 1
+Base.DoubleBarrelShotgun = 1;Base.ShotgunShellsBox = 1
 ---
 loadOutRandomGPCD = MilitaryMix
 Base.AssaultRifle = 1;Base.556Box = 2;Base.556Clip = 2
@@ -1316,6 +2096,11 @@ Base.Pistol = 1;Base.Bullets9mmBox = 2;Base.Base.9mmClip = 2
 Base.Pistol2 = 1;Base.Bullets45Box = 2;Base.45Clip = 2
 ]]
 
+
+---------------------------------------
+---------------------------------------
+-- zedOutfitGrp
+---------------------------------------
 pkszTHsetup.ve.zedOutfitGrp = [[
 -- "--" is can be used as a comment out
 -- Zombies included in "outfitGrp" will spawn with a probability
@@ -1324,49 +2109,50 @@ pkszTHsetup.ve.zedOutfitGrp = [[
 --
 outfitGrpCD = None
 None = 50
----
+--- = 
 outfitGrpCD = Farmer
 Farmer = 50
 None = 50
----
+--- = 
 outfitGrpCD = PrivateMilitia
 PrivateMilitia = 50
----
+--- = 
 outfitGrpCD = Constructionworker
 Constructionworker = 50
----
+--- = 
 outfitGrpCD = Young
 Young = 50
 None = 50
----
+--- = 
 outfitGrpCD = Student
 Student = 50
 None = 50
----
+--- = 
 outfitGrpCD = Camper
 Camper = 50
----
+Survivalist = 50
+--- = 
 outfitGrpCD = Officeworker
 Officeworker = 50
----
+--- = 
 outfitGrpCD = OfficeworkerSkirt
 OfficeworkerSkirt = 50
----
+--- = 
 outfitGrpCD = Trader
 Trader = 50
----
-outfitGrpCD = Bikar
-Bikar = 50
----
+--- = 
+outfitGrpCD = Biker
+Biker = 50
+--- = 
 outfitGrpCD = Bandit
 Bandit = 50
----
+--- = 
 outfitGrpCD = Fireman
 Fireman = 50
----
+--- = 
 outfitGrpCD = Police
 Police = 50
----
+--- = 
 outfitGrpCD = Mix
 Student = 50
 Young = 50
@@ -1374,7 +2160,7 @@ DressLong = 100
 DressNormal = 100
 DressShort = 100
 Bandit = 50
-Bikar = 50
+Biker = 50
 AmbulanceDriver = 50
 OfficeWorker = 50
 OfficeWorkerSkirt = 50
@@ -1389,34 +2175,34 @@ Camper = 50
 Survivalist = 50
 Survivalist02 = 50
 Survivalist03 = 50
----
+--- = 
 outfitGrpCD = teenager
 Student = 50
 Young = 50
----
+--- = 
 outfitGrpCD = Dress
 DressLong = 100
 DressNormal = 100
 DressShort = 100
----
+--- = 
 outfitGrpCD = rogue
-Bikar = 50
+Biker = 50
 Bandit = 50
----
+--- = 
 outfitGrpCD = medic
 AmbulanceDriver = 50
 Doctor = 50
 Nurse = 100
----
+--- = 
 outfitGrpCD = worker
 OfficeWorker = 50
 OfficeWorkerSkirt = 50
 ConstructionWorker = 50
----
+--- = 
 outfitGrpCD = Survivor
 Camper = 50
 Bandit = 50
-Bikar = 50
+Biker = 50
 None = 50
 Survivalist = 50
 Survivalist02 = 50
@@ -1425,30 +2211,52 @@ Naked = 50
 Trader = 50
 Police = 50
 Ranger = 50
----
-outfitGrpCD = Survivalist
-Survivalist = 50
-Survivalist02 = 50
-Survivalist03 = 50
----
+--- = 
 outfitGrpCD = Militia
 PrivateMilitia = 50
 ArmyCamoDesert = 50
 ArmyInstructor = 0
 ArmyServiceUniform = 50
----
+--- = 
+outfitGrpCD = Priest
+Priest = 0
+--- = 
 outfitGrpCD = Spiffo
 Spiffo = 50
----
+--- = 
 outfitGrpCD = Santa
 Santa = 50
----
+--- = 
 outfitGrpCD = costume
 Spiffo = 50
 Santa = 50
----
+--- = 
 outfitGrpCD = Naked
 Naked = 50
+--- = 
+--- sNone / Alternatives when using None in Single mode
+--- Please do not delete sNone group
+--- = 
+outfitGrpCD = sNone
+Camper = 50
+Student = 50
+Young = 50
+DressLong = 100
+DressNormal = 100
+DressShort = 100
+Bandit = 50
+Biker = 50
+AmbulanceDriver = 50
+OfficeWorker = 50
+OfficeWorkerSkirt = 50
+ConstructionWorker = 50
+Trader = 50
+Classy = 50
+Hobbo = 50
+Punk = 50
+Rocker = 50
+Varsity = 50
+Police = 50
 ]]
 
 end
