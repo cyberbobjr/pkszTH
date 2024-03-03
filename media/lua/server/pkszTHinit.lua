@@ -2,7 +2,7 @@ pkszTHsv = {}
 if isClient() then return end
 
 pkszTHsv.nextEventDebug = false
-pkszTHsv.nextEventID = "cqc"
+pkszTHsv.nextEventID = "cosplay1"
 pkszTHsv.nextEventCoordinate = nil
 -- "10057,12751,1,1,None,2F Reading room"
 
@@ -44,7 +44,6 @@ pkszTHsv.curEvent.massege[1] = "empty"
 pkszTHsv.curEvent.massege[2] = ""
 pkszTHsv.curEvent.massege[3] = ""
 pkszTHsv.curEvent.phase = "init"
-pkszTHsv.curEvent.lootZedId = 0
 pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
 pkszTHsv.curEvent.eventNote = ""
@@ -70,8 +69,6 @@ pkszTHsv.restart = function()
 	pkszTHsv.Settings.eventStartChance = SandboxVars.pkszTHopt.eventStartChance;
 	pkszTHsv.Settings.eventStartWaitTick = SandboxVars.pkszTHopt.eventStartWaitTick;
 
-
-
 	-- event file check
 	pkszTHsetup.eventFileCheck()
 
@@ -83,6 +80,13 @@ pkszTHsv.restart = function()
 	end
 
 	pkszTHsv.logger("-- Log files are now available --",false)
+	if SandboxVars.pkszTHopt.eventLogDivision == true then
+		pkszTHsv.logger("Log output mode = pkszTH and console",false)
+	else
+		pkszTHsv.logger("Log output mode = Only pkszTH",false)
+	end
+
+
 
 	-- event File Loader
 	pkszTHsetup.eventFileLoader()
@@ -102,7 +106,10 @@ pkszTHsv.getRandomGPLineSplit = function(rec)
 	local cnt = 1
 	local result = {}
 	for no,val in pairs(ary) do
-		for key, value in string.gmatch(val, "([%w%.%_]+) *= *(.+)") do
+		local rec = pkszTHsv.strSplit(val,"=")
+		if #rec == 2 then
+			local key = string.gsub(rec[1], "^%s*(.-)%s*$", "%1")
+			local value = string.gsub(rec[2], "^%s*(.-)%s*$", "%1")
 			result[cnt] = {item=key,num=value}
 		end
 		cnt = cnt + 1
@@ -126,7 +133,9 @@ pkszTHsv.logger = function(msg,mode)
     local gameTimeNow = pkszTHsv.getGameTime()
 
 	local thisStr = "pkszTH - server : " .. pkszTHsv.mainTick .. " / " .. gameTimeNow .. " / " .. msg ;
-	print(thisStr);
+	if SandboxVars.pkszTHopt.eventLogDivision == true then
+		print(thisStr);
+	end
 
 	local dataFile = getFileWriter(pkszTHsv.Settings.logFilename, true, mode);
 	dataFile:write(thisStr .. "\n");

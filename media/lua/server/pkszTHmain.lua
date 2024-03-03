@@ -40,6 +40,7 @@ pkszTHmain.tick = function()
 			pkszTHsv.Phase = "close"
 			pkszTHsv.Progress = 0
 			pkszTHsv.logger("Event time over " ..pkszTHsv.curEvent.EventId,true)
+			pkszTHmain.saveEventHistory("timeover")
 			pkszTHmain.dataConnect('EventInfoShare')
 		end
 	end
@@ -83,19 +84,23 @@ pkszTHmain.newEventSetup = function()
 		local lot = ZombRand(10)
 		if lot <= pkszTHsv.Settings.eventStartChance then
 			eventgetFlg = "1"
-			pkszTHmain.getNewEvent()
-			pkszTHsv.logger("new eventID = "..pkszTHsv.curEvent.EventId,true)
-			pkszTHsv.logger("new event start tick = "..pkszTHsv.curEvent.startTick,true)
-			pkszTHsv.logger("new event end tick = "..pkszTHsv.curEvent.endTick,true)
-			pkszTHsv.logger("base timeout = "..pkszTHsv.curEvent.eventTimeout,true)
-			-- pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
-			pkszTHsv.logger("InventoryItem = "..pkszTHsv.curEvent.InventoryItem,true)
-			-- event mst / pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
-			-- Coordinate / pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
-			-- LoadOut / pkszTHsv.curEvent.LoadOut
-			pkszTHsv.Progress = 1
-			pkszTHsv.Phase = "notice"
-			pkszTHmain.saveEventHistory()
+			if pkszTHmain.getNewEvent() then
+				-- pkszTHsv.logger("new eventID = "..pkszTHsv.curEvent.EventId,true)
+				pkszTHsv.logger("new event start tick = "..pkszTHsv.curEvent.startTick,true)
+				pkszTHsv.logger("new event end tick = "..pkszTHsv.curEvent.endTick,true)
+				pkszTHsv.logger("base timeout = "..pkszTHsv.curEvent.eventTimeout,true)
+				-- pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
+				pkszTHsv.logger("InventoryItem = "..pkszTHsv.curEvent.InventoryItem,true)
+				-- event mst / pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
+				-- Coordinate / pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
+				-- LoadOut / pkszTHsv.curEvent.LoadOut
+				pkszTHsv.Progress = 1
+				pkszTHsv.Phase = "notice"
+				pkszTHmain.saveEventHistory("start")
+			else
+				pkszTHsv.logger("Event setup failed.",true)
+				return "0"
+			end
 		end
 	end
 
@@ -105,7 +110,9 @@ end
 pkszTHmain.getNewEvent = function()
 
 	local changeThis = {}
+	local test = nil
 
+	pkszTHsv.logger("---------------------",true)
 	pkszTHsv.logger("-- setup new event --",true)
 
 	-- get event id
@@ -130,6 +137,18 @@ pkszTHmain.getNewEvent = function()
 		myEventId = pkszTHsv.nextEventID
 	end
 
+-- next anchorON
+	if SandboxVars.pkszTHopt.eventIDanchor ~= "" then
+		pkszTHsv.logger("eventIDanchor On " .. SandboxVars.pkszTHopt.eventIDanchor,true)
+		myEventId = SandboxVars.pkszTHopt.eventIDanchor
+	end
+
+	
+	if not pkszTHsv.Events[myEventId] then
+		pkszTHsv.logger("Error Event not found " .. myEventId,true)
+		return false
+	end
+
 	pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
 	pkszTHsv.curEvent.EventId = myEventId
 	pkszTHsv.curEvent.startDateTime = pkszTHsv.getGameTime()
@@ -142,7 +161,7 @@ pkszTHmain.getNewEvent = function()
 	local myCordList = pkszTHmain.getCordList(pkszTHsv.curEvent.cordListSelectCD)
 	local setCordNo = ZombRand(#myCordList) + 1
 
-	print("myCordList[setCordNo] ",myCordList[1])
+	-- print("myCordList[setCordNo] ",myCordList[1])
 
 	pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
 
@@ -252,11 +271,8 @@ pkszTHmain.getNewEvent = function()
 		return
 	end
 	pkszTHsv.curEvent.leaderOutfitGrp = pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.leaderOutfit]
-	pkszTHsv.logger("leaderOutfitGrp = "..pkszTHsv.curEvent.leaderOutfit,true)
-	-- print("pkszTHsv.curEvent.leaderOutfitGrp" ,pkszTHsv.curEvent.leaderOutfitGrp[1]["item"])
 
 	-- guards
-	pkszTHsv.logger("zedOutfitGrp = "..pkszTHsv.curEvent.outfitGrpCD,true)
 	if not pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.outfitGrpCD] then
 		pkszTHsv.logger("ERROR : zedOutfitGrp CD not found " ..pkszTHsv.curEvent.outfitGrpCD,true)
 		pkszTHsv.curEvent.outfitGrpCD = "None"
@@ -265,6 +281,8 @@ pkszTHmain.getNewEvent = function()
 
 	pkszTHsv.curEvent.zedOutfitGrp = pkszTHsv.zedOutfitGrp[pkszTHsv.curEvent.outfitGrpCD]
 	pkszTHsv.logger("zedOutfitGrp = "..pkszTHsv.curEvent.outfitGrpCD,true)
+
+	return true
 
 end
 
@@ -356,6 +374,8 @@ local function onServerCommand(module,command,player,args)
 		pkszTHsv.Phase = "wait"
 		pkszTHsv.Progress = 0
 		pkszTHsv.logger("Event Clear " ..pkszTHsv.curEvent.EventId,true)
+	    local username = player:getUsername();
+		pkszTHmain.saveEventHistory("Clear:"..username)
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
@@ -388,7 +408,34 @@ local function onServerCommand(module,command,player,args)
 		print("pkszTH Phase sv "..pkszTHsv.Phase)
 		print("pkszTH Phase cl "..args.phase)
 		pkszTHmain.getSafehouseList()
-    end
+
+		print("-------------------- ")
+		print("pkszTHsv.EventNum ",pkszTHsv.EventNum)
+		for key,value in pairs(pkszTHsv.EventIDs) do
+			print("setup EventIDs = "..key.." value = "..value)
+		end
+		for key in pairs(pkszTHsv.Events) do
+			print("setup Events = "..key)
+		end
+		for key in pairs(pkszTHsv.CordinateList) do
+			print("setup CordinateList = "..key)
+		end
+		for key in pairs(pkszTHsv.loadOut) do
+			print("setup loadOut = "..key)
+		end
+		for key in pairs(pkszTHsv.loadOutRandom) do
+			print("setup loadOutRandom = "..key)
+		end
+		for key in pairs(pkszTHsv.loadOutRandomGP) do
+			print("setup loadOutRandomGP = "..key)
+		end
+		for key in pairs(pkszTHsv.zedOutfitGrp) do
+			print("setup zedOutfitGrp = "..key)
+		end
+		print("-------------------- ")
+
+
+	end
 
 end
 Events.OnClientCommand.Add(onServerCommand)
@@ -415,15 +462,13 @@ pkszTHmain.spawnZombie = function()
 		pkszTHsv.curEvent.spawnVector.z
 	)
 
-	local zed = square:getZombie()
-	local zedId = zed:getOnlineID()
-	pkszTHsv.curEvent.lootZedId = zedId
-
 	-- Spawn Horde
 	local outfits = pkszTHsv.curEvent.zedOutfitGrp
 	if not isServer() then
-		outfits = pkszTHsv.zedOutfitGrp["sNone"]
-		pkszTHsv.logger("Using single sNone ",true)
+		if pkszTHsv.curEvent.outfitGrpCD == "None" then
+			outfits = pkszTHsv.zedOutfitGrp["sNone"]
+			pkszTHsv.logger("Changed single None -> sNone",true)
+		end
 	end
 	for i=1,density do
 		local outfitNo = ZombRand(#outfits) + 1
@@ -434,7 +479,7 @@ pkszTHmain.spawnZombie = function()
 		addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
 	end
 
-	pkszTHsv.logger("spawnLeader "..LDOutfit["item"].. " id = "..zedId,true)
+	pkszTHsv.logger("spawnLeader "..LDOutfit["item"],true)
 	pkszTHsv.logger("spawnZed "..squareX.."-"..squareY.."-"..squareZ.." Density "..density.." Radius "..radius,true)
 
 end
@@ -501,7 +546,7 @@ pkszTHmain.getSafehouseList = function()
 end
 
 
-pkszTHmain.saveEventHistory = function()
+pkszTHmain.saveEventHistory = function(mode)
 
 	local timestamp = getTimestamp();
     local gameDate = pkszTHsv.getGameTime()
@@ -511,11 +556,16 @@ pkszTHmain.saveEventHistory = function()
 	str = str .. timestamp .. ","
 	str = str .. gameDate .. ","
 	str = str .. pkszTHsv.curEvent.EventId .. ","
-	str = str .. pkszTHsv.curEvent.startDateTime .. ","
-	str = str .. pkszTHsv.curEvent.Coordinate .. ","
-	str = str .. pkszTHsv.curEvent.HordeDensity .. ","
-	str = str .. pkszTHsv.curEvent.loadOutSelectCD .. ","
-	str = str .. pkszTHsv.curEvent.cordListSelectCD .. ","
+	if mode == "start" then
+		str = str .. pkszTHsv.curEvent.startDateTime .. ","
+		str = str .. pkszTHsv.curEvent.Coordinate .. ","
+		str = str .. pkszTHsv.curEvent.HordeDensity .. ","
+		str = str .. pkszTHsv.curEvent.loadOutSelectCD .. ","
+		str = str .. pkszTHsv.curEvent.cordListSelectCD .. ","
+	else
+		str = str .. mode .. ","
+	end
+
 	-- str = str .. pkszTHsv.mainTick .. ","
 	-- str = str .. pkszTHsv.Phase .. ","
 	-- str = str .. pkszTHsv.curEvent.checkPlayer .. ","

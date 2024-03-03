@@ -11,7 +11,6 @@ module Base
 			file = media/sound/bell1.ogg,
 			distanceMax = 50,
 			volume = 0.5,
-
 		}
 	}
 
@@ -26,7 +25,6 @@ module Base
 			file = media/sound/bell2.ogg,
 			distanceMax = 50,
 			volume = 0.5,
-
 		}
 	}
 
@@ -78,6 +76,71 @@ module Base
 		clip
 		{
 			file = media/sound/enter4.ogg,
+			distanceMax = 20,
+			volume = 0.1,
+		}
+	}
+	sound pkszTHenter5
+	{
+		category = Object,
+    	loop = false, 
+    	is3D = true,
+		master = Ambient,
+		clip
+		{
+			file = media/sound/enter5.ogg,
+			distanceMax = 20,
+			volume = 0.1,
+		}
+	}
+	sound pkszTHenter6
+	{
+		category = Object,
+    	loop = false, 
+    	is3D = true,
+		master = Ambient,
+		clip
+		{
+			file = media/sound/enter6.ogg,
+			distanceMax = 20,
+			volume = 0.1,
+		}
+	}
+	sound pkszTHenter7
+	{
+		category = Object,
+    	loop = false, 
+    	is3D = true,
+		master = Ambient,
+		clip
+		{
+			file = media/sound/enter7.ogg,
+			distanceMax = 20,
+			volume = 0.1,
+		}
+	}
+	sound pkszTHenter8
+	{
+		category = Object,
+    	loop = false, 
+    	is3D = true,
+		master = Ambient,
+		clip
+		{
+			file = media/sound/enter8.ogg,
+			distanceMax = 20,
+			volume = 0.1,
+		}
+	}
+	sound pkszTHenter9
+	{
+		category = Object,
+    	loop = false, 
+    	is3D = true,
+		master = Ambient,
+		clip
+		{
+			file = media/sound/enter9.ogg,
 			distanceMax = 20,
 			volume = 0.1,
 		}

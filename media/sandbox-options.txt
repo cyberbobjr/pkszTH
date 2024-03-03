@@ -37,3 +37,19 @@ option pkszTHopt.eventTickAverage
     page = pkszTH,
     translation = pkszTH_eventTickAverage,
 }
+
+option pkszTHopt.eventLogDivision
+{
+    type = boolean,
+    default = false,
+    page = pkszTH,
+    translation = pkszTH_eventLogDivision,
+}
+
+option pkszTHopt.eventIDanchor
+{
+    type = string,
+    default = ,
+    page = pkszTH,
+    translation = pkszTH_eventIDanchor,
+}

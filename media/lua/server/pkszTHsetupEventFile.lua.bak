@@ -1005,10 +1005,10 @@ cordListCD = common
 13895,5830,0,6,None,Today is special sale!
 13957,5834,0,6,None,Today is special sale!
 13894,5771,0,6,None,Today is special sale!
-6344,5235,0,2,beach,Be careful zombies
-5765,6473,0,2,beach,Be careful zombies
-5785,6485,0,2,beach,Be careful zombies
-3716,5697,0,2,beach,Be careful zombies
+6344,5235,,2,beach,Be careful zombies
+5765,6473,,2,beach,Be careful zombies
+5785,6485,,2,beach,Be careful zombies
+3716,5697,,2,beach,Be careful zombies
 10717,10100,0,3,None,Be careful zombies
 10714,10094,0,1,None,Be careful zombies
 12663,4622,0,6,Biker,Along railroad

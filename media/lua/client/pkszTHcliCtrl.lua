@@ -244,38 +244,8 @@ pkszThCliCtrl.onKeyPressed = function(keyCode)
 		print("pkszTH debug monitor by Client ------------")
 		print("SandboxVars.pkszTHopt.eventDisabled : " ,SandboxVars.pkszTHopt.eventDisabled)
 		print("Event phase : " .. pkszThCli.phase)
-
-		local pPos = pkszThCli.getPlayerPos()
-		local square = getSquare(
-			pPos.x,
-			pPos.y,
-			pPos.z
-		)
-
-		if pkszThCli.curEvent.Coordinate then
-			print("Event Coordinate : " .. pkszThCli.curEvent.Coordinate)
-			print("InventoryItem :" ..pkszThCli.curEvent.InventoryItem)
-			local player	= getSpecificPlayer(0)
-			pkszThCliCtrl.dataConnect("debugPrint")
-			if player then
-				local x = round(player:getX());
-				local y = round(player:getY());
-				local pos = x .. ", " .. y .. ", " ..pPos.z;
-				print("pleyer pos : " ..pos)
-			end
-			pkszThPagerCli.checkMonitor()
-
-			-- test eventFileCheck
-			-- pkszTHsetup.eventFileCheck()
-			pkszTHsetup.eventFileLoader()
-
-		end
-
-		-- after delete
-		-- pkszTHsetup.proc()
-
+		pkszThCliCtrl.dataConnect("debugPrint")
 	end
-
 
 	-- insert
 --	if keyCode == 210 then

@@ -14,4 +14,10 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventTickAverage = "Time average",
 	Sandbox_pkszTH_eventTickAverage_tooltip = "The event time limit is adjusted at the rate that in-game one day passes in two hours.<br>The higher the number, the longer the time limit.",
 
+	Sandbox_pkszTH_eventLogDivision = "LOG output to console",
+	Sandbox_pkszTH_eventLogDivision_tooltip = "Server logs are output to a dedicated file whenever possible,<br>but if checked, output to the console at the same time. ",
+
+	Sandbox_pkszTH_eventIDanchor = "EventID to fixed",
+	Sandbox_pkszTH_eventIDanchor_tooltip = "Set the eventID to fixed<br>Only events with the entered ID will occur.",
+
 }
