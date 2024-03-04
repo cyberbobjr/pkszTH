@@ -1,0 +1,12 @@
+-- "--" is can be used as a comment out
+-- Base.Axe = 1 / One fireaxe will always spawn.
+-- random = food1 / Spawns one from a random of "food1"
+-- randomGP = CivilRifle / One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-- random = random / Spawns one of all random items
+---
+loadOutCD = Senrihin
+random = cosWeapon
+random = garage_kit
+random = garage_kit_on_big
+random = candy
+random = popdrink

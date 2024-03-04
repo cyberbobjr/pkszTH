@@ -1,0 +1,58 @@
+-- "--" is can be used as a comment out
+-- One will be selected from the group
+-- will spawn as many times as the " = number"
+-- randomGP = CivilRifle //-> One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-----
+loadOutRandomCD = cosWeapon
+Base.Spear of Longinus = 1
+Base.Aestus Estus = 1
+Base.Naginata = 1
+Base.Halberd = 1
+Base.PGM-Hecate-II = 1
+Base.Long Handle Awl = 1
+Base.Dark Wand = 1
+Base.Long Magic Wand = 1
+Base.Short Wand = 1
+Base.Short Wand2 = 1
+Base.Short Wand3 = 1
+--
+loadOutRandomCD = garage_kit
+Base.Nemesis_garage_kit = 1
+Base.Asuka_garage_kit = 1
+Base.red_02_garage_kit = 1
+Base.white_02_garage_kit = 1
+Base.Noelle_garage_kit = 1
+Base.Rem_garage_kit = 1
+Base.Ram_garage_kit = 1
+Base.Alice_garage_kit = 1
+Base.Remilia_garage_kit = 1
+Base.Chii_garage_kit = 1
+Base.Tokisaki_Kurumi_garage_kit = 1
+Base.Bayonetta_garage_kit = 1
+--
+loadOutRandomCD = garage_kit_on_big
+Base.Nemesis_garage_kit_big = 1
+Base.Asuka_garage_kit_big = 1
+Base.red_02_garage_kit_big = 1
+Base.white_02_garage_kit_big = 1
+Base.Noelle_garage_kit_big = 1
+Base.Rem_garage_kit_big = 1
+Base.Ram_garage_kit_big = 1
+Base.Alice_garage_kit_big = 1
+Base.Remilia_garage_kit_big = 1
+Base.Chii_garage_kit_big = 1
+Base.Tokisaki_Kurumi_garage_kit_big = 1
+Base.Bayonetta_garage_kit_big = 1
+Base.Nemesis_garage_kit = 1
+Base.Asuka_garage_kit = 1
+Base.red_02_garage_kit = 1
+Base.white_02_garage_kit = 1
+Base.Noelle_garage_kit = 1
+Base.Rem_garage_kit = 1
+Base.Ram_garage_kit = 1
+Base.Alice_garage_kit = 1
+Base.Remilia_garage_kit = 1
+Base.Chii_garage_kit = 1
+Base.Tokisaki_Kurumi_garage_kit = 1
+Base.Bayonetta_garage_kit = 1
+--

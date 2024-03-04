@@ -1,0 +1,10 @@
+-- "--" is can be used as a comment out
+-- Loads event files in order from top to bottom.
+-- If specify an external MOD, it will not be loaded unless the MOD is active.
+-- It is recommended that original events be created with pkszTH
+-- modID/folder name
+--
+vanilla/vanilla
+pkszTH/pkszTH
+-- Requires modification to remove cosplay crafting recipes
+cosplayNoCraft/cosplay

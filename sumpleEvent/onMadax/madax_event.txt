@@ -1,0 +1,15 @@
+-- "--" is can be used as a comment out
+-- eventTimeout = 6 is 1 hour in-game / 30 = 5 hour in-game
+-- eventType is currently defunct
+-- 
+-- New event
+eventID = Madax
+eventDescription = Close Quarters Madax
+eventNote = Risk : 3 hour time limit
+eventType = nomal
+eventTimeout = 18
+HordeDensity = 26
+InventoryItem = Base.Bag_GolfBag
+loadOutSelectCD = madaxSpc
+cordListSelectCD = common,civilWeapon
+leaderOutfit = rogue

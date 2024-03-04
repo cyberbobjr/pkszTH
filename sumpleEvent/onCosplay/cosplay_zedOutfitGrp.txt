@@ -1,0 +1,62 @@
+-- "--" is can be used as a comment out
+-- Zombies included in "outfitGrp" will spawn with a probability
+-- The number specifies the rate at which female zombies appear
+-- 0 = male / 50 = mix / 100 = female (This is by specification. Please check the official website for details)
+--
+outfitGrpCD = cosplays
+DressLong = 100
+DressNormal = 100
+DressShort = 100
+000DVA = 100
+000Shino = 100
+000I400.01 = 100
+000UMP45 = 100
+000Clementine = 100
+000RaccoonGirl = 100
+000Chocola = 100
+000Vanilla = 100
+000Mordred = 100
+000HK40.016 = 100
+000KitagawaMarin = 100
+000HuTao = 100
+000Elaina = 100
+000Asuna = 100
+000Holo = 100
+000Kiana = 100
+000Asuka = 100
+000Rei = 100
+00002 = 100
+000Shinoa = 100
+000Lucy = 100
+000Coconut = 100
+000Rem = 100
+000Ram = 100
+000Yor = 100
+000Azuki = 100
+000Catgirl = 100
+000NeroSwimsuit = 100
+000NeroSwimwear = 100
+000Kiyohime = 100
+000VanillaSwimsuit = 100
+000ChocolaSwimsuit = 100
+000Chisato = 100
+000Takina = 100
+000Mitsuba = 100
+Student = 50
+Young = 50
+Classy = 50
+Hobbo = 50
+Punk = 50
+Rocker = 50
+Varsity = 50
+Police = 50
+OfficeWorker = 50
+OfficeWorkerSkirt = 50
+ConstructionWorker = 50
+Trader = 50
+Camper = 50
+Biker = 50
+Bandit = 50
+Nurse = 100
+None = 50
+AmbulanceDriver = 50

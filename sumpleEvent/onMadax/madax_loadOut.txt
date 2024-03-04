@@ -1,0 +1,61 @@
+-- "--" is can be used as a comment out
+-- Base.Axe = 1 / One fireaxe will always spawn.
+-- random = food1 / Spawns one from a random of "food1"
+-- randomGP = CivilRifle / One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-- random = random / Spawns one of all random items
+---
+--- new
+loadOutCD = madaxSpc
+random = Liquor
+random = Liquor
+random = junkfood
+random = junkfood
+random = madaxHigh
+random = madaxHigh
+random = madaxHigh
+random = madaxCommon
+random = madaxRare
+-- 
+-- vanilla overwrite
+loadOutCD = niceReward
+Base.WaterBottleFull = 1
+randomGP = Revolver
+random = civilmix
+random = weaponPart
+random = madaxCommon
+random = madaxRare
+random = ammo
+random = preservedFoods
+random = boots
+random = gloves
+random = Medic
+random = breakfast
+random = Liquor
+random = seasoning
+-- 
+-- vanilla overwrite
+loadOutCD = goodReward
+Base.WaterBottleFull = 1
+randomGP = MilitaryRifle
+randomGP = MilitaryMix
+randomGP = Pistol
+randomGP = Revolver
+random = civilmix
+random = madaxCommon
+random = madaxCommon
+random = madaxRare
+random = weaponPart
+random = weaponPart
+random = militalyMisc
+random = ammo
+random = ammo
+random = ammo
+random = boots
+random = gloves
+random = Medic
+random = Medic
+random = preservedFoods
+random = fruits
+random = breakfast
+random = Liquor
+random = seasoning

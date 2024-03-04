@@ -1,0 +1,51 @@
+-- "--" is can be used as a comment out
+--
+-- x,y,z,spawnRadius,zombioOutfit,description
+--
+-- Please note that "," cannot be used in the description.
+-- 
+cordListCD = comicmarket
+13707,1962,0,3,cosplays,Come on! hurry! rain or shine!
+13745,1876,0,3,cosplays,Come on! hurry! rain or shine!
+13634,5888,0,3,cosplays,Come on! hurry! rain or shine!
+12047,6868,0,3,cosplays,Come on! hurry! rain or shine!
+11601,8262,0,3,cosplays,Come on! hurry! rain or shine!
+11470,8829,0,3,cosplays,Come on! hurry! rain or shine!
+10635,9913,0,3,cosplays,Come on! hurry! rain or shine!
+10172,12735,0,3,cosplays,Come on! hurry! rain or shine!
+12254,6944,0,3,cosplays,Come on! hurry! rain or shine!
+7265,8285,0,3,cosplays,Come on! hurry! rain or shine!
+8414,12240,0,3,cosplays,Come on! hurry! rain or shine!
+6198,5353,0,3,cosplays,Come on! hurry! rain or shine!
+6482,5234,0,3,cosplays,Come on! hurry! rain or shine!
+6431,5215,0,3,cosplays,Come on! hurry! rain or shine!
+12481,1255,0,3,cosplays,Come on! hurry! rain or shine!
+13014,1303,0,3,cosplays,Come on! hurry! rain or shine!
+12951,1254,0,3,cosplays,Come on! hurry! rain or shine!
+12941,1286,0,3,cosplays,Come on! hurry! rain or shine!
+12939,1320,0,3,cosplays,Come on! hurry! rain or shine!
+13539,1301,0,3,cosplays,Come on! hurry! rain or shine!
+13605,1297,0,3,cosplays,Come on! hurry! rain or shine!
+13028,1390,0,3,cosplays,Come on! hurry! rain or shine!
+12979,1430,0,3,cosplays,Come on! hurry! rain or shine!
+12848,1374,0,3,cosplays,Come on! hurry! rain or shine!
+12756,1168,0,3,cosplays,Come on! hurry! rain or shine!
+12782,1167,0,3,cosplays,Come on! hurry! rain or shine!
+12668,1127,0,3,cosplays,Come on! hurry! rain or shine!
+12790,1192,0,3,cosplays,Come on! hurry! rain or shine!
+12762,1192,0,3,cosplays,Come on! hurry! rain or shine!
+12665,1172,0,3,cosplays,Come on! hurry! rain or shine!
+12696,2354,0,3,cosplays,Come on! hurry! rain or shine!
+12688,2327,0,3,cosplays,Come on! hurry! rain or shine!
+12694,2338,0,3,cosplays,Come on! hurry! rain or shine!
+12217,2656,0,3,cosplays,Come on! hurry! rain or shine!
+12269,2648,0,3,cosplays,Come on! hurry! rain or shine!
+12537,1392,0,3,cosplays,Come on! hurry! rain or shine!
+12570,1393,0,3,cosplays,Come on! hurry! rain or shine!
+13160,1386,0,3,cosplays,Come on! hurry! rain or shine!
+13246,1318,0,3,cosplays,Come on! hurry! rain or shine!
+13323,1302,0,3,cosplays,Come on! hurry! rain or shine!
+13450,1310,0,3,cosplays,Come on! hurry! rain or shine!
+13699,1330,0,3,cosplays,Come on! hurry! rain or shine!
+13668,1524,0,3,cosplays,Come on! hurry! rain or shine!
+13172,2141,0,3,cosplays,Come on! hurry! rain or shine!

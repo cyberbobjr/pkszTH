@@ -1,0 +1,95 @@
+-- "--" is can be used as a comment out
+-- One will be selected from the group
+-- will spawn as many times as the " = number"
+-- randomGP = CivilRifle //-> One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-----
+--	
+-- vanilla overwrite
+loadOutRandomCD = melee
+Base.Nightstick = 1
+Base.MeatCleaver = 1
+Base.HandAxe = 1
+Base.Machete = 1
+Base.Chainsaw = 1
+Base.Katana = 1
+Base.PickAxe = 1
+Base.BaseballBat = 1
+Base.BaseballBatNails = 1
+Base.Axe = 1
+Base.WoodAxe = 1
+Base.Sledgehammer = 1
+MWPWeapons.muelahuntingknife = 1
+MWPWeapons.cgcombattanto = 1
+MWPWeapons.yangjangcolumbiabayonet = 1
+MWPWeapons.assaultvknife = 1
+MWPWeapons.khkcombatknife = 1
+MWPWeapons.fatmaxbrickhammer = 1
+MWPWeapons.oxnailhammer = 1
+MWPWeapons.kabar1245tanto = 1
+MWPWeapons.aitormonterobowieknife = 1
+MWPWeapons.arliabutterflyknife = 1
+MWPWeapons.reapertacsickle = 1
+MWPWeapons.rexlerkunai = 1
+MWPWeapons.britishp1856pioneers = 1
+MWPWeapons.ontariookc10bayonet = 1
+MWPWeapons.sogf19nelite = 1
+MWPWeapons.m48tacticalwarhammer = 1
+MWPWeapons.russianakmbayonet = 1
+MWPWeapons.blitalianstiletto = 1
+MWPWeapons.dmmiceaxe = 1
+--- new
+loadOutRandomCD = madaxHigh
+MWPWeapons.muelahuntingknife = 1
+MWPWeapons.cgcombattanto = 1
+MWPWeapons.yangjangcolumbiabayonet = 1
+MWPWeapons.assaultvknife = 1
+MWPWeapons.khkcombatknife = 1
+MWPWeapons.fatmaxbrickhammer = 1
+MWPWeapons.oxnailhammer = 1
+MWPWeapons.kabar1245tanto = 1
+MWPWeapons.aitormonterobowieknife = 1
+MWPWeapons.arliabutterflyknife = 1
+MWPWeapons.reapertacsickle = 1
+MWPWeapons.rexlerkunai = 1
+MWPWeapons.britishp1856pioneers = 1
+MWPWeapons.ontariookc10bayonet = 1
+MWPWeapons.sogf19nelite = 1
+MWPWeapons.m48tacticalwarhammer = 1
+MWPWeapons.russianakmbayonet = 1
+MWPWeapons.blitalianstiletto = 1
+MWPWeapons.dmmiceaxe = 1
+--- new
+loadOutRandomCD = madaxCommon
+MWPWeapons.fiskarcurvedmachete = 1
+MWPWeapons.aluminiumbaseballbat = 1
+MWPWeapons.cwcombathatchet = 1
+MWPWeapons.defender18machete = 1
+MWPWeapons.roughneckaxe = 1
+MWPWeapons.crtkfreyraxe = 1
+MWPWeapons.gerberpackhatchet = 1
+MWPWeapons.doomsdaysurvivalaxe = 1
+MWPWeapons.zhunterhookmachete = 1
+MWPWeapons.spydercohatchethawk = 1
+MWPWeapons.pythoncampaxe = 1
+MWPWeapons.winklersurvivalhatchet = 1
+MWPWeapons.eastonb5baseballbat = 1
+MWPWeapons.roughneckgorillasledgehammer = 1
+MWPWeapons.avengebaseballbat = 1
+MWPWeapons.sogbeardedcampaxe = 1
+MWPWeapons.gemtord42crashaxe = 1
+MWPWeapons.crtkkukrimachete = 1
+MWPWeapons.gerberdownrangetomahawk = 1
+MWPWeapons.brooklynsmasher = 1
+MWPWeapons.sptesnaztacticalshovel = 1
+MWPWeapons.fiskarsplittingmaul = 1
+MWPWeapons.sogfaritantomachete = 1
+MWPWeapons.korekmachete = 1
+MWPWeapons.reavercleaver = 1
+MWPWeapons.taigamachete = 1
+--- new
+loadOutRandomCD = madaxRare
+MWPWeapons.albtacticalkatana = 1
+MWPWeapons.syntheticsword = 1
+MWPWeapons.gothsamuraisword = 1
+MWPWeapons.louisvillevaporbaseballbat = 1
+MWPWeapons.coldsteelspear = 1

@@ -1,0 +1,36 @@
+-- "--" is can be used as a comment out
+-- eventTimeout = 6 is 1 hour in-game / 30 = 5 hour in-game
+-- eventType is currently defunct
+-- 
+eventID = cosplay1
+eventDescription = Knox Anime Expo 3h
+eventNote = Time limit 3 hours
+eventType = nomal
+eventTimeout = 18
+HordeDensity = 10
+InventoryItem = Lycoris Backpack
+loadOutSelectCD = Senrihin
+cordListSelectCD = comicmarket
+leaderOutfit = cosplays
+-- 
+eventID = cosplay2
+eventDescription = Knox Anime Expo 4h
+eventNote = Time limit 4 hours
+eventType = nomal
+eventTimeout = 24
+HordeDensity = 8
+InventoryItem = Lycoris Backpack
+loadOutSelectCD = Senrihin
+cordListSelectCD = comicmarket
+leaderOutfit = cosplays
+--
+eventID = cosplay5
+eventDescription = Super Anime Expo !!!
+eventNote = Time limit 5 hours
+eventType = nomal
+eventTimeout = 30
+HordeDensity = 18
+InventoryItem = Lycoris Backpack
+loadOutSelectCD = Senrihin
+cordListSelectCD = comicmarket
+leaderOutfit = cosplays
