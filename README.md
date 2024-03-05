@@ -1,5 +1,7 @@
 wiki is here https://github.com/pkszZomboid/pkszTH/wiki
 
+[licensed]
+
 CC BY-NC-SA 4.0
 
   Treasure hunt event c 2024 by tanpOpO is licensed under CC BY-NC-SA 4.0
