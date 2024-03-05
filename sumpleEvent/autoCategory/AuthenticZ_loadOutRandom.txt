@@ -1,0 +1,11 @@
+--
+loadOutRandomCD = AuthZPack
+auto = aZDevices
+auto = aZRaccoon
+auto = aZHousehold
+auto = aZAppearance
+auto = aZWaterContainer
+auto = aZToolWeapon
+auto = aZBag
+auto = aZClothing
+auto = aZAccessory

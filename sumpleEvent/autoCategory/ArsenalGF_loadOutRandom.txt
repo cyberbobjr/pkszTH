@@ -1,0 +1,16 @@
+-- "--" is can be used as a comment out
+-- One will be selected from the group
+-- will spawn as many times as the " = number"
+-- randomGP = CivilRifle //-> One set will be selected and spawned from a RandomGP group of Civil Rifles.
+-----
+--	
+loadOutRandomCD = ArsenalPack
+auto = agfGunMag
+auto = agfAmmo
+auto = agfWeaponPart
+auto = agfSkillBook
+auto = agfHolster
+auto = agfRifle
+auto = agfNightstick
+auto = agfBigBlade
+auto = agfHammer

@@ -1,0 +1,11 @@
+-- = 
+eventID = ArsenalGF
+eventDescription = O.P.S Armament
+eventNote = Risk : Don't have time - many zombies
+eventType = nomal
+eventTimeout = 18
+HordeDensity = 26
+InventoryItem = Base.Bag_ALICEpack
+loadOutSelectCD = ArsenalAuto
+cordListSelectCD = common
+leaderOutfit = Militia

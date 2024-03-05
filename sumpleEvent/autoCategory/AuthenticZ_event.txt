@@ -1,0 +1,11 @@
+-- = 
+eventID = AuthenticZ
+eventDescription = AuthenticZ!!!
+eventNote = Risk : Time limit 3H
+eventType = nomal
+eventTimeout = 18
+HordeDensity = 12
+InventoryItem = Base.Suitcase
+loadOutSelectCD = AuthZAuto
+cordListSelectCD = common,clothing
+leaderOutfit = costume

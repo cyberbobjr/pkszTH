@@ -1,0 +1,37 @@
+-- "--" is can be used as a comment out
+--
+-- Automatically adds all items in the specified category of the specified Mod
+--
+-- Write it as this
+-- [subject] = [value]/[loadOutCD]
+--
+-- subject = "type" or "DisplayCategory"
+-- value = Write the extraction condition
+-- loadOutCD = This code to call from loadOut
+--
+--
+-- Write it like this on the loadOut file side
+-- auto = [loadOutCD]
+--
+--
+--
+ModFileHeaderName = ArsenalGF
+Type = Weapon/agfWeapon
+DisplayCategory = GunMag/agfGunMag
+DisplayCategory = Ammo/agfAmmo
+DisplayCategory = WeaponPart/agfWeaponPart
+DisplayCategory = SkillBook/agfSkillBook
+--
+--
+ModFileHeaderName = AuthenticZ
+DisplayCategory = Devices/aZDevices
+DisplayCategory = Raccoon/aZRaccoon
+DisplayCategory = Household/aZHousehold
+DisplayCategory = Appearance/aZAppearance
+DisplayCategory = WaterContainer/aZWaterContainer
+DisplayCategory = ToolWeapon/aZToolWeapon
+DisplayCategory = Bag/aZBag
+DisplayCategory = Clothing/aZClothing
+DisplayCategory = Accessory/aZAccessory
+--
+-- add Obsolete

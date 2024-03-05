@@ -1,0 +1,13 @@
+-- = 
+loadOutCD = ArsenalAuto
+random = Liquor
+random = junkfood
+auto = agfWeapon
+auto = agfWeapon
+auto = agfWeapon
+auto = agfGunMag
+auto = agfGunMag
+auto = agfAmmo
+auto = agfAmmo
+auto = agfWeaponPart
+-- random = ArsenalPack

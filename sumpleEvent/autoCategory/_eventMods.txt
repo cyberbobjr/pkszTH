@@ -1,0 +1,10 @@
+-- "--" is can be used as a comment out
+-- Loads event files in order from top to bottom.
+-- If specify an external MOD, it will not be loaded unless the MOD is active.
+-- It is recommended that original events be created with pkszTH
+-- modID/Header name
+--
+vanilla/vanilla
+pkszTH/pkszTH
+Authentic Z - Current/AuthenticZ
+Arsenal(26)GunFighter[MAIN MOD 2.0]/ArsenalGF
