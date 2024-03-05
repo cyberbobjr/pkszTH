@@ -1,0 +1,44 @@
+pkszTH - server : 0 / 1993-07-09 13:15 / Log output mode = Only pkszTH
+pkszTH - server : 0 / 1993-07-09 13:15 / -- start event File loading --
+pkszTH - server : 0 / 1993-07-09 13:15 / Mod Check...vanilla
+pkszTH - server : 0 / 1993-07-09 13:15 / Event Mod Active [vanilla] / fileHeader = vanilla
+pkszTH - server : 0 / 1993-07-09 13:15 / Mod Check...pkszTH
+pkszTH - server : 0 / 1993-07-09 13:15 / Notis MOD not activated = pkszTH
+pkszTH - server : 0 / 1993-07-09 13:15 / Mod Check...pkszSvMod
+pkszTH - server : 0 / 1993-07-09 13:15 / Notis MOD not activated = pkszSvMod
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_cordinates.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_event.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_loadOut.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_loadOutRandom.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_loadOutRandomGP.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Eventdatafile loading :/pkszTHv202403/vanilla_zedOutfitGrp.txt
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count cordinates : 811
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count event : 21
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count loadOut : 20
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count loadOutRandom : 32
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count loadOutRandomGP : 5
+pkszTH - server : 0 / 1993-07-09 13:15 / Data count zedOutfitGrp : 30
+pkszTH - server : 0 / 1993-07-09 13:15 / -- restart --
+pkszTH - server : 2 / 1993-07-09 13:20 / ---------------------
+pkszTH - server : 2 / 1993-07-09 13:20 / -- setup new event --
+pkszTH - server : 2 / 1993-07-09 13:20 / eventID candySupply
+pkszTH - server : 2 / 1993-07-09 13:20 / getCordList beginner,food,clothing setCordNo = 45 / 119
+pkszTH - server : 2 / 1993-07-09 13:20 / getCoordinate 6657,5193,0,3,None,In the usual place
+pkszTH - server : 2 / 1993-07-09 13:20 / event note  Risk : Sweetie
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=nomal :name=Base.HardCandies:amount=2
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/popdrink:name=Base.JuiceBox:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/popdrink:name=Base.JuiceBox:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/popdrink:name=Base.Pop:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.CakeCarrot:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.Candycane:amount=2
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.CakeRedVelvet:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.MintCandy:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.Painauchocolat:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candy:name=Base.CakeCheesecake:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / loadout=randomOne/candybonus:name=Base.FluffyfootBunny:amount=1
+pkszTH - server : 2 / 1993-07-09 13:20 / zedOutfitGrp = None
+pkszTH - server : 2 / 1993-07-09 13:20 / new event start tick = 2
+pkszTH - server : 2 / 1993-07-09 13:20 / new event end tick = 32
+pkszTH - server : 2 / 1993-07-09 13:20 / base timeout = 30
+pkszTH - server : 2 / 1993-07-09 13:20 / InventoryItem = Base.Tote
+pkszTH - server : 2 / 1993-07-09 13:20 / open / to client send message IncomingPager
