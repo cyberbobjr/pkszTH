@@ -19,6 +19,7 @@ pkszTHsv.loadOutRandom = {}
 pkszTHsv.loadOutRandomIndex = {}
 pkszTHsv.loadOutRandomIndexCnt = 1
 pkszTHsv.loadOutDebug = {}
+pkszTHsv.autoCategorys = {}
 
 pkszTHsv.forceSuspend = false
 
@@ -60,6 +61,7 @@ pkszTHsv.restart = function()
 	pkszTHsv.loadOutRandom = {}
 	pkszTHsv.loadOutRandomGP = {}
 	pkszTHsv.zedOutfitGrp = {}
+	pkszTHsv.autoCategorys = {}
 
 	pkszTHsv.Client = {}
 	pkszTHsv.Progress = 0

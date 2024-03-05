@@ -1,5 +1,7 @@
 pkszTHmain = {}
 
+pkszTHmain.loadedModCategory = {}
+
 pkszTHmain.tick = function()
 
 
@@ -192,7 +194,7 @@ pkszTHmain.getNewEvent = function()
 	local tempLoadOut = pkszTHsv.loadOut[pkszTHsv.curEvent.loadOutSelectCD]
 	pkszTHsv.curEvent.LoadOut = {}
 
-	-- get randome load out
+	-- get random load out
 	local cnt = 1
 	local rGPitems = {}
 	for key in pairs(tempLoadOut) do
@@ -214,6 +216,10 @@ pkszTHmain.getNewEvent = function()
 										cnt = cnt + 1
 									end
 								end
+							elseif getRandomItem.item == "auto" then
+								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(getRandomItem["num"])
+								pkszTHsv.logger("loadout=randAllAuto/".. getRandomItem["num"] .." :name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+								cnt = cnt + 1
 							else
 								pkszTHsv.curEvent.LoadOut[cnt] = getRandomItem
 								pkszTHsv.logger("loadout=randomAll/"..getRandomItem["item"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
@@ -225,7 +231,6 @@ pkszTHmain.getNewEvent = function()
 					else
 						changeThis = pkszTHmain.lotRandomItem(tempLoadOut[key]["num"])
 						-- print("changeThis item " ..changeThis["item"])
-						-- print("changeThis num " ..changeThis["num"])
 						if changeThis then
 							if changeThis.item == "randomGP" then
 								rGPitems = pkszTHmain.getLoadOutRandomGP(changeThis["num"])
@@ -236,6 +241,10 @@ pkszTHmain.getNewEvent = function()
 										cnt = cnt + 1
 									end
 								end
+							elseif changeThis.item == "auto" then
+								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(changeThis.num)
+								pkszTHsv.logger("loadout=randomAuto/"..changeThis.num.." :name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+								cnt = cnt + 1
 							else
 								pkszTHsv.curEvent.LoadOut[cnt] = changeThis
 								pkszTHsv.logger("loadout=randomOne/"..tempLoadOut[key]["num"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
@@ -250,6 +259,10 @@ pkszTHmain.getNewEvent = function()
 						pkszTHsv.logger("loadout=randomGP/"..tempLoadOut[key]["num"]..":name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
 						cnt = cnt + 1
 					end
+				elseif valueB == "auto" then
+					pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(tempLoadOut[key]["num"])
+					pkszTHsv.logger("loadout=auto/"..tempLoadOut[key]["num"].." :name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+					cnt = cnt + 1
 				else
 					pkszTHsv.curEvent.LoadOut[cnt] = tempLoadOut[key]
 					pkszTHsv.logger("loadout=nomal :name="..pkszTHsv.curEvent.LoadOut[cnt]["item"]..":amount="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
@@ -285,6 +298,73 @@ pkszTHmain.getNewEvent = function()
 	return true
 
 end
+
+pkszTHmain.getAutoCategoryItem = function(data)
+
+	if not data then
+		pkszTHsv.logger("Nothing Auto category",true)
+		return
+	end
+
+	-- info = {modId=modID, subject=key, param=rec2[1]}
+	local info = pkszTHsv.autoCategorys[data]
+	if not info then
+		pkszTHsv.logger("ERROR auto category not found :"..data,true)
+		return {item="Base.Frog",num=1}
+	end
+
+	if not pkszTHmain.loadedModCategory[data] then
+		pkszTHmain.loadedModCategory[data] = {}
+		pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryList(info)
+	end
+
+	local lots = pkszTHmain.loadedModCategory[data]
+	local chois = ZombRand(#lots) + 1
+	local itemFullName = pkszTHmain.loadedModCategory[data][chois]
+	local myItems = {item=itemFullName,num=1}
+
+	return myItems
+
+end
+
+-- If category items are not listed, list them.
+pkszTHmain.getAutoCategoryList = function(info)
+
+	-- print("--------- pkszTHmain.getAutoCategoryList --------------")
+	-- print(info.modId .." / ".. info.subject .." / ".. info.param)
+	local items = getAllItems();
+	local result = {}
+	local cnt = 1
+	
+	for i=0,items:size()-1 do
+		local item = items:get(i);
+		if not item:getObsolete() and not item:isHidden() then
+			if item:getModID() == info.modId then
+
+				-- type
+				if info.subject == "DisplayCategory" then
+	 				if item:getDisplayCategory() == info.param then
+						result[cnt] = item:getFullName()
+						cnt = cnt + 1
+	 				end
+				end
+
+				-- display category
+				if info.subject == "Type" then
+	 				if item:getTypeString() == info.param then
+						result[cnt] = item:getFullName()
+						cnt = cnt + 1
+	 				end
+				end
+
+			end
+		end
+	end
+
+	return result
+
+end
+
 
 pkszTHmain.getCordList = function(cordText)
 
@@ -407,31 +487,33 @@ local function onServerCommand(module,command,player,args)
 		print("pkszTH endTick "..pkszTHsv.curEvent.endTick)
 		print("pkszTH Phase sv "..pkszTHsv.Phase)
 		print("pkszTH Phase cl "..args.phase)
-		pkszTHmain.getSafehouseList()
-
+--		pkszTHmain.getSafehouseList()
 		print("-------------------- ")
-		print("pkszTHsv.EventNum ",pkszTHsv.EventNum)
-		for key,value in pairs(pkszTHsv.EventIDs) do
-			print("setup EventIDs = "..key.." value = "..value)
-		end
-		for key in pairs(pkszTHsv.Events) do
-			print("setup Events = "..key)
-		end
-		for key in pairs(pkszTHsv.CordinateList) do
-			print("setup CordinateList = "..key)
-		end
-		for key in pairs(pkszTHsv.loadOut) do
-			print("setup loadOut = "..key)
-		end
-		for key in pairs(pkszTHsv.loadOutRandom) do
-			print("setup loadOutRandom = "..key)
-		end
-		for key in pairs(pkszTHsv.loadOutRandomGP) do
-			print("setup loadOutRandomGP = "..key)
-		end
-		for key in pairs(pkszTHsv.zedOutfitGrp) do
-			print("setup zedOutfitGrp = "..key)
-		end
+
+--		pkszTHsetup.eventFileLoader()
+
+--		print("pkszTHsv.EventNum ",pkszTHsv.EventNum)
+--		for key,value in pairs(pkszTHsv.EventIDs) do
+--			print("setup EventIDs = "..key.." value = "..value)
+--		end
+--		for key in pairs(pkszTHsv.Events) do
+--			print("setup Events = "..key)
+--		end
+--		for key in pairs(pkszTHsv.CordinateList) do
+--			print("setup CordinateList = "..key)
+--		end
+--		for key in pairs(pkszTHsv.loadOut) do
+--			print("setup loadOut = "..key)
+--		end
+--		for key in pairs(pkszTHsv.loadOutRandom) do
+--			print("setup loadOutRandom = "..key)
+--		end
+--		for key in pairs(pkszTHsv.loadOutRandomGP) do
+--			print("setup loadOutRandomGP = "..key)
+--		end
+--		for key in pairs(pkszTHsv.zedOutfitGrp) do
+--			print("setup zedOutfitGrp = "..key)
+--		end
 		print("-------------------- ")
 
 
@@ -490,11 +572,12 @@ pkszTHmain.syncLoadout = function()
 	local item = InventoryItemFactory.CreateItem(pkszTHsv.curEvent.InventoryItem)
 	if not item then
 		item = InventoryItemFactory.CreateItem("Base.Bag_ToolBag")
-		pkszTHsv.logger("EChanged to Base.Bag_ToolBag because bag creation failed "..pkszTHsv.curEvent.InventoryItem,true)
+		pkszTHsv.logger("Changed to Base.Bag_ToolBag because bag creation failed "..pkszTHsv.curEvent.InventoryItem,true)
 	end
 	for key in pairs(pkszTHsv.curEvent.LoadOut) do
 		for keyB,valueB in pairs(pkszTHsv.curEvent.LoadOut[key]) do
 			if keyB == "item" then
+				-- print(" -- test --"..valueB.." / "..pkszTHsv.curEvent.LoadOut[key]["num"])
 				local test = item:getItemContainer():AddItems( valueB ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
 				if not test then
 					item:getItemContainer():AddItems( "Base.Frog" ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );

@@ -37,7 +37,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter1.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -50,7 +50,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter2.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -63,7 +63,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter3.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -76,7 +76,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter4.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -89,7 +89,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter5.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -102,7 +102,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter6.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -115,7 +115,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter7.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -128,7 +128,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter8.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}
@@ -141,7 +141,7 @@ module Base
 		clip
 		{
 			file = media/sound/enter9.ogg,
-			distanceMax = 20,
+			distanceMax = 30,
 			volume = 0.1,
 		}
 	}

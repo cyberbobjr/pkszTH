@@ -4,6 +4,7 @@ pkszTHsetup.eventModsList = {}
 
 pkszTHsetup.fn = {}
 pkszTHsetup.fn.eventMods = "_eventMods.txt"
+pkszTHsetup.fn.autoCategory = "_autoCategory.txt"
 pkszTHsetup.fn.history = "_log.txt"
 pkszTHsetup.fn.log = "_history.txt"
 
@@ -17,6 +18,7 @@ pkszTHsetup.fnm.zedOutfitGrp = "zedOutfitGrp.txt"
 
 pkszTHsetup.fileCheck = {}
 pkszTHsetup.dataCheck = {}
+pkszTHsetup.activateModsByfID = {}
 
 -- file load
 pkszTHsetup.eventFileLoader = function()
@@ -33,14 +35,20 @@ pkszTHsetup.eventFileLoader = function()
 	pkszTHsetup.dataCheck["zedOutfitGrp"] = 0
 
 
-	local filename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.eventMods
-	local eventMods = pkszTHsetup.fileExist(filename)
+	local eventMods = pkszTHsetup.fileExist(pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.eventMods)
 	if eventMods then
 		pkszTHsetup.operateEventMods(eventMods)
 		eventMods:close()
 		if pkszTHsetup.eventModsList then
 			pkszTHsetup.setupEvents()
 		end
+	end
+
+	-- autoCategory
+	local autoCategory = pkszTHsetup.fileExist(pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.autoCategory)
+	if autoCategory then
+		pkszTHsetup.operateAutoCategory(autoCategory)
+		autoCategory:close()
 	end
 
 end
@@ -336,14 +344,16 @@ pkszTHsetup.operateEventMods = function(file)
 		loadFlg = false
 
         for ModId, fHeader in string.gmatch(line, "([%w%.%_ %(%)%[%]%+%-]+) */ *(.+)") do
-			pkszTHsv.logger("Mod Check..."..ModId ,true)
+			-- pkszTHsv.logger("Mod Check..."..ModId ,true)
 			if ModId == "vanilla" then
 				pkszTHsv.logger("Event Mod Active ["..ModId.."] / fileHeader = "..fHeader ,true)
 				pkszTHsetup.eventModsList[ModId] = fHeader
+				pkszTHsetup.activateModsByfID[fHeader] = ModId
 			else
 				if mods[ModId] then
 					pkszTHsv.logger("Event Mod Active ["..ModId.."] / fileHeader = "..fHeader ,true)
 					pkszTHsetup.eventModsList[ModId] = fHeader
+					pkszTHsetup.activateModsByfID[fHeader] = ModId
 				else
 					pkszTHsv.logger("Notis MOD not activated = "..ModId ,true)
 				end
@@ -353,8 +363,45 @@ pkszTHsetup.operateEventMods = function(file)
 
 end
 
+pkszTHsetup.operateAutoCategory = function(file)
+
+
+
+	local modID = ""
+
+    while true do repeat
+		local line = file:readLine()
+		if line == nil then
+			file:close()
+			return
+		end
+		line = string.gsub(line, "^ +(.+) +$", "%1", 1)
+		if line == "" or string.sub(line, 1, 2) == "--" then break end
+		local rec = pkszTHsv.strSplit(line,"=")
+		if #rec == 2 then
+			local key = string.gsub(rec[1], "^%s*(.-)%s*$", "%1")
+			local value = string.gsub(rec[2], "^%s*(.-)%s*$", "%1")
+			if key == "ModFileHeaderName" then
+				if pkszTHsetup.activateModsByfID[value] then
+					modID = pkszTHsetup.activateModsByfID[value]
+					-- print("get modID "..modID)
+				end
+			else
+				local rec2 = pkszTHsv.strSplit(value,"/")
+				local loadOutCd = rec2[2]
+				pkszTHsv.autoCategorys[loadOutCd] = {modId=modID,subject=key,param=rec2[1]}
+				pkszTHsv.logger("add Auto Category :"..modID.." [ "..key.." = "..rec2[1].." ] -> "..loadOutCd,true)
+			end
+		end
+    until true end
+
+end
 
 pkszTHsetup.fileWriter = function(fn,text)
+
+	if not text then return end
+	if not fn then return end
+
 	local dataFile = getFileWriter(fn, true, false);
 	if dataFile then
 		dataFile:write(text);
@@ -1287,8 +1334,8 @@ cordListCD = common
 10448,12602,0,1,None,Be careful zombies
 10374,10103,0,2,Constructionworker,Be careful zombies
 10363,12384,0,3,None,Be careful zombies
-10322,12787,0,3,None,Be happy.  itÅfs you.
-10318,12787,0,2,Dress,Be happy.  itÅfs you.
+10322,12787,0,3,None,Be happy. it's you.
+10318,12787,0,2,Dress,Be happy. it's you.
 10290,9390,1,3,Constructionworker,on the catwalk
 10278,9589,0,1,rogue,Be careful zombies
 10248,10361,0,2,Naked,Along the lake
@@ -1367,7 +1414,7 @@ cordListCD = common
 8194,8248,0,5,Farmer,Be careful zombies
 8146,11471,1,1,None,2F Manager's room
 8144,11489,1,2,None,2F cafeteria
-8122,11543,0,3,None,Be happy.itÅfs you.
+8122,11543,0,3,None,Be happy.it's you.
 8075,11660,1,1,None,2F Hallway
 8075,11658,0,1,None,Enter the front and first
 8074,11667,1,1,None,2F Office
@@ -1392,7 +1439,7 @@ cordListCD = common
 7501,6209,0,1,None,Be careful zombies
 7498,5330,0,2,None,Be careful zombies
 7410,12336,0,2,None,Be careful zombies
-7382,8354,0,4,None,Be happy.  itÅfs me?
+7382,8354,0,4,None,Be happy.  it's me?
 7352,8473,0,3,None,Forest Behind Someone House
 7350,6460,0,3,None,Forest Behind Someone House
 7338,5502,0,8,Farmer,Be careful zombies
@@ -1420,7 +1467,7 @@ cordListCD = common
 6594,5231,1,3,None,2F Room
 6587,5205,0,1,None,1F lounge
 6579,5239,1,1,None,2F Play room
-6577,5374,0,4,None,Be happy.  itÅfs you?
+6577,5374,0,4,None,Be happy. it's you?
 6574,5216,1,2,None,2F lounge
 6557,5239,0,5,worker,inside the hedge
 6537,5307,0,2,Dress,Couple date location. still lingers

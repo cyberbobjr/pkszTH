@@ -58,7 +58,7 @@ function pkszTHeventEnter:start() -- Trigger when the action start
 	local soundNam = "enter"
 	local setNo = ZombRand(9) + 1
 	soundNam = soundNam .. tostring(setNo)
-	-- print("play enter sound .. " ..soundNam)
+	print("play enter sound .. " ..soundNam)
 	self.character:getEmitter():playSound(soundNam)
 
 end

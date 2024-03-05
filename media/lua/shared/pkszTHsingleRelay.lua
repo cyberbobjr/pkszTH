@@ -22,6 +22,8 @@ pkszTHsingle.toServer = function(player,module,command,args)
 		pkszTHsv.Phase = "wait"
 		pkszTHsv.Progress = 0
 		pkszTHsv.logger("Event Clear " ..pkszTHsv.curEvent.EventId,true)
+	    local username = player:getUsername();
+		pkszTHmain.saveEventHistory("Clear:"..username)
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
@@ -45,14 +47,15 @@ pkszTHsingle.toServer = function(player,module,command,args)
     end
 
     if command == "debugPrint" then
-		print("progress = " .. pkszTHsv.Progress)
-		print("mainTick = " .. pkszTHsv.mainTick)
-		print("startTick "..pkszTHsv.curEvent.startTick)
-		print("eventTimeout "..pkszTHsv.curEvent.eventTimeout)
-		print("endTick "..pkszTHsv.curEvent.endTick)
-		print("Phase sv "..pkszTHsv.Phase)
-		print("Phase cl "..args.phase)
-		pkszTHmain.getSafehouseList()
+		print("pkszTH debug monitor by Server ------------")
+		print("pkszTH progress = " .. pkszTHsv.Progress)
+		print("pkszTH mainTick = " .. pkszTHsv.mainTick)
+		print("pkszTH startTick "..pkszTHsv.curEvent.startTick)
+		print("pkszTH eventTimeout "..pkszTHsv.curEvent.eventTimeout)
+		print("pkszTH endTick "..pkszTHsv.curEvent.endTick)
+		print("pkszTH Phase sv "..pkszTHsv.Phase)
+		print("pkszTH Phase cl "..args.phase)
+--		pkszTHmain.getSafehouseList()
     end
 
 end
@@ -106,6 +109,12 @@ pkszTHsingle.toClient = function(player,module,command,args)
 			-- Play Incoming call
 			ISTimedActionQueue.add(pkszTHpagerAction:new(player))
 		end
+	end
+
+	-- forceSuspend
+	if command == "forceSuspend" then
+		print("pkszTH - Client ERROR : Processing will be force suspend because a fatal error has been detected.")
+		pkszThCli.forceSuspend = true
 	end
 
 end
