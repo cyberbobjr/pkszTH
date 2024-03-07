@@ -70,6 +70,26 @@ pkszThCliCtrl.clientWatch = function()
 end
 Events.OnPlayerUpdate.Add(pkszThCliCtrl.clientWatch)
 
+function playRandomSound(tag,char)
+
+	local soundNam = ""
+	local setNo = 1
+
+	if tag == "enter" then
+		soundNam = "enter"
+		setNo = ZombRand(9) + 1
+	end
+	if tag == "drop" then
+		soundNam = "pkszTHdropItem"
+		setNo = ZombRand(3) + 1
+	end
+
+	soundNam = soundNam .. tostring(setNo)
+	print("pkszTH play sound .. " ..soundNam)
+	char:getEmitter():playSound(soundNam)
+
+end
+
 -- conn server
 pkszThCliCtrl.dataConnect = function(act)
 

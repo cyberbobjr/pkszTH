@@ -2,5 +2,6 @@ ContextMenu_EN = {
 
 	ContextMenu_pkszTH_pagerMute = "着信ミュート :",
 	ContextMenu_pkszTH_checkMonitor = "画面を見る",
+	ContextMenu_pkszTH_pagerBroken = "受信できない / ゾンボイドを再起動してみよう",
 
 }

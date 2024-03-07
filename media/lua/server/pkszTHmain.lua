@@ -161,6 +161,10 @@ pkszTHmain.getNewEvent = function()
 
 	-- get Coordinate
 	local myCordList = pkszTHmain.getCordList(pkszTHsv.curEvent.cordListSelectCD)
+	if not myCordList then
+		pkszTHsv.logger("ERROR cordListSelectCD :"..pkszTHsv.curEvent.cordListSelectCD,true)
+		return
+	end
 	local setCordNo = ZombRand(#myCordList) + 1
 
 	-- print("myCordList[setCordNo] ",myCordList[1])
@@ -175,10 +179,11 @@ pkszTHmain.getNewEvent = function()
 		end
 	end
 
-	pkszTHsv.logger("eventID " ..myEventId,true)
-	pkszTHsv.logger("getCordList " ..pkszTHsv.curEvent.cordListSelectCD.. " setCordNo = " ..setCordNo.. " / " ..#myCordList,true)
-	pkszTHsv.logger("getCoordinate " ..pkszTHsv.curEvent.Coordinate,true)
-	pkszTHsv.logger("event note  " ..pkszTHsv.curEvent.eventNote,true)
+	pkszTHsv.logger("eventID :" ..myEventId,true)
+	pkszTHsv.logger("eventDescription :" ..pkszTHsv.curEvent.eventDescription,true)
+	pkszTHsv.logger("getCordList :" ..pkszTHsv.curEvent.cordListSelectCD.. " setCordNo = " ..setCordNo.. " / " ..#myCordList,true)
+	pkszTHsv.logger("getCoordinate :" ..pkszTHsv.curEvent.Coordinate,true)
+	pkszTHsv.logger("eventNote  :" ..pkszTHsv.curEvent.eventNote,true)
 
 	-- set coordinate vector3
 	pkszTHsv.curEvent.spawnVector = {}
@@ -313,9 +318,17 @@ pkszTHmain.getAutoCategoryItem = function(data)
 		return {item="Base.Frog",num=1}
 	end
 
-	if not pkszTHmain.loadedModCategory[data] then
-		pkszTHmain.loadedModCategory[data] = {}
-		pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryList(info)
+
+	if info.modId == "vanilla" then
+		if not pkszTHmain.loadedModCategory[data] then
+			pkszTHmain.loadedModCategory[data] = {}
+			pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryListBaseItem(info)
+		end
+	else
+		if not pkszTHmain.loadedModCategory[data] then
+			pkszTHmain.loadedModCategory[data] = {}
+			pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryList(info)
+		end
 	end
 
 	local lots = pkszTHmain.loadedModCategory[data]
@@ -329,8 +342,7 @@ end
 
 -- If category items are not listed, list them.
 pkszTHmain.getAutoCategoryList = function(info)
-
-	-- print("--------- pkszTHmain.getAutoCategoryList --------------")
+	print("--------- pkszTHmain.getAutoCategoryList --------------")
 	-- print(info.modId .." / ".. info.subject .." / ".. info.param)
 	local items = getAllItems();
 	local result = {}
@@ -340,7 +352,6 @@ pkszTHmain.getAutoCategoryList = function(info)
 		local item = items:get(i);
 		if not item:getObsolete() and not item:isHidden() then
 			if item:getModID() == info.modId then
-
 				-- type
 				if info.subject == "DisplayCategory" then
 	 				if item:getDisplayCategory() == info.param then
@@ -348,7 +359,6 @@ pkszTHmain.getAutoCategoryList = function(info)
 						cnt = cnt + 1
 	 				end
 				end
-
 				-- display category
 				if info.subject == "Type" then
 	 				if item:getTypeString() == info.param then
@@ -356,15 +366,57 @@ pkszTHmain.getAutoCategoryList = function(info)
 						cnt = cnt + 1
 	 				end
 				end
-
 			end
 		end
 	end
 
-	return result
+	if #result == 0 then
+		pkszTHsv.logger("AutoCategory zero :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+		pkszTHsv.logger("Error ".. info.param .." Zero , so add the frog.",true)
+		result[1] = "Base.Frog"
+	else
+		pkszTHsv.logger("Create AutoCategory Cash :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+	end
 
+	return result
 end
 
+pkszTHmain.getAutoCategoryListBaseItem = function(info)
+	print("--------- pkszTHmain.getAutoCategoryListBaseItem --------------")
+	-- print(info.modId .." / ".. info.subject .." / ".. info.param)
+	local items = getAllItems();
+	local result = {}
+	local cnt = 1
+	for i=0,items:size()-1 do
+		local item = items:get(i);
+		if not item:getObsolete() and not item:isHidden() then
+			-- type
+			if info.subject == "DisplayCategory" then
+ 				if item:getDisplayCategory() == info.param then
+					result[cnt] = item:getFullName()
+					cnt = cnt + 1
+ 				end
+			end
+			-- display category
+			if info.subject == "Type" then
+ 				if item:getTypeString() == info.param then
+					result[cnt] = item:getFullName()
+					cnt = cnt + 1
+ 				end
+			end
+		end
+	end
+
+	if #result == 0 then
+		pkszTHsv.logger("AutoCategory zero :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+		pkszTHsv.logger("An error will occur, so add the frog.",true)
+		result[1] = "Base.Frog"
+	else
+		pkszTHsv.logger("Create AutoCategory Cash :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+	end
+
+	return result
+end
 
 pkszTHmain.getCordList = function(cordText)
 
@@ -545,20 +597,22 @@ pkszTHmain.spawnZombie = function()
 	)
 
 	-- Spawn Horde
-	local outfits = pkszTHsv.curEvent.zedOutfitGrp
-	if not isServer() then
-		if pkszTHsv.curEvent.outfitGrpCD == "None" then
-			outfits = pkszTHsv.zedOutfitGrp["sNone"]
-			pkszTHsv.logger("Changed single None -> sNone",true)
+	if density > 0 then
+		local outfits = pkszTHsv.curEvent.zedOutfitGrp
+		if not isServer() then
+			if pkszTHsv.curEvent.outfitGrpCD == "None" then
+				outfits = pkszTHsv.zedOutfitGrp["sNone"]
+				pkszTHsv.logger("Changed single None -> sNone",true)
+			end
 		end
-	end
-	for i=1,density do
-		local outfitNo = ZombRand(#outfits) + 1
-		local thisOutfit = outfits[outfitNo]
-		local x = ZombRand(squareX - radius, squareX + radius + 1)
-		local y = ZombRand(squareY - radius, squareY + radius + 1)
-		-- print("x= "..x.." y= "..y.." sqZ "..squareZ.." zed "..thisOutfit["item"].." femaleChance "..thisOutfit["num"])
-		addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
+		for i=1,density do
+			local outfitNo = ZombRand(#outfits) + 1
+			local thisOutfit = outfits[outfitNo]
+			local x = ZombRand(squareX - radius, squareX + radius + 1)
+			local y = ZombRand(squareY - radius, squareY + radius + 1)
+			-- print("x= "..x.." y= "..y.." sqZ "..squareZ.." zed "..thisOutfit["item"].." femaleChance "..thisOutfit["num"])
+			addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
+		end
 	end
 
 	pkszTHsv.logger("spawnLeader "..LDOutfit["item"],true)

@@ -8,6 +8,13 @@ pkszThPagerCli.pagerContextMenu = function(player, table, items)
 		return
 	end
 	if pkszThCli.forceSuspend == true then
+		for i,v in ipairs(items) do
+			if not instanceof(v, "InventoryItem") then
+				if pkszThPagerCli.isPager(v.items[1]) then
+					table:addOption(getText("ContextMenu_pkszTH_pagerBroken") , v ,pkszThPagerCli.checkMonitor)
+				end
+			end
+		end
 		return
 	end
 

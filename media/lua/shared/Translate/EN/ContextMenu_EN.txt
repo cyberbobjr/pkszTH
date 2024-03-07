@@ -2,5 +2,6 @@ ContextMenu_EN = {
 
 	ContextMenu_pkszTH_pagerMute = "Mute :",
 	ContextMenu_pkszTH_checkMonitor = "Check monitor",
+	ContextMenu_pkszTH_pagerBroken = "Do not work? / try restart Zomboid (not a server)",
 
 }
