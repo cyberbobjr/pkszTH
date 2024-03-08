@@ -107,7 +107,9 @@ pkszTHsingle.toClient = function(player,module,command,args)
 			pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
 			pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
 			-- Play Incoming call
-			ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			if pkszThPagerCli.mute == "OFF" then
+				ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			end
 		end
 	end
 

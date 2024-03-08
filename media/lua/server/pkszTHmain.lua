@@ -41,6 +41,7 @@ pkszTHmain.tick = function()
 		if pkszTHsv.mainTick > pkszTHsv.curEvent.endTick then
 			pkszTHsv.Phase = "close"
 			pkszTHsv.Progress = 0
+			pkszTHsv.mainTick = 0
 			pkszTHsv.logger("Event time over " ..pkszTHsv.curEvent.EventId,true)
 			pkszTHmain.saveEventHistory("timeover")
 			pkszTHmain.dataConnect('EventInfoShare')
@@ -145,7 +146,8 @@ pkszTHmain.getNewEvent = function()
 		myEventId = SandboxVars.pkszTHopt.eventIDanchor
 	end
 
-	
+	if not myEventId then return end
+
 	if not pkszTHsv.Events[myEventId] then
 		pkszTHsv.logger("Error Event not found " .. myEventId,true)
 		return false
@@ -505,6 +507,7 @@ local function onServerCommand(module,command,player,args)
     if command == "doClose" then
 		pkszTHsv.Phase = "wait"
 		pkszTHsv.Progress = 0
+		pkszTHsv.mainTick = 0
 		pkszTHsv.logger("Event Clear " ..pkszTHsv.curEvent.EventId,true)
 	    local username = player:getUsername();
 		pkszTHmain.saveEventHistory("Clear:"..username)

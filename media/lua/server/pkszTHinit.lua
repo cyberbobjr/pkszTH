@@ -71,11 +71,14 @@ pkszTHsv.restart = function()
 	pkszTHsv.Settings.eventStartChance = SandboxVars.pkszTHopt.eventStartChance;
 	pkszTHsv.Settings.eventStartWaitTick = SandboxVars.pkszTHopt.eventStartWaitTick;
 
+	pkszTHsetup.ready()
+
 	-- event file check
 	pkszTHsetup.eventFileCheck()
 
 	pkszTHsv.Settings.logFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.history;
 	pkszTHsv.Settings.historyFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.log;
+
 
 	if pkszTHsv.forceSuspend == true then
 		return

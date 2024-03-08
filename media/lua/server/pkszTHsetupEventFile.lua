@@ -20,10 +20,18 @@ pkszTHsetup.fileCheck = {}
 pkszTHsetup.dataCheck = {}
 pkszTHsetup.activateModsByfID = {}
 
+pkszTHsetup.ready = function()
+
+	pkszTHsetup.baseDir = "/" .. pkszTHsv.EventFileVer
+	if not isServer() then
+		pkszTHsetup.baseDir = pkszTHsetup.baseDir .. "single"
+	end
+
+end
+
 -- file load
 pkszTHsetup.eventFileLoader = function()
 
-	pkszTHsetup.baseDir = "/" .. pkszTHsv.EventFileVer
 	pkszTHsv.logger("-- start event File loading --",true)
 
 	pkszTHsetup.dataCheck = {}
@@ -110,8 +118,6 @@ pkszTHsetup.eventFileCheck = function()
 	-- Processing to install when the event file is not installed, mainly when starting for the first time
 
 	pkszTHsetup.ve = {}
-
-	pkszTHsetup.baseDir = "/" .. pkszTHsv.EventFileVer
 
 	local filename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.eventMods
 	local eventMods = pkszTHsetup.fileExist(filename)
@@ -1177,7 +1183,7 @@ cordListCD = common
 12225,2755,0,5,None,Horstruck
 12217,1349,0,2,rogue,in the factory
 12146,2694,3,3,Mix,Top Floor
-12077,1441,3,4,Constructionworker,3rd floor near helipad
+12077,1437,3,4,Constructionworker,3rd floor near helipad
 14345,5751,0,3,Police,Be careful zombies
 13947,7395,0,2,None,River source
 13891,6685,0,2,None,camp site
