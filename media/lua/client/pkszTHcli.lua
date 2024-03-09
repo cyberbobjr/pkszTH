@@ -11,6 +11,9 @@ pkszThCli.debug = true
 pkszThCli.phase = "init"
 pkszThCli.signal = "noSignal"
 
+pkszThCli.allowRing = false
+pkszThCli.allowUse = false
+
 pkszThCli.forceSuspend = false
 
 pkszThCli.curEvent = {}
@@ -35,14 +38,52 @@ pkszThCli.getPlayerPos = function()
 	return pos
 end
 
-pkszThCli.isContainsPager = function(playerInv)
+pkszThCli.isContainsPager = function()
 
-	if playerInv:containsTypeRecurse("THpagerBlue") then
-		return true
-	end
-	if playerInv:containsTypeRecurse("THpagerRed") then
-		return true
-	end
+	local flg = false
 
+	pkszThCli.allowRing = false
+	pkszThCli.allowUse = false
+	pkszThCli.pagerPower = false
+	local player = getPlayer();
+    local playerInv = player:getInventory()
+
+	for j = playerInv:getItems():size(), 1,-1  do
+		local item = playerInv:getItems():get(j-1)
+		if item:getTags():contains("pkszTHpager") then
+			if item:isActivated() then
+				if item:getDrainableUsesInt() > 5 then
+					if item:isEquipped() then
+						pkszThCli.allowUse = true
+					end
+					pkszThCli.allowRing = true
+					flg = true
+				end
+			end
+			-- print(" item:getTags()",item:getTags())
+			-- print(" item:isActivated()",item:isActivated())
+			-- print(" item:IsDrainable()",item:IsDrainable())
+			-- print(" item:isEquipped()",item:isEquipped())
+			-- print(" item:getDrainableUsesInt()",item:getDrainableUsesInt())
+			-- print(" allowRing ",pkszThCli.allowRing)
+			-- print(" allowUse ",pkszThCli.allowUse)
+		end
+	end
+	return flg
+end
+
+
+pkszThCli.isEquippedPager = function(item)
+
+	if item:getTags():contains("pkszTHpager") then
+		if item:isActivated() then
+			if item:getDrainableUsesInt() > 0 then
+				if item:isEquipped() then
+					return true
+				end
+			end
+		end
+	end
 	return false
+
 end

@@ -129,9 +129,8 @@ local function onServerCommand(module, command, args)
 
 	local player = getPlayer();
     local playerInv = player:getInventory()
-	pkszThCli.isPager = pkszThCli.isContainsPager(playerInv)
 
-	pkszThCli.massege[1] = "empty"
+	pkszThCli.massege[1] = "no message"
 	pkszThCli.massege[2] = ""
 	pkszThCli.massege[3] = ""
 
@@ -145,7 +144,7 @@ local function onServerCommand(module, command, args)
 		pkszThCli.masseg = {}
 		if not pkszThCli.curEvent.massege then
 			pkszThCli.curEvent.massege = {}
-			pkszThCli.curEvent.massege[1] = "no signal"
+			pkszThCli.curEvent.massege[1] = "no message"
 			pkszThCli.curEvent.massege[2] = ""
 			pkszThCli.curEvent.massege[3] = ""
 		end
@@ -157,7 +156,8 @@ local function onServerCommand(module, command, args)
 
 	-- has pager member
 	if command == "IncomingPager" then
-		if pkszThCli.isPager == true then
+		if pkszThCli.isContainsPager() == false then return end
+		if pkszThCli.allowRing == true then
 			pkszThCli.curEvent = {}
 			pkszThCli.curEvent = args
 			pkszThCli.phase = pkszThCli.curEvent.phase
@@ -170,6 +170,7 @@ local function onServerCommand(module, command, args)
 			end
 		end
 	end
+
 
 	-- forceSuspend
 	if command == "forceSuspend" then
@@ -264,7 +265,10 @@ pkszThCliCtrl.onKeyPressed = function(keyCode)
 		print("pkszTH debug monitor by Client ------------")
 		print("SandboxVars.pkszTHopt.eventDisabled : " ,SandboxVars.pkszTHopt.eventDisabled)
 		print("Event phase : " .. pkszThCli.phase)
-		pkszThCliCtrl.dataConnect("debugPrint")
+
+		pkszThCli.isContainsPager()
+		-- pkszThCliCtrl.dataConnect("debugPrint")
+		print("pkszTH debug monitor by Client ------------")
 	end
 
 	-- insert

@@ -10,9 +10,7 @@ pkszThPagerCli.pagerContextMenu = function(player, table, items)
 	if pkszThCli.forceSuspend == true then
 		for i,v in ipairs(items) do
 			if not instanceof(v, "InventoryItem") then
-				if pkszThPagerCli.isPager(v.items[1]) then
-					table:addOption(getText("ContextMenu_pkszTH_pagerBroken") , v ,pkszThPagerCli.checkMonitor)
-				end
+				table:addOption(getText("ContextMenu_pkszTH_pagerBroken") , v ,pkszThPagerCli.checkMonitor)
 			end
 		end
 		return
@@ -20,7 +18,7 @@ pkszThPagerCli.pagerContextMenu = function(player, table, items)
 
 	for i,v in ipairs(items) do
 		if not instanceof(v, "InventoryItem") then
-			if pkszThPagerCli.isPager(v.items[1]) then
+			if pkszThCli.isEquippedPager(v.items[1]) then
 				local muteText = getText("ContextMenu_pkszTH_pagerMute")
 				table:addOption(muteText..pkszThPagerCli.mute , v ,pkszThPagerCli.toggleMute)
 				table:addOption(getText("ContextMenu_pkszTH_checkMonitor") , v ,pkszThPagerCli.checkMonitor)
@@ -75,13 +73,3 @@ pkszThPagerCli.sayMessage = function(msg)
 	getPlayer():Say(msg)
 end
 
-pkszThPagerCli.isPager = function(item)
-	if SandboxVars.pkszTHopt.eventDisabled == true then
-		return
-	end
-	if item and string.find(item:getType(), "THpager") then
-		return true
-	else
-		return false
-	end
-end
