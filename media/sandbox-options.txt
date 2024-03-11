@@ -46,6 +46,17 @@ option pkszTHopt.eventLogDivision
     translation = pkszTH_eventLogDivision,
 }
 
+option pkszTHopt.PagerDropRate
+{
+    type = enum,
+	numValues = 6,
+	default = 4,
+    page = pkszTH,
+    translation = pkszTH_PagerDropRate,
+	valueTranslation = pkszTH_PagerDropRateEnum,
+
+}
+
 option pkszTHopt.eventIDanchor
 {
     type = string,
@@ -53,3 +64,4 @@ option pkszTHopt.eventIDanchor
     page = pkszTH,
     translation = pkszTH_eventIDanchor,
 }
+

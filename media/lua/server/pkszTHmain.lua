@@ -544,6 +544,7 @@ local function onServerCommand(module,command,player,args)
 		print("pkszTH Phase cl "..args.phase)
 --		pkszTHmain.getSafehouseList()
 		print("-------------------- ")
+		print(" pager drop rate ",SandboxVars.pkszTHopt.PagerDropRate)
 
 --		pkszTHsetup.eventFileLoader()
 
@@ -651,7 +652,6 @@ pkszTHmain.syncLoadout = function()
 
 	--- Solved by send isoObject to client
 	pkszTHsv.curEvent.objBag = item
-	-- 同行者に見えないなら、squareを読み込んでいるプレイヤーもクライアント側でアイテムスポーン処理をすれば解決する
 
 end
 

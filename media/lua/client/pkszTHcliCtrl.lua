@@ -151,7 +151,6 @@ local function onServerCommand(module, command, args)
 		pkszThCli.massege[1] = pkszThCli.curEvent.massege[1]
 		pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
 		pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
-
 	end
 
 	-- has pager member
@@ -170,7 +169,6 @@ local function onServerCommand(module, command, args)
 			end
 		end
 	end
-
 
 	-- forceSuspend
 	if command == "forceSuspend" then
@@ -267,7 +265,7 @@ pkszThCliCtrl.onKeyPressed = function(keyCode)
 		print("Event phase : " .. pkszThCli.phase)
 
 		pkszThCli.isContainsPager()
-		-- pkszThCliCtrl.dataConnect("debugPrint")
+		pkszThCliCtrl.dataConnect("debugPrint")
 		print("pkszTH debug monitor by Client ------------")
 	end
 

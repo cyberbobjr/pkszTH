@@ -79,7 +79,6 @@ pkszTHsv.restart = function()
 	pkszTHsv.Settings.logFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.history;
 	pkszTHsv.Settings.historyFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.log;
 
-
 	if pkszTHsv.forceSuspend == true then
 		return
 	end
@@ -103,7 +102,6 @@ pkszTHsv.restart = function()
 
 end
 Events.OnGameBoot.Add(pkszTHsv.restart)
-
 
 pkszTHsv.getRandomGPLineSplit = function(rec)
 

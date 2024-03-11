@@ -23,4 +23,14 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventIDanchor = "EventID to fixed",
 	Sandbox_pkszTH_eventIDanchor_tooltip = "イベントIDを固定します<br>入力したIDのイベントのみが発生するようになります。",
 
+	Sandbox_pkszTH_PagerDropRate = "Pager device drop rate",
+	Sandbox_pkszTH_PagerDropRate_tooltip = "ポケべルを所持するゾンビの割合",
+
+	Sandbox_pkszTH_PagerDropRateEnum_option1 = "極めて希少(1/1000)",
+	Sandbox_pkszTH_PagerDropRateEnum_option2 = "とても希少(1/500)",
+	Sandbox_pkszTH_PagerDropRateEnum_option3 = "希少(1/100)",
+	Sandbox_pkszTH_PagerDropRateEnum_option4 = "ノーマル(1/50)",
+	Sandbox_pkszTH_PagerDropRateEnum_option5 = "多め(1/25)",
+	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
+
 }

@@ -20,4 +20,14 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventIDanchor = "EventID to fixed",
 	Sandbox_pkszTH_eventIDanchor_tooltip = "Set the eventID to fixed<br>Only events with the entered ID will occur.",
 
+	Sandbox_pkszTH_PagerDropRate = "Pager device drop rate",
+	Sandbox_pkszTH_PagerDropRate_tooltip = "Probability of having a pager device from a zombie.",
+
+	Sandbox_pkszTH_PagerDropRateEnum_option1 = "extremely rare (1/1000)",
+	Sandbox_pkszTH_PagerDropRateEnum_option2 = "very rare (1/500)",
+	Sandbox_pkszTH_PagerDropRateEnum_option3 = "rare (1/100)",
+	Sandbox_pkszTH_PagerDropRateEnum_option4 = "normal (1/50)",
+	Sandbox_pkszTH_PagerDropRateEnum_option5 = "common (1/25)",
+	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
+
 }

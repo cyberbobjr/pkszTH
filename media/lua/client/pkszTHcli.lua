@@ -53,9 +53,14 @@ pkszThCli.isContainsPager = function()
 		if item:getTags():contains("pkszTHpager") then
 			if item:isActivated() then
 				if item:getDrainableUsesInt() > 5 then
+					if item:getAttachedSlot() > 0 then
+						pkszThCli.allowUse = true
+					end
+
 					if item:isEquipped() then
 						pkszThCli.allowUse = true
 					end
+
 					pkszThCli.allowRing = true
 					flg = true
 				end
@@ -63,6 +68,11 @@ pkszThCli.isContainsPager = function()
 			-- print(" item:getTags()",item:getTags())
 			-- print(" item:isActivated()",item:isActivated())
 			-- print(" item:IsDrainable()",item:IsDrainable())
+			-- print(" item:IsClothing()",item:IsClothing())
+			-- print(" item:getAttachmentType()",item:getAttachmentType())
+			-- print(" item:getAttachedSlot()",item:getAttachedSlot())
+			-- print(" item:getAttachedSlotType()",item:getAttachedSlotType())
+			-- print(" item:getAttachmentsProvided()",item:getAttachmentsProvided())
 			-- print(" item:isEquipped()",item:isEquipped())
 			-- print(" item:getDrainableUsesInt()",item:getDrainableUsesInt())
 			-- print(" allowRing ",pkszThCli.allowRing)
@@ -77,8 +87,11 @@ pkszThCli.isEquippedPager = function(item)
 
 	if item:getTags():contains("pkszTHpager") then
 		if item:isActivated() then
-			if item:getDrainableUsesInt() > 0 then
+			if item:getDrainableUsesInt() > 5 then
 				if item:isEquipped() then
+					return true
+				end
+				if item:getAttachedSlot() > 0 then
 					return true
 				end
 			end

@@ -4,6 +4,7 @@ pkszThPagerCli.mute = "OFF"
 
 pkszThPagerCli.pagerContextMenu = function(player, table, items)
 
+
 	if SandboxVars.pkszTHopt.eventDisabled == true then
 		return
 	end
@@ -16,18 +17,30 @@ pkszThPagerCli.pagerContextMenu = function(player, table, items)
 		return
 	end
 
+	local contextOn = false
+	local item = nil
 	for i,v in ipairs(items) do
 		if not instanceof(v, "InventoryItem") then
-			if pkszThCli.isEquippedPager(v.items[1]) then
+			item = v.items[1]
+			contextOn = true
+		end
+		if instanceof(v, "InventoryItem") then
+			item = v
+			contextOn = true
+		end
+		if contextOn then
+			pkszThCli.isContainsPager()
+			if pkszThCli.isEquippedPager(item) then
 				local muteText = getText("ContextMenu_pkszTH_pagerMute")
 				table:addOption(muteText..pkszThPagerCli.mute , v ,pkszThPagerCli.toggleMute)
 				table:addOption(getText("ContextMenu_pkszTH_checkMonitor") , v ,pkszThPagerCli.checkMonitor)
-				-- table:addOption("Event debug" , v ,pkszThPagerCli.restart)
 			end
 		end
 	end
+
 end
 Events.OnFillInventoryObjectContextMenu.Add(pkszThPagerCli.pagerContextMenu)
+
 
 pkszThPagerCli.toggleMute = function()
 
