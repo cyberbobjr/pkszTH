@@ -1,3 +1,9 @@
 ﻿Tooltip_EN = {
-    Tooltip_pkszTH_pager = "使用するには、メインまたはサブにアイテムを装備します"
+
+    Tooltip_pkszTH_pager = "使用するには、メインまたはサブにアイテムを装備します",
+
+    Tooltip_pkszEpic_Item = "-- これはとてもいいものだ… --",
+
+	Tooltip_pkszEpic_Item_info = "このヒントはログアウトすると消去されます",
+
 }

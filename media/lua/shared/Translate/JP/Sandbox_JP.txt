@@ -33,4 +33,45 @@ Sandbox_EN = {
 	Sandbox_pkszTH_PagerDropRateEnum_option5 = "多め(1/25)",
 	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
 
+
+	Sandbox_pkszEpic_nil = "",
+
+	Sandbox_pkszEpic = "UniqueItemGenerator API",
+
+	Sandbox_pkszEpic_Disabled = "API disabled",
+	Sandbox_pkszEpic_Disabled_tooltip = "チェックすると、ユニークアイテムの生成を停止しす。",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMin = "SpecUp minimum",
+	Sandbox_pkszEpic_SpecImproveMultiplierMin_tooltip = "生成されるユニークアイテムの最小上昇値を設定します",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option1 = "0%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option2 = "5%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option3 = "10%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option4 = "15%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option5 = "20%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option6 = "25%",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMax = "SpecUp max",
+	Sandbox_pkszEpic_SpecImproveMultiplierMax_tooltip = "生成されるユニークアイテムの最大上昇値を設定します<br>最小値よりも大きな値を設定してください",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option1 = "5%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option2 = "10%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option3 = "15%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option4 = "25%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option5 = "30%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option6 = "50%",
+
+	Sandbox_pkszEpic_weightReduction = "Max weight reduction",
+	Sandbox_pkszEpic_weightReduction_tooltip = "バッグの重量軽減値を良化する範囲を決定します。<br>バッグの種類にかかわらず０から指定の値でランダムに軽減量が向上します",
+
+	Sandbox_pkszEpic_weightReductionEnum_option1 = "0",
+	Sandbox_pkszEpic_weightReductionEnum_option2 = "1",
+	Sandbox_pkszEpic_weightReductionEnum_option3 = "2",
+	Sandbox_pkszEpic_weightReductionEnum_option4 = "3",
+	Sandbox_pkszEpic_weightReductionEnum_option5 = "4",
+	Sandbox_pkszEpic_weightReductionEnum_option6 = "5",
+
+	Sandbox_pkszEpic_ApplyToBags = "Apply SpecUp to Bags",
+	Sandbox_pkszEpic_ApplyToBags_tooltip = "バッグの性能改善は、1％から10％に固定されています。<br>チェックすると、SpecUp の範囲がバッグにも適用されます。<br>ただし重量軽減はこれを無視します",
+
 }

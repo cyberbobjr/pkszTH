@@ -127,6 +127,15 @@ pkszTHsetup.eventFileCheck = function()
 	else
 		eventMods:close()
 	end
+
+	-- deploy AutoCategory
+	local autoCategory = pkszTHsetup.fileExist(pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.autoCategory)
+	if not autoCategory then
+		pkszTHsetup.autoCategoryDeploy()
+	else
+		autoCategory:close()
+	end
+
 end
 
 pkszTHsetup.eventFileDeploy = function()
@@ -441,6 +450,53 @@ end
 ------------------------------------------------------------
 ------------------------------------------------------------
 
+
+pkszTHsetup.autoCategoryDeploy = function()
+
+local text = [[-- "--" is can be used as a comment out
+-- Automatically adds all items in the specified category of the specified Mod
+-- To use it, write the following in the "loadOut" or "randomLoadOut" file
+-- auto = [auto category name]
+-- 
+-- !! This feature can be memory intensive and abuse is not recommended.
+-- !! Depending on the MOD, there are some items that may cause problems when acquired.
+-- but, this feature is attractive.
+-- It can also looting as an Epic item using autoEpic
+-- 
+-- ModFileHeaderName = [ModFileHeder]
+-- [subject] = [value]/[loadOutCD]
+-- subject : DisplayCategory or type can be specified 
+-- value : Keyword specified for the subject
+-- loadOutCD : This is the calling code written in the loadOut file.
+--
+-- ex ) 
+-- ModFileHeaderName = vanilla
+-- DisplayCategory = Clothing/pzClothings
+--     -> All vanilla clothes are available at pzClothings
+-- ex ) 
+-- ModFileHeaderName = AuthenticZ
+-- DisplayCategory = Clothing/aZClothing
+-- DisplayCategory = Accessory/aZAccessory
+--     -> All AuthenticZ Clothing and accessories will appear
+--        (AuthenticZ must be loaded and AuthenticZ must be specified as the header name)
+--
+--
+--
+ModFileHeaderName = vanilla
+DisplayCategory = Bag/pzBags
+DisplayCategory = SkillBook/pzSkillBooks
+Type = Weapon/pzWeapons
+Type = Clothing/pzClothings
+Type = AlarmClockClothing/pzWatchs
+]]
+
+	local thisFileName = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.autoCategory
+	local thisText = text
+	pkszTHsetup.fileWriter(thisFileName,thisText)
+
+end
+
+
 pkszTHsetup.getVanillaEvent = function()
 
 pkszTHsetup.ve = {}
@@ -448,7 +504,7 @@ pkszTHsetup.ve = {}
 pkszTHsetup.ve.eventMods = [[-- "--" is can be used as a comment out
 -- Loads event files in order from top to bottom.
 -- If specify an external MOD, it will not be loaded unless the MOD is active.
--- It is recommended that original events be created with pkszTH
+-- "pkszTH" is an already loaded mod, so you can use it at any time
 -- modID/folder name
 --
 vanilla/vanilla
@@ -1700,6 +1756,7 @@ Base.Crisps = 1
 random = clothes
 random = clothes
 random = clothes
+random = epicCloths
 random = boots
 random = boots
 random = gloves
@@ -1737,11 +1794,11 @@ randomGP = CivilRifle
 randomGP = MilitaryRifle
 random = melee
 random = melee
-random = melee
+random = epicMelee
 random = ammo
 random = ammo
 random = ammo
-random = ammo
+random = random
 random = breakfast
 random = junkfood
 random = Medic
@@ -1774,7 +1831,7 @@ random = civilmix
 loadOutCD = niceReward
 Base.WaterBottleFull = 1
 randomGP = Revolver
-random = civilmix
+random = epicHandagun
 random = melee
 random = weaponPart
 random = starterGoods
@@ -1791,10 +1848,8 @@ loadOutCD = goodReward
 Base.WaterBottleFull = 1
 randomGP = MilitaryRifle
 randomGP = MilitaryMix
-randomGP = Pistol
-randomGP = Revolver
-random = civilmix
-random = melee
+random = epicGuns
+random = epicMelee
 random = weaponPart
 random = weaponPart
 random = weaponPart
@@ -1842,7 +1897,7 @@ random = junkfood
 random = Liquor
 random = melee
 random = melee
-random = melee
+random = epicMelee
 random = civilVest
 random = militalyMisc
 random = ammo
@@ -1886,6 +1941,16 @@ Base.MeatCleaver = 1
 Base.HandAxe = 1
 Base.PickAxe = 1
 Base.BaseballBat = 1
+epic = Base.VarmintRifle
+epic = Base.HuntingRifle
+epic = Base.ShotgunSawnoff
+epic = Base.DoubleBarrelShotgunSawnoff
+epic = Base.Pistol
+epic = Base.Pistol2
+epic = Base.Pistol3
+epic = Base.Revolver
+epic = Base.Revolver_Long
+epic = Base.Revolver_Short
 randomGP = Revolver
 randomGP = Pistol
 randomGP = CivilRifle
@@ -1896,6 +1961,11 @@ Base.SpearHuntingKnife = 1
 Base.SpearMachete = 1
 Base.SpearIcePick = 1
 Base.SpearKnife = 1
+epic = Base.SpearScrewdriver
+epic = Base.SpearHuntingKnife
+epic = Base.SpearMachete
+epic = Base.SpearIcePick
+epic = Base.SpearKnife
 --- = 
 loadOutRandomCD = weaponPart
 Base.x2Scope = 1
@@ -1917,6 +1987,10 @@ Base.WristWatch_Right_ClassicMilitary = 1
 Base.HolsterDouble = 1
 Base.AmmoStrap_Bullets = 1
 Base.Necklace_DogTag = 1
+epic = Base.AssaultRifle
+epic = Base.AssaultRifle2
+epic = Base.Shotgun
+epic = Base.DoubleBarrelShotgun
 --- = 
 loadOutRandomCD = ammo
 Base.Bullets9mmBox = 1
@@ -1943,6 +2017,9 @@ Base.Bracelet_RightFriendshipTINT = 1
 Base.Jacket_LeatherWildRacoons = 1
 Base.Jacket_LeatherIronRodent = 1
 Base.Jacket_LeatherBarrelDogs = 1
+autoepic = pzClothings
+autoepic = pzBags
+autoepic = pzWatchs
 --- = 
 loadOutRandomCD = boots
 Base.Shoes_ArmyBoots = 1
@@ -2110,6 +2187,9 @@ Base.Money = 10
 Base.Money = 6
 Base.Money = 3
 Base.MugSpiffo = 1
+autoepic = pzBags
+autoepic = pzClothings
+autoepic = pzWatchs
 randomGP = Revolver
 --- = 
 loadOutRandomCD = cookingMag
@@ -2138,6 +2218,7 @@ Base.Bowl = 1
 Base.Battery = 2
 Base.HandAxe = 1
 Base.Matches = 1
+autoepic = pzWatchs
 --- = 
 loadOutRandomCD = farming
 farming.GardeningSprayCigarettes = 2
@@ -2237,7 +2318,48 @@ Base.OatsRaw = 1
 Base.Cereal = 1
 Base.Popcorn = 1
 Base.CandyPackage = 1
-
+--- = 
+loadOutRandomCD = epicCloths
+autoepic = pzClothings
+autoepic = pzWatchs
+--- = 
+loadOutRandomCD = epicMelee
+epic = Base.HandAxe
+epic = Base.HandScythe
+epic = Base.Machete
+epic = Base.Katana
+epic = Base.BaseballBat
+epic = Base.Axe
+epic = Base.HuntingKnife
+epic = Base.SpearScrewdriver
+epic = Base.SpearHuntingKnife
+epic = Base.SpearMachete
+epic = Base.SpearIcePick
+epic = Base.SpearKnife
+--- = 
+loadOutRandomCD = epicHandagun
+epic = Base.Pistol
+epic = Base.Pistol2
+epic = Base.Pistol3
+epic = Base.Revolver
+epic = Base.Revolver_Long
+epic = Base.Revolver_Short
+--- = 
+loadOutRandomCD = epicGuns
+epic = Base.VarmintRifle
+epic = Base.HuntingRifle
+epic = Base.ShotgunSawnoff
+epic = Base.DoubleBarrelShotgunSawnoff
+epic = Base.AssaultRifle
+epic = Base.AssaultRifle2
+epic = Base.Shotgun
+epic = Base.DoubleBarrelShotgun
+epic = Base.Pistol
+epic = Base.Pistol2
+epic = Base.Pistol3
+epic = Base.Revolver
+epic = Base.Revolver_Long
+epic = Base.Revolver_Short
 ]]
 
 

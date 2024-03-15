@@ -25,7 +25,7 @@ function ISWorldMap:render()
 	    local x = math.floor(self.mapAPI:worldToUIX(pkszThCli.curEvent.spawnVector.x,pkszThCli.curEvent.spawnVector.y));
 	    local y = math.floor(self.mapAPI:worldToUIY(pkszThCli.curEvent.spawnVector.x,pkszThCli.curEvent.spawnVector.y));
 
-		local myText = pkszThCli.curEvent.startDateTime .. " " .. pkszThCli.curEvent.spawnDesc
+		local myText = pkszThCli.curEvent.startDateTime .. " / " .. pkszThCli.curEvent.spawnDesc
 
 		self:drawRect(x,y,12,12, 0.7, 0.2, 0.2, 0.9);
 	    self:drawRectBorder(x,y,13,13, 1, 0, 0, 0);

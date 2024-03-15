@@ -30,4 +30,46 @@ Sandbox_EN = {
 	Sandbox_pkszTH_PagerDropRateEnum_option5 = "common (1/25)",
 	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
 
+
+
+	Sandbox_pkszEpic_nil = "",
+
+	Sandbox_pkszEpic = "UniqueItemGenerator API",
+
+	Sandbox_pkszEpic_Disabled = "API disabled",
+	Sandbox_pkszEpic_Disabled_tooltip = "If checked, generation of unique items will be stopped.",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMin = "SpecUp minimum",
+	Sandbox_pkszEpic_SpecImproveMultiplierMin_tooltip = "Set the minimum value of the spec to improve<br>Does not apply to items that have already been generated",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option1 = "0%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option2 = "5%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option3 = "10%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option4 = "15%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option5 = "20%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMinEnum_option6 = "25%",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMax = "SpecUp max",
+	Sandbox_pkszEpic_SpecImproveMultiplierMax_tooltip = "Set the max value of the spec to improve<br>Please make value larger than the minimum value",
+
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option1 = "5%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option2 = "10%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option3 = "15%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option4 = "25%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option5 = "30%",
+	Sandbox_pkszEpic_SpecImproveMultiplierMaxEnum_option6 = "50%",
+
+	Sandbox_pkszEpic_weightReduction = "Max weight reduction",
+	Sandbox_pkszEpic_weightReduction_tooltip = "Weight reduction increases by a change value regardless of bag type.<br>Increases randomly within the set value from 0.",
+
+	Sandbox_pkszEpic_weightReductionEnum_option1 = "0",
+	Sandbox_pkszEpic_weightReductionEnum_option2 = "1",
+	Sandbox_pkszEpic_weightReductionEnum_option3 = "2",
+	Sandbox_pkszEpic_weightReductionEnum_option4 = "3",
+	Sandbox_pkszEpic_weightReductionEnum_option5 = "4",
+	Sandbox_pkszEpic_weightReductionEnum_option6 = "5",
+
+	Sandbox_pkszEpic_ApplyToBags = "Apply SpecUp to Bags",
+	Sandbox_pkszEpic_ApplyToBags_tooltip = "Bag performance increase is fixed at 0% to 10% (at least increases by 1).<br>If checked, the value of 'SpecUp' will be applied to the bag as well.<br>Weight reduction is ignores this setting",
+
 }

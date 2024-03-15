@@ -13,6 +13,8 @@ pkszTHsv.Events = {}
 pkszTHsv.EventIDs = {}
 pkszTHsv.EventNum = 0
 
+pkszTHsv.Addon = {}
+
 pkszTHsv.CordinateList = {}
 pkszTHsv.loadOut = {}
 pkszTHsv.loadOutRandom = {}
@@ -48,6 +50,7 @@ pkszTHsv.curEvent.phase = "init"
 pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
 pkszTHsv.curEvent.eventNote = ""
+pkszTHsv.curEvent.toEpics = {}
 
 pkszTHsv.restart = function()
 
@@ -85,11 +88,10 @@ pkszTHsv.restart = function()
 
 	pkszTHsv.logger("-- Log files are now available --",false)
 	if SandboxVars.pkszTHopt.eventLogDivision == true then
-		pkszTHsv.logger("Log output mode = pkszTH and console",false)
+		pkszTHsv.logger("Log output mode = pkszTH and console",true)
 	else
-		pkszTHsv.logger("Log output mode = Only pkszTH",false)
+		pkszTHsv.logger("Log output mode = Only pkszTH",true)
 	end
-
 
 
 	-- event File Loader
@@ -102,6 +104,7 @@ pkszTHsv.restart = function()
 
 end
 Events.OnGameBoot.Add(pkszTHsv.restart)
+
 
 pkszTHsv.getRandomGPLineSplit = function(rec)
 

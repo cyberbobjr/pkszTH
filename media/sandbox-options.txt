@@ -65,3 +65,48 @@ option pkszTHopt.eventIDanchor
     translation = pkszTH_eventIDanchor,
 }
 
+option pkszEpic.Disabled
+{
+    type = boolean,
+    default = false,
+    page = pkszEpic,
+    translation = pkszEpic_Disabled,
+}
+
+option pkszEpic.SpecImproveMultiplierMin
+{
+    type = enum,
+	numValues = 6,
+	default = 3,
+    page = pkszEpic,
+    translation = pkszEpic_SpecImproveMultiplierMin,
+	valueTranslation = pkszEpic_SpecImproveMultiplierMinEnum,
+
+}
+option pkszEpic.SpecImproveMultiplierMax
+{
+    type = enum,
+	numValues = 6,
+	default = 3,
+    page = pkszEpic,
+    translation = pkszEpic_SpecImproveMultiplierMax,
+	valueTranslation = pkszEpic_SpecImproveMultiplierMaxEnum,
+
+}
+option pkszEpic.ApplyToBags
+{
+    type = boolean,
+    default = false,
+    page = pkszEpic,
+    translation = pkszEpic_ApplyToBags,
+}
+option pkszEpic.weightReduction
+{
+    type = enum,
+	numValues = 6,
+	default = 3,
+    page = pkszEpic,
+    translation = pkszEpic_weightReduction,
+	valueTranslation = pkszEpic_weightReductionEnum,
+
+}

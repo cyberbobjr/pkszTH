@@ -30,7 +30,7 @@ pkszThCliCtrl.clientWatch = function()
 		if square then
 			local pPos = pkszThCli.getPlayerPos()
 			local distance = (pPos.x - pkszThCli.curEvent.spawnVector.x) ^ 2 + (pPos.y - pkszThCli.curEvent.spawnVector.y) ^ 2
-			if distance < 480 then
+			if distance < 520 then
 				local player = getSpecificPlayer(0)
 				pkszThCli.phase = "enter"
 				pkszThCliCtrl.removeObject(square)
@@ -101,7 +101,6 @@ pkszThCliCtrl.dataConnect = function(act)
 	else
 		pkszTHsingle.toServer(player, "pkszTHctrl", act, pkszThCli.curEvent);
 	end
-
 end
 
 pkszThCliCtrl.initConnect = function(act)
@@ -115,9 +114,7 @@ pkszThCliCtrl.initConnect = function(act)
 	else
 		pkszTHsingle.toServer(player, "pkszTHctrl", "initRequest", pkszThCli.curEvent);
 	end
-
 end
-
 
 -- send new message
 local function onServerCommand(module, command, args)
@@ -186,16 +183,34 @@ pkszThCliCtrl.syncSpawnBag = function()
 		return
 	end
 
-	print("pkszTH - sync spawn bag")
+	if pkszThCli.curEvent.objBag then
+		local bag = pkszThCli.curEvent.objBag
+		local square = getSquare(
+			pkszThCli.curEvent.spawnVector.x,
+			pkszThCli.curEvent.spawnVector.y,
+			pkszThCli.curEvent.spawnVector.z
+		)
+		square:AddWorldInventoryItem(bag, 0,0,0)
 
-	local bag = pkszThCli.curEvent.objBag
-	local square = getSquare(
-		pkszThCli.curEvent.spawnVector.x,
-		pkszThCli.curEvent.spawnVector.y,
-		pkszThCli.curEvent.spawnVector.z
-	)
+		print("pkszTH - sync spawn bag")
 
-	square:AddWorldInventoryItem(bag, 0,0,0)
+		local isEpics = pkszThCli.curEvent.toEpics
+		if #isEpics > 0 then
+			local inv = bag:getInventory()
+			for j = inv:getItems():size(), 1,-1  do
+				local item = inv:getItems():get(j-1)
+				local myId = item:getFullType()
+				for key,value in pairs(isEpics) do
+					if myId == value[1] then
+						isEpics[key] = "---"
+						item = pkszEpicGen.conversionToEpic(item)
+						item:setName(value[2])
+					end
+				end
+			end
+		end
+	end
+
 
 	pkszThCli.curEvent.objBag = {}
 end
