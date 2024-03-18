@@ -63,10 +63,9 @@ end
 pkszTHsingle.toClient = function(player,module,command,args)
 
 	print("pkszTHsingle.toClient ----------- ",pkszThCli.phase)
-	-- print("toClient player ",player)
-	-- print("toClient module ",module)
-	-- print("toClient command ",command)
-	-- print("toClient args ",args)
+	-- print("onServerCommand module ",module)
+	-- print("onServerCommand command ",command)
+	-- print("onServerCommand args ",args)
 
 	local player = getPlayer();
     local playerInv = player:getInventory()
@@ -92,20 +91,37 @@ pkszTHsingle.toClient = function(player,module,command,args)
 		pkszThCli.massege[1] = pkszThCli.curEvent.massege[1]
 		pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
 		pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
-
 	end
 
 	-- has pager member
 	if command == "IncomingPager" then
-		pkszThCli.curEvent = {}
-		pkszThCli.curEvent = args
-		pkszThCli.phase = pkszThCli.curEvent.phase
-		pkszThCli.massege[1] = pkszThCli.curEvent.massege[1]
-		pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
-		pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
 		if pkszThCli.isContainsPager() == false then return end
 		if pkszThCli.allowRing == true then
+			pkszThCli.curEvent = {}
+			pkszThCli.curEvent = args
+			pkszThCli.phase = pkszThCli.curEvent.phase
+			pkszThCli.massege[1] = pkszThCli.curEvent.massege[1]
+			pkszThCli.massege[2] = pkszThCli.curEvent.massege[2]
+			pkszThCli.massege[3] = pkszThCli.curEvent.massege[3]
+			pkszThCli.onMap = true
 			-- Play Incoming call
+			if pkszThPagerCli.mute == "OFF" then
+				ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			end
+		end
+	end
+
+	-- eventreset
+	if command == "eventRestart" then
+		if pkszThCli.isContainsPager() == false then return end
+		if pkszThCli.allowRing == true then
+			pkszThCli.curEvent = {}
+			pkszThCli.curEvent = args
+			pkszThCli.phase = "wait"
+			pkszThCli.onMap = false
+			pkszThCli.massege = pkszThCli.curEvent.massege
+			pkszThCli.massege[2] = getText("IGUI_pkszTH_restart1")
+			pkszThCli.massege[3] = getText("IGUI_pkszTH_restart2")
 			if pkszThPagerCli.mute == "OFF" then
 				ISTimedActionQueue.add(pkszTHpagerAction:new(player))
 			end

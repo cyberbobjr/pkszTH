@@ -1,29 +1,32 @@
 pkszEpicSetup = {}
+if isClient() then return end
 
 pkszEpicSetup.ready = function()
 
-	-- pkszEpic.logger("Start Epic File loader : "..pkszEpic.baseDir.."/"..pkszEpic.nameListFileName,true)
 	pkszEpic.nameList = {}
 
 	local nameFile = pkszEpicFileExist(pkszEpic.baseDir.."/"..pkszEpic.nameListFileName)
+	pkszEpic.logger("pkszEpic File check "..pkszEpic.baseDir.."/"..pkszEpic.nameListFileName,false)
 
 	if not nameFile then
-		print("file not")
 		local names = pkszEpicNameFileDeploy()
 		pkszEpicDataSetupForText(names)
+		pkszEpic.logger("pkszEpic / Name list file Installed",true)
 	else
+		pkszEpic.logger("pkszEpic / Name file loaded",true)
 		pkszEpicDataSetupForFile(nameFile)
 		nameFile:close()
 	end
 
 end
 
-
-pkszEpicSetup.fileDeployOnly = function()
-
-	local nameFile = pkszEpicFileExist(pkszEpic.baseDir.."/"..pkszEpic.nameListFileName)
-	local names = pkszEpicNameFileDeploy()
-
+function pkszEpicFileExist(filename)
+	local file = getFileReader(filename, false);
+	if not file then
+		return nil
+	else
+		return file
+	end
 end
 
 function pkszEpicDataSetupForFile(file)
@@ -60,7 +63,7 @@ end
 
 function pkszEpicDataSetupForText(names)
 
-	local rec = pkszEpicGen.StrSplit(names,"\n")
+	local rec = pkszEpic.StrSplit(names,"\n")
 	local tag = nil
 	for key,value in pairs(rec) do
 		local line = value
@@ -75,7 +78,6 @@ function pkszEpicDataSetupForText(names)
 					tag = string.match(line, "(%w+)")
 					pkszEpic.nameList[tag] = {}
 				end
-				print("tag ",tag)
 			else
 				if tag then
 					table.insert(pkszEpic.nameList[tag],line)
@@ -86,13 +88,13 @@ function pkszEpicDataSetupForText(names)
 
 end
 
-function pkszEpicFileExist(filename)
-	local file = getFileReader(filename, false);
-	if not file then
-		return nil
-	else
-		return file
-	end
+function pkszEpicNameFileDeploy()
+
+	local names = pkszEpicGetDefaultNames()
+	local fileName = pkszEpic.baseDir.."/"..pkszEpic.nameListFileName
+	pkszEpicFileWriter(fileName,names)
+
+	return names
 end
 
 function pkszEpicFileWriter(fn,text)
@@ -110,14 +112,6 @@ function pkszEpicFileWriter(fn,text)
 end
 
 
-function pkszEpicNameFileDeploy()
-
-	local names = pkszEpicGetDefaultNames()
-	local fileName = pkszEpic.baseDir.."/"..pkszEpic.nameListFileName
-	pkszEpicFileWriter(fileName,names)
-
-	return names
-end
 ------------------------------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
@@ -315,7 +309,6 @@ Fury
 Fusion
 Future
 Garden
-Gaunt
 Generous
 Geometry
 Gibbs
@@ -364,7 +357,6 @@ Instagram
 Investigation
 Irk
 Ironwood
-Izora
 Jade
 Jeremiah
 Joyful
@@ -406,7 +398,6 @@ Lycidas
 Macbeth
 Madship
 Mage's
-Maia
 Mark
 Mastery
 Matthews
@@ -450,7 +441,6 @@ Nyx
 Oath
 Ocean
 Omen
-Orenmir
 Origami
 Orion
 Orpheus
@@ -586,7 +576,6 @@ Valentine
 Vanquisher
 Velasir
 Vengeful
-Vera
 Vesperal
 Vidahmf
 Viking
@@ -602,7 +591,7 @@ Wexford
 Whisper
 Willis
 Willowbell
-wind
+Wind
 Windlass
 Windsong
 Wisdom
@@ -928,7 +917,7 @@ Old Navy
 Pandora
 Pou Chen
 Prada
-Primark / Penney's
+Primark/Penney's
 Puma
 Quicksilver
 Ralph Lauren
@@ -946,7 +935,7 @@ Under Armour
 UNDERCOVER
 UNIQLO
 Valve
-Van Cleef & Arpels
+Van Cleef&Arpels
 VANS
 Victoria's Secret
 Visvim

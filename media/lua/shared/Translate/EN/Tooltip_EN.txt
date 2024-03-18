@@ -1,9 +1,7 @@
 ﻿Tooltip_EN = {
 
     Tooltip_pkszTH_pager = "Equip as primary or secondary item to use.",
-
     Tooltip_pkszEpic_Item = "-- This is very nice --",
-
 	Tooltip_pkszEpic_Item_info = "This hint is erase when logout",
 
 }

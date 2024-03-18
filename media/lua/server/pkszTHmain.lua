@@ -24,6 +24,10 @@ pkszTHmain.tick = function()
 
 	if pkszTHsv.Progress == 1 then
 
+		if pkszEpic.initialize == 0 then
+			pkszEpic.restart()
+		end
+
 		-- send to pager (become unnecessary
 		if pkszTHsv.Phase == "notice" then
 			pkszTHsv.Phase = "open"
@@ -55,8 +59,19 @@ pkszTHmain.tick = function()
 			pkszTHsv.Phase = "open"
 			local sendStr = pkszTHmain.buildSendMessageFormat(pkszTHsv.curEvent)
 			pkszTHsv.curEvent.massege = sendStr
-			pkszTHmain.dataConnect('IncomingPager','send message')
+			pkszTHmain.dataConnect('IncomingPager')
 		end
+	end
+
+	-- event version change from sandbox-option
+	if SandboxVars.pkszTHopt.eventSelectFileVer ~= pkszTHsv.EventFileVerOpt then
+		pkszTHsv.restart()
+		pkszTHsv.Phase = "wait"
+		local sendString = {}
+		local gameTime = pkszTHsv.getGameTime()
+		pkszTHsv.curEvent.massege[2] = "..."
+		pkszTHsv.curEvent.massege[3] = "..."
+		pkszTHmain.dataConnect('eventRestart')
 	end
 
 end
@@ -77,7 +92,6 @@ pkszTHmain.buildSendMessageFormat = function(cur)
 	return sendString
 end
 
-
 pkszTHmain.newEventSetup = function()
 
 	local eventgetFlg = "0"
@@ -92,7 +106,11 @@ pkszTHmain.newEventSetup = function()
 				pkszTHsv.logger("new event start tick = "..pkszTHsv.curEvent.startTick,true)
 				pkszTHsv.logger("new event end tick = "..pkszTHsv.curEvent.endTick,true)
 				pkszTHsv.logger("base timeout = "..pkszTHsv.curEvent.eventTimeout,true)
+				-- pkszTHsv.logger("Coordinate = "..pkszTHsv.curEvent.Coordinate,true)
 				pkszTHsv.logger("InventoryItem = "..pkszTHsv.curEvent.InventoryItem,true)
+				-- event mst / pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
+				-- Coordinate / pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
+				-- LoadOut / pkszTHsv.curEvent.LoadOut
 				pkszTHsv.Progress = 1
 				pkszTHsv.Phase = "notice"
 				pkszTHmain.saveEventHistory("start")
@@ -129,7 +147,8 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.objBag = nil
 	pkszTHsv.curEvent.zedSquare = nil
 	pkszTHsv.curEvent.eventNote = ""
-	pkszTHsv.curEvent.toEpics = {}
+	pkszTHsv.curEvent.epics = {}
+	local epics = {}
 
 -- next event debug
 	if pkszTHsv.nextEventDebug then
@@ -138,7 +157,6 @@ pkszTHmain.getNewEvent = function()
 	end
 
 -- next anchorON
-	-- print("eventIDanchor ",SandboxVars.pkszTHopt.eventIDanchor)
 	if SandboxVars.pkszTHopt.eventIDanchor ~= "" then
 		pkszTHsv.logger("eventIDanchor On " .. SandboxVars.pkszTHopt.eventIDanchor,true)
 		myEventId = SandboxVars.pkszTHopt.eventIDanchor
@@ -196,52 +214,56 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.spawnDesc = cords[6]
 
 	-- get load out
-	local tempLoadOut = pkszTHsv.loadOut[pkszTHsv.curEvent.loadOutSelectCD]
+	local tempLoadOut = pkszTHloadOut_copy(pkszTHsv.loadOut[pkszTHsv.curEvent.loadOutSelectCD])
 	pkszTHsv.curEvent.LoadOut = {}
 
 	-- get random load out
 	local cnt = 1
+	local lastCnt = 0
 	local rGPitems = {}
+	local logTxt = ""
+	local flgEpic = false
 	for key in pairs(tempLoadOut) do
 		changeThis = {}
-		-- print("tempLoadOut ".. tempLoadOut[key]["item"] .. " / " .. tempLoadOut[key]["num"])
+
+		flgEpic = false
+		-- epic
+		if string.sub(tempLoadOut[key]["item"], 1, 5) == "epic/" then
+			tempLoadOut[key]["item"] = string.match(tempLoadOut[key]["item"], "epic/([%s%d%w%.%_%=%'%,]+)")
+			flgEpic = true
+		end
+
 		for keyB,valueB in pairs(tempLoadOut[key]) do
 			if keyB == "item" then
+				local logT = "ItemTypes"
 				rGPitems = {}
 				if valueB == "random" then
 					if tempLoadOut[key]["num"] == "random" then
 						local getRandomItem = pkszTHmain.getAllLoadOutRandomItem()
 						if getRandomItem then
-							-- print("getRandomItem "..getRandomItem.item)
-							-- print("getRandomItem "..getRandomItem.num)
 							if getRandomItem.item == "randomGP" then
 								rGPitems = pkszTHmain.getLoadOutRandomGP(getRandomItem["num"])
 								if rGPitems then
 									for rKey in pairs(rGPitems) do
 										pkszTHsv.curEvent.LoadOut[cnt] = rGPitems[rKey]
-										pkszTHsv.logger("loadout=randomAllandGP/"..getRandomItem["num"].." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+										logT = "random = R/[RGP]"
+										if flgEpic == true then
+											table.insert(epics,{name=pkszTHsv.curEvent.LoadOut[cnt]["item"] ,num=pkszTHsv.curEvent.LoadOut[cnt]["num"] ,newname=nil})
+											logT = "(epic)"..logT
+										end
+										logTxt = " : name=".. pkszTHsv.curEvent.LoadOut[cnt]["item"] .." : amount=".. pkszTHsv.curEvent.LoadOut[cnt]["num"]
+										pkszTHsv.logger("loadout | "..logT..logTxt,true)
+										logT = ""
 										cnt = cnt + 1
 									end
 								end
 							elseif getRandomItem.item == "auto" then
 								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(getRandomItem["num"])
-								pkszTHsv.logger("loadout=randAllAuto/".. getRandomItem["num"] .." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
-								cnt = cnt + 1
-							elseif getRandomItem.item == "autoepic" then
-								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(getRandomItem["num"])
-								pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-								pkszTHsv.logger("loadout=randAllAuto-epic/"..getRandomItem["num"].." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = epic",true)
-								cnt = cnt + 1
-							elseif getRandomItem.item == "epic" then
-								-- print("epic pattern getRandomItem ")
-								pkszTHsv.curEvent.LoadOut[cnt] = {}
-								pkszTHsv.curEvent.LoadOut[cnt]["item"] = getRandomItem["num"]
-								pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-								pkszTHsv.logger("loadout=randAllEpic/".. getRandomItem["item"] .." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = epic",true)
+								logT = "random = R/[Auto]"
 								cnt = cnt + 1
 							else
 								pkszTHsv.curEvent.LoadOut[cnt] = getRandomItem
-								pkszTHsv.logger("loadout=randomAll/"..getRandomItem["item"].." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+								logT = "random = R/Nomal"
 								cnt = cnt + 1
 							end
 						else
@@ -256,28 +278,24 @@ pkszTHmain.getNewEvent = function()
 								if rGPitems then
 									for rKey in pairs(rGPitems) do
 										pkszTHsv.curEvent.LoadOut[cnt] = rGPitems[rKey]
-										pkszTHsv.logger("loadout=randomOneGP/"..changeThis["num"].." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+										logT = "random = [RGP]"
+										if flgEpic == true then
+											table.insert(epics,{name=pkszTHsv.curEvent.LoadOut[cnt]["item"] ,num=pkszTHsv.curEvent.LoadOut[cnt]["num"] ,newname=nil})
+											logT = "(epic)"..logT
+										end
+										logTxt = " : name=".. pkszTHsv.curEvent.LoadOut[cnt]["item"] .." : amount=".. pkszTHsv.curEvent.LoadOut[cnt]["num"]
+										pkszTHsv.logger("loadout | "..logT..logTxt,true)
+										logT = ""
 										cnt = cnt + 1
 									end
 								end
 							elseif changeThis.item == "auto" then
 								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(changeThis.num)
-								pkszTHsv.logger("loadout=randomAuto/"..changeThis.num.." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
-								cnt = cnt + 1
-							elseif changeThis.item == "autoepic" then
-								pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(changeThis.num)
-								pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-								pkszTHsv.logger("loadout=randomAuto-epic/"..changeThis.num.." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = epic",true)
-								cnt = cnt + 1
-							elseif changeThis.item == "epic" then
-								pkszTHsv.curEvent.LoadOut[cnt] = {}
-								pkszTHsv.curEvent.LoadOut[cnt]["item"] = changeThis["num"]
-								pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-								pkszTHsv.logger("loadout=randomEpic/"..tempLoadOut[key]["num"].." :name = "..changeThis["num"].." :amount = epic",true)
+								logT = "random = [Auto]"
 								cnt = cnt + 1
 							else
 								pkszTHsv.curEvent.LoadOut[cnt] = changeThis
-								pkszTHsv.logger("loadout=randomOne/"..tempLoadOut[key]["num"]..":name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount  ="..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+								logT = "random = [ItemTypes]"
 								cnt = cnt + 1
 							end
 						end
@@ -286,32 +304,54 @@ pkszTHmain.getNewEvent = function()
 					rGPitems = pkszTHmain.getLoadOutRandomGP(tempLoadOut[key]["num"])
 					for rKey in pairs(rGPitems) do
 						pkszTHsv.curEvent.LoadOut[cnt] = rGPitems[rKey]
-						pkszTHsv.logger("loadout=randomGP/"..tempLoadOut[key]["num"]..":name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+						logT = "randomGP = [RGP]"
+						if flgEpic == true then
+							table.insert(epics,{name=pkszTHsv.curEvent.LoadOut[cnt]["item"] ,num=pkszTHsv.curEvent.LoadOut[cnt]["num"] ,newname=nil})
+							logT = "(epic)"..logT
+						end
+						logTxt = " : name=".. pkszTHsv.curEvent.LoadOut[cnt]["item"] .." : amount=".. pkszTHsv.curEvent.LoadOut[cnt]["num"]
+						pkszTHsv.logger("loadout | "..logT..logTxt,true)
+						logT = ""
 						cnt = cnt + 1
 					end
 				elseif valueB == "auto" then
 					pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(tempLoadOut[key]["num"])
-					pkszTHsv.logger("loadout=auto/"..tempLoadOut[key]["num"].." :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
-					cnt = cnt + 1
-				elseif valueB == "autoepic" then
-					pkszTHsv.curEvent.LoadOut[cnt] = pkszTHmain.getAutoCategoryItem(tempLoadOut[key]["num"])
-					pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-					pkszTHsv.logger("loadout=auto-epic :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = epic",true)
-					cnt = cnt + 1
-				elseif valueB == "epic" then
-					pkszTHsv.curEvent.LoadOut[cnt] = {}
-					pkszTHsv.curEvent.LoadOut[cnt]["item"] = tempLoadOut[key]["num"]
-					pkszTHsv.curEvent.LoadOut[cnt]["num"] = "epic"
-					pkszTHsv.logger("loadout=epic :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = epic",true)
+					logT = "auto = [Auto]"
 					cnt = cnt + 1
 				else
 					pkszTHsv.curEvent.LoadOut[cnt] = tempLoadOut[key]
-					pkszTHsv.logger("loadout=nomal :name = "..pkszTHsv.curEvent.LoadOut[cnt]["item"].." :amount = "..pkszTHsv.curEvent.LoadOut[cnt]["num"],true)
+					logT = logT.." = "..tempLoadOut[key]["num"]
 					cnt = cnt + 1
 				end
 
+				-- logging & epic
+				if logT ~= "" then
+					local checkCnt = cnt - 1
+					if lastCnt ~= checkCnt then
+						lastCnt = checkCnt
+
+						-- flgEpic
+						-- The specification is that even if two Axes are specified as epic, only one will be made epic.
+						if flgEpic == true then
+							table.insert(epics,{name=pkszTHsv.curEvent.LoadOut[checkCnt]["item"] ,num=pkszTHsv.curEvent.LoadOut[checkCnt]["num"] ,newname=nil})
+							logT = "(epic)"..logT
+						end
+
+						if pkszTHsv.curEvent.LoadOut[checkCnt] then
+							logTxt = " : name=".. pkszTHsv.curEvent.LoadOut[checkCnt]["item"] .." : amount=".. pkszTHsv.curEvent.LoadOut[checkCnt]["num"]
+							pkszTHsv.logger("loadout | "..logT..logTxt,true)
+						end
+					end
+				end
 			end
+
 		end
+	end
+
+	if #epics > 0 then
+		pkszTHsv.curEvent.epics = epics
+	else
+		pkszTHsv.curEvent.epics = nil
 	end
 
 	-- get zedOutfit
@@ -355,9 +395,16 @@ pkszTHmain.getAutoCategoryItem = function(data)
 	end
 
 
-	if not pkszTHmain.loadedModCategory[data] then
-		pkszTHmain.loadedModCategory[data] = {}
-		pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryList(info)
+	if info.modId == "vanilla" then
+		if not pkszTHmain.loadedModCategory[data] then
+			pkszTHmain.loadedModCategory[data] = {}
+			pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryListBaseItem(info)
+		end
+	else
+		if not pkszTHmain.loadedModCategory[data] then
+			pkszTHmain.loadedModCategory[data] = {}
+			pkszTHmain.loadedModCategory[data] = pkszTHmain.getAutoCategoryList(info)
+		end
 	end
 
 	local lots = pkszTHmain.loadedModCategory[data]
@@ -371,14 +418,12 @@ end
 
 -- If category items are not listed, list them.
 pkszTHmain.getAutoCategoryList = function(info)
-	-- print("--------- pkszTHmain.getAutoCategoryList --------------")
+	print("--------- pkszTHmain.getAutoCategoryList --------------")
 	-- print(info.modId .." / ".. info.subject .." / ".. info.param)
 	local items = getAllItems();
 	local result = {}
 	local cnt = 1
-	if info.modId == "vanilla" then
-		info.modId = "pz-vanilla"
-	end
+
 	for i=0,items:size()-1 do
 		local item = items:get(i);
 		if not item:getObsolete() and not item:isHidden() then
@@ -412,6 +457,42 @@ pkszTHmain.getAutoCategoryList = function(info)
 	return result
 end
 
+pkszTHmain.getAutoCategoryListBaseItem = function(info)
+	print("--------- pkszTHmain.getAutoCategoryListBaseItem --------------")
+	-- print(info.modId .." / ".. info.subject .." / ".. info.param)
+	local items = getAllItems();
+	local result = {}
+	local cnt = 1
+	for i=0,items:size()-1 do
+		local item = items:get(i);
+		if not item:getObsolete() and not item:isHidden() then
+			-- type
+			if info.subject == "DisplayCategory" then
+ 				if item:getDisplayCategory() == info.param then
+					result[cnt] = item:getFullName()
+					cnt = cnt + 1
+ 				end
+			end
+			-- display category
+			if info.subject == "Type" then
+ 				if item:getTypeString() == info.param then
+					result[cnt] = item:getFullName()
+					cnt = cnt + 1
+ 				end
+			end
+		end
+	end
+
+	if #result == 0 then
+		pkszTHsv.logger("AutoCategory zero :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+		pkszTHsv.logger("An error will occur, so add the frog.",true)
+		result[1] = "Base.Frog"
+	else
+		pkszTHsv.logger("Create AutoCategory Cash :".. info.modId .." / ".. info.param .." cnt = "..#result,true)
+	end
+
+	return result
+end
 
 pkszTHmain.getCordList = function(cordText)
 
@@ -538,34 +619,6 @@ local function onServerCommand(module,command,player,args)
 --		pkszTHmain.getSafehouseList()
 		print("-------------------- ")
 		print(" pager drop rate ",SandboxVars.pkszTHopt.PagerDropRate)
-
---		pkszTHsetup.eventFileLoader()
-
---		print("pkszTHsv.EventNum ",pkszTHsv.EventNum)
---		for key,value in pairs(pkszTHsv.EventIDs) do
---			print("setup EventIDs = "..key.." value = "..value)
---		end
---		for key in pairs(pkszTHsv.Events) do
---			print("setup Events = "..key)
---		end
---		for key in pairs(pkszTHsv.CordinateList) do
---			print("setup CordinateList = "..key)
---		end
---		for key in pairs(pkszTHsv.loadOut) do
---			print("setup loadOut = "..key)
---		end
---		for key in pairs(pkszTHsv.loadOutRandom) do
---			print("setup loadOutRandom = "..key)
---		end
---		for key in pairs(pkszTHsv.loadOutRandomGP) do
---			print("setup loadOutRandomGP = "..key)
---		end
---		for key in pairs(pkszTHsv.zedOutfitGrp) do
---			print("setup zedOutfitGrp = "..key)
---		end
-		print("-------------------- ")
-
-
 	end
 
 end
@@ -620,34 +673,54 @@ end
 -- loadout sync
 pkszTHmain.syncLoadout = function()
 
-	local Bag = InventoryItemFactory.CreateItem(pkszTHsv.curEvent.InventoryItem)
-	local test = nil
-	local epics = {}
-	pkszTHsv.curEvent.toEpics = {}
-
-	if not Bag then
-		Bag = InventoryItemFactory.CreateItem("Base.Bag_ToolBag")
+	local item = InventoryItemFactory.CreateItem(pkszTHsv.curEvent.InventoryItem)
+	if not item then
+		item = InventoryItemFactory.CreateItem("Base.Bag_ToolBag")
 		pkszTHsv.logger("Changed to Base.Bag_ToolBag because bag creation failed "..pkszTHsv.curEvent.InventoryItem,true)
 	end
+
+	local epics = nil
+	if pkszTHsv.curEvent.epics ~= nil then
+		epics = pkszTHsv.curEvent.epics
+	end
+	local newName = "Base.Frog"
+
 	for key in pairs(pkszTHsv.curEvent.LoadOut) do
 		for keyB,valueB in pairs(pkszTHsv.curEvent.LoadOut[key]) do
 			if keyB == "item" then
-				-- print(" -- test --"..valueB.." / "..pkszTHsv.curEvent.LoadOut[key]["num"])
-				if pkszTHsv.curEvent.LoadOut[key]["num"] == "epic" then
-					local toEpic = InventoryItemFactory.CreateItem(valueB)
-					test = Bag:getItemContainer():AddItems( toEpic ,1 );
-					local itemId = toEpic:getFullType()
-					local itemName = pkszEpicGen.doGenerate(toEpic,"nameonly")
-					table.insert(epics,{itemId,itemName})
-				else
-					test = Bag:getItemContainer():AddItems( valueB ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
-					if not test then
-						Bag:getItemContainer():AddItems( "Base.Frog" ,1 );
-						pkszTHsv.logger("Changed it to a frog because I failed to get the item.",true)
+
+				local inBag = InventoryItemFactory.CreateItem(valueB)
+
+				if instanceof(inBag, "InventoryItem") then
+					-- epic nameing
+					if epics ~= nil then
+						for key,value in pairs(epics) do
+							if epics[key]["newname"] == nil then
+								if epics[key]["name"] == valueB then
+									if pkszEpicMain.CreateItemNameWrap(inBag) then
+										epics[key]["newname"] = pkszEpicMain.CreateItemNameWrap(inBag)
+										print("get new name "..epics[key]["newname"])
+									end
+								end
+							end
+						end
 					end
+
+					item:getItemContainer():AddItems( inBag ,tonumber(pkszTHsv.curEvent.LoadOut[key]["num"]) );
+
+				else
+
+					item:getItemContainer():AddItems( "Base.Frog" ,1 );
+					pkszTHsv.logger("Changed it to a frog because I failed to get the item.",true)
+
 				end
+
 			end
 		end
+	end
+
+	if pkszTHsv.curEvent.epics ~= nil then
+		pkszTHsv.curEvent.epics = epics
 	end
 
 	-- This "transmitCompleteItemToServer" fucking broken
@@ -656,8 +729,7 @@ pkszTHmain.syncLoadout = function()
 	-- --------------------------xxxxxx
 
 	--- Solved by send isoObject to client
-	pkszTHsv.curEvent.toEpics = epics
-	pkszTHsv.curEvent.objBag = Bag
+	pkszTHsv.curEvent.objBag = item
 
 end
 
@@ -691,7 +763,6 @@ pkszTHmain.getSafehouseList = function()
 	end
 end
 
-
 pkszTHmain.saveEventHistory = function(mode)
 
 	local timestamp = getTimestamp();
@@ -721,4 +792,14 @@ pkszTHmain.saveEventHistory = function(mode)
 	dataFile:write(str .. "\n");
 	dataFile:close();
 
+end
+
+function pkszTHloadOut_copy(t)
+	local t2 = {}
+	for k,v in pairs(t) do
+		t2[k] = {}
+		t2[k]["item"] = v.item
+		t2[k]["num"] = v.num
+	end
+	return t2
 end

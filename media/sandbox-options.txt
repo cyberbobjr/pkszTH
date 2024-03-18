@@ -8,6 +8,16 @@ option pkszTHopt.eventDisabled
     translation = pkszTH_eventDisabled,
 }
 
+option pkszTHopt.eventSelectFileVer
+{
+    type = enum,
+	numValues = 2,
+	default = 1,
+    page = pkszTH,
+    translation = pkszTH_eventSelectFileVer,
+	valueTranslation = pkszTH_eventSelectFileVerEnum,
+}
+
 option pkszTHopt.eventStartChance
 {
     type = integer,
@@ -65,6 +75,8 @@ option pkszTHopt.eventIDanchor
     translation = pkszTH_eventIDanchor,
 }
 
+
+
 option pkszEpic.Disabled
 {
     type = boolean,
@@ -73,11 +85,19 @@ option pkszEpic.Disabled
     translation = pkszEpic_Disabled,
 }
 
+option pkszEpic.AdminEpicConvert
+{
+    type = boolean,
+    default = false,
+    page = pkszEpic,
+    translation = pkszEpic_AdminEpicConvert,
+}
+
 option pkszEpic.SpecImproveMultiplierMin
 {
     type = enum,
 	numValues = 6,
-	default = 3,
+	default = 2,
     page = pkszEpic,
     translation = pkszEpic_SpecImproveMultiplierMin,
 	valueTranslation = pkszEpic_SpecImproveMultiplierMinEnum,

@@ -30,7 +30,8 @@ pkszThCliCtrl.clientWatch = function()
 		if square then
 			local pPos = pkszThCli.getPlayerPos()
 			local distance = (pPos.x - pkszThCli.curEvent.spawnVector.x) ^ 2 + (pPos.y - pkszThCli.curEvent.spawnVector.y) ^ 2
-			if distance < 520 then
+			if distance < 480 then
+				pkszEpicCli.dataConnect("requestSandboxVars",{})
 				local player = getSpecificPlayer(0)
 				pkszThCli.phase = "enter"
 				pkszThCliCtrl.removeObject(square)
@@ -95,26 +96,27 @@ pkszThCliCtrl.dataConnect = function(act)
 
 	if isServer() then return end
 	local player = getPlayer();
-	print("dataConnect " ..act)
 	if isClient() then
 		sendClientCommand(player, "pkszTHctrl", act, pkszThCli.curEvent);
 	else
 		pkszTHsingle.toServer(player, "pkszTHctrl", act, pkszThCli.curEvent);
 	end
+
 end
 
 pkszThCliCtrl.initConnect = function(act)
 
 	if isServer() then return end
 	local player = getPlayer();
-	print("initConnect")
 	pkszThCli.signal = "onSignal"
 	if isClient() then
 		sendClientCommand(player, "pkszTHctrl", "initRequest", pkszThCli.curEvent);
 	else
 		pkszTHsingle.toServer(player, "pkszTHctrl", "initRequest", pkszThCli.curEvent);
 	end
+
 end
+
 
 -- send new message
 local function onServerCommand(module, command, args)
@@ -167,6 +169,22 @@ local function onServerCommand(module, command, args)
 		end
 	end
 
+	-- eventreset
+	if command == "eventRestart" then
+		if pkszThCli.isContainsPager() == false then return end
+		if pkszThCli.allowRing == true then
+			pkszThCli.curEvent = {}
+			pkszThCli.curEvent = args
+			pkszThCli.phase = "wait"
+			pkszThCli.massege = pkszThCli.curEvent.massege
+			pkszThCli.massege[2] = getText("IGUI_pkszTH_restart1")
+			pkszThCli.massege[3] = "..."
+			if pkszThPagerCli.mute == "OFF" then
+				ISTimedActionQueue.add(pkszTHpagerAction:new(player))
+			end
+		end
+	end
+
 	-- forceSuspend
 	if command == "forceSuspend" then
 		print("pkszTH - Client ERROR : Processing will be force suspend because a fatal error has been detected.")
@@ -183,33 +201,39 @@ pkszThCliCtrl.syncSpawnBag = function()
 		return
 	end
 
-	if pkszThCli.curEvent.objBag then
-		local bag = pkszThCli.curEvent.objBag
-		local square = getSquare(
-			pkszThCli.curEvent.spawnVector.x,
-			pkszThCli.curEvent.spawnVector.y,
-			pkszThCli.curEvent.spawnVector.z
-		)
-		square:AddWorldInventoryItem(bag, 0,0,0)
+	print("pkszTH - sync spawn bag")
 
-		print("pkszTH - sync spawn bag")
+	local bag = pkszThCli.curEvent.objBag
+	local square = getSquare(
+		pkszThCli.curEvent.spawnVector.x,
+		pkszThCli.curEvent.spawnVector.y,
+		pkszThCli.curEvent.spawnVector.z
+	)
 
-		local isEpics = pkszThCli.curEvent.toEpics
-		if #isEpics > 0 then
+	local epics = pkszThCli.curEvent.epics
+	if epics ~= nil then
+		if #epics > 0 then
+
 			local inv = bag:getInventory()
 			for j = inv:getItems():size(), 1,-1  do
 				local item = inv:getItems():get(j-1)
 				local myId = item:getFullType()
-				for key,value in pairs(isEpics) do
-					if myId == value[1] then
-						isEpics[key] = "---"
-						item = pkszEpicGen.conversionToEpic(item)
-						item:setName(value[2])
+				for key,value in pairs(epics) do
+					if value.newname ~= nil then
+						if myId == value.name then
+							pkszEpicCli.CurName = epics[key]["newname"]
+							item = pkszEpicGen.doGenerate(item)
+						end
 					end
 				end
 			end
 		end
 	end
+
+
+	---------------
+	square:AddWorldInventoryItem(bag, 0,0,0)
+
 
 
 	pkszThCli.curEvent.objBag = {}

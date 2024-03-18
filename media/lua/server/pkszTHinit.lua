@@ -8,12 +8,11 @@ pkszTHsv.nextEventCoordinate = nil
 
 
 pkszTHsv.EventFileVer = "pkszTHv202403"
+pkszTHsv.EventFileVerOpt = 1
 
 pkszTHsv.Events = {}
 pkszTHsv.EventIDs = {}
 pkszTHsv.EventNum = 0
-
-pkszTHsv.Addon = {}
 
 pkszTHsv.CordinateList = {}
 pkszTHsv.loadOut = {}
@@ -50,7 +49,7 @@ pkszTHsv.curEvent.phase = "init"
 pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
 pkszTHsv.curEvent.eventNote = ""
-pkszTHsv.curEvent.toEpics = {}
+pkszTHsv.curEvent.epics = nil
 
 pkszTHsv.restart = function()
 
@@ -71,16 +70,19 @@ pkszTHsv.restart = function()
 	pkszTHsv.Phase = 0
 	pkszTHsv.mainTick = 0
 
+
+	pkszTHsv.eventFileVersions = {"pkszTHv202403","pkszTHvE202403"}
+
 	pkszTHsv.Settings.eventStartChance = SandboxVars.pkszTHopt.eventStartChance;
 	pkszTHsv.Settings.eventStartWaitTick = SandboxVars.pkszTHopt.eventStartWaitTick;
 
 	pkszTHsetup.ready()
 
-	-- event file check
-	pkszTHsetup.eventFileCheck()
-
 	pkszTHsv.Settings.logFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.history;
 	pkszTHsv.Settings.historyFilename = pkszTHsetup.baseDir.."/"..pkszTHsetup.fn.log;
+
+	-- event file check
+	pkszTHsetup.eventFileCheck()
 
 	if pkszTHsv.forceSuspend == true then
 		return
@@ -88,10 +90,11 @@ pkszTHsv.restart = function()
 
 	pkszTHsv.logger("-- Log files are now available --",false)
 	if SandboxVars.pkszTHopt.eventLogDivision == true then
-		pkszTHsv.logger("Log output mode = pkszTH and console",true)
+		pkszTHsv.logger("Log output mode = pkszTH and console",false)
 	else
-		pkszTHsv.logger("Log output mode = Only pkszTH",true)
+		pkszTHsv.logger("Log output mode = Only pkszTH",false)
 	end
+
 
 
 	-- event File Loader
@@ -104,7 +107,6 @@ pkszTHsv.restart = function()
 
 end
 Events.OnGameBoot.Add(pkszTHsv.restart)
-
 
 pkszTHsv.getRandomGPLineSplit = function(rec)
 

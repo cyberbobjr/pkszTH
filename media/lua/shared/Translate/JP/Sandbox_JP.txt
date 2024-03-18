@@ -2,6 +2,12 @@ Sandbox_EN = {
 
 	Sandbox_pkszTH = "トレジャーハントイベント",
 
+	Sandbox_pkszTH_eventSelectFileVer = "EventFileVersion",
+	Sandbox_pkszTH_eventSelectFileVer_tooltip = "イベントファイルのバージョンを選択します<br>以前のバージョンを所有していないユーザーには、最新のものと同じファイルがインストールされます。<br>マルチサーバーでは次のTickでイベントファイルを再読み込みします",
+
+	Sandbox_pkszTH_eventSelectFileVerEnum_option1 = "pkszTHv202403",
+	Sandbox_pkszTH_eventSelectFileVerEnum_option2 = "pkszTHvE202403",
+
 	Sandbox_pkszTH_eventStartChance = "Event start chance",
 	Sandbox_pkszTH_eventStartChance_tooltip = "0-9 数値が大きいほど、次のイベントの発生が速くなります",
 
@@ -34,12 +40,13 @@ Sandbox_EN = {
 	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
 
 
-	Sandbox_pkszEpic_nil = "",
-
 	Sandbox_pkszEpic = "UniqueItemGenerator API",
 
 	Sandbox_pkszEpic_Disabled = "API disabled",
 	Sandbox_pkszEpic_Disabled_tooltip = "チェックすると、ユニークアイテムの生成を停止しす。",
+
+	Sandbox_pkszEpic_AdminEpicConvert = "Admin convert to Epic",
+	Sandbox_pkszEpic_AdminEpicConvert_tooltip = "管理者はいつでもEpicアイテムに変換できる<br>( 武器、服、カバンのみ )",
 
 	Sandbox_pkszEpic_SpecImproveMultiplierMin = "SpecUp minimum",
 	Sandbox_pkszEpic_SpecImproveMultiplierMin_tooltip = "生成されるユニークアイテムの最小上昇値を設定します",

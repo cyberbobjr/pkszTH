@@ -66,7 +66,7 @@ function pkszTHsetPagerDropRate()
 	end
 
 	if isServer() then
-		pkszTHsv.logger("Set Pager drop rate 1/"..pagerDropRate,false)
+		pkszTHsv.logger("Set Pager drop rate 1/"..pagerDropRate,true)
 	end
 
 end

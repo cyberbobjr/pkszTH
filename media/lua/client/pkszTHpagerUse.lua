@@ -63,10 +63,8 @@ pkszThPagerCli.checkMonitor = function()
 	end
 
 	if pkszThCli.phase == "init" then
-		if isClient() then
-			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_Initializ"));
-			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_PleaseWait"));
-		end
+		pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_Initializ"));
+		pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_PleaseWait"));
 		pkszThCli.phase = "wait"
 		pkszThCliCtrl.dataConnect("requestCurEvent")
 	else
@@ -78,11 +76,20 @@ pkszThPagerCli.checkMonitor = function()
 		if pkszThCli.phase == "open" then
 			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_CheckYourMap"));
 		end
+		if pkszThCli.phase == "wait" then
+			pkszTHsv.curEvent.massege[1] = ""
+			pkszTHsv.curEvent.massege[2] = ""
+			pkszTHsv.curEvent.massege[3] = ""
+			pkszThPagerCli.sayMessage(getText("IGUI_pkszTH_closeInfo"));
+		end
 	end
 
 end
 
 pkszThPagerCli.sayMessage = function(msg)
-	getPlayer():Say(msg)
+	if msg then
+		getPlayer():Say(msg)
+	else
+		getPlayer():Say("...")
+	end
 end
-

@@ -2,6 +2,12 @@ Sandbox_EN = {
 
 	Sandbox_pkszTH = "Treasure hunt",
 
+	Sandbox_pkszTH_eventSelectFileVer = "EventFileVersion",
+	Sandbox_pkszTH_eventSelectFileVer_tooltip = "Select event file version<br>Users who do not own a previous version will have the same files installed as the latest version.<br>In multiserver, reload event file on next tick.",
+
+	Sandbox_pkszTH_eventSelectFileVerEnum_option1 = "pkszTHv202403",
+	Sandbox_pkszTH_eventSelectFileVerEnum_option2 = "pkszTHvE202403",
+
 	Sandbox_pkszTH_eventStartChance = "Event start chance",
 	Sandbox_pkszTH_eventStartChance_tooltip = "0-9 Faster the next event occurs that higher the number ",
 
@@ -38,6 +44,9 @@ Sandbox_EN = {
 
 	Sandbox_pkszEpic_Disabled = "API disabled",
 	Sandbox_pkszEpic_Disabled_tooltip = "If checked, generation of unique items will be stopped.",
+
+	Sandbox_pkszEpic_AdminEpicConvert = "Admin convert to Epic",
+	Sandbox_pkszEpic_AdminEpicConvert_tooltip = "Admin convert to Epic items at any time.<br>(Weapons, clothes, bags)",
 
 	Sandbox_pkszEpic_SpecImproveMultiplierMin = "SpecUp minimum",
 	Sandbox_pkszEpic_SpecImproveMultiplierMin_tooltip = "Set the minimum value of the spec to improve<br>Does not apply to items that have already been generated",

@@ -7,4 +7,9 @@ IG_UI_EN = {
 	IGUI_pkszTH_PleaseWait = "Please wait a moment and check again.",
 	IGUI_pkszTH_CheckYourMap = "----- Check! your map!! -----",
 
+	IGUI_pkszTH_closeInfo = "Getting search for next mission.",
+
+	IGUI_pkszTH_restart1 = "We lost information",
+	IGUI_pkszTH_restart2 = "I'm looking for new information. Please wait",
+
 }

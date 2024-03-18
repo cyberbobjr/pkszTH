@@ -13,6 +13,8 @@ function ISWorldMap:render()
 	if pkszThCli.isContainsPager() == false then return end
 	if isServer() then return end
 	if pkszThCli.signal == "noSignal" then return end
+	if pkszThCli.phase == "init" then return end
+	if pkszThCli.phase == "wait" then return end
 
 	if pkszThCli.allowUse then
 		-- print("drawMap2 -- ",pkszThCli.allowUse)
@@ -20,12 +22,11 @@ function ISWorldMap:render()
 		if not pkszThCli.curEvent.spawnVector then return end
 
 		-- if pkszThCli.phase == "close" then return end
-		-- if pkszThCli.phase == "wait" then return end
 
 	    local x = math.floor(self.mapAPI:worldToUIX(pkszThCli.curEvent.spawnVector.x,pkszThCli.curEvent.spawnVector.y));
 	    local y = math.floor(self.mapAPI:worldToUIY(pkszThCli.curEvent.spawnVector.x,pkszThCli.curEvent.spawnVector.y));
 
-		local myText = pkszThCli.curEvent.startDateTime .. " / " .. pkszThCli.curEvent.spawnDesc
+		local myText = pkszThCli.curEvent.startDateTime .. " " .. pkszThCli.curEvent.spawnDesc
 
 		self:drawRect(x,y,12,12, 0.7, 0.2, 0.2, 0.9);
 	    self:drawRectBorder(x,y,13,13, 1, 0, 0, 0);
