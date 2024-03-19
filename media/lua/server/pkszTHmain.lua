@@ -43,10 +43,10 @@ pkszTHmain.tick = function()
 
 		-- time over
 		if pkszTHsv.mainTick > pkszTHsv.curEvent.endTick then
+			pkszTHsv.logger("Event time over " ..pkszTHsv.curEvent.EventId,true)
 			pkszTHsv.Phase = "close"
 			pkszTHsv.Progress = 0
 			pkszTHsv.mainTick = 0
-			pkszTHsv.logger("Event time over " ..pkszTHsv.curEvent.EventId,true)
 			pkszTHmain.saveEventHistory("timeover")
 			pkszTHmain.dataConnect('EventInfoShare')
 		end
@@ -169,13 +169,15 @@ pkszTHmain.getNewEvent = function()
 		return false
 	end
 
+	-- select EventId
 	pkszTHsv.curEvent = pkszTHsv.Events[myEventId]
 	pkszTHsv.curEvent.EventId = myEventId
-	pkszTHsv.curEvent.startDateTime = pkszTHsv.getGameTime()
-	pkszTHsv.curEvent.startTick = pkszTHsv.mainTick
-	pkszTHsv.curEvent.endTick = pkszTHsv.mainTick + (pkszTHsv.curEvent.eventTimeout * timeAvg)
-	-- pkszTHsv.curEvent.checkPlayer = "<Unacquired>"
-	pkszTHsv.curEvent.phase = pkszTHsv.Phase
+
+	pkszTHsv.logger("eventID :" ..myEventId,true)
+	pkszTHsv.logger("eventDescription :" ..pkszTHsv.curEvent.eventDescription,true)
+	pkszTHsv.logger("cordListSelectCD :" ..pkszTHsv.curEvent.cordListSelectCD,true)
+	pkszTHsv.logger("eventNote  :" ..pkszTHsv.curEvent.eventNote,true)
+
 
 	-- get Coordinate
 	local myCordList = pkszTHmain.getCordList(pkszTHsv.curEvent.cordListSelectCD)
@@ -183,25 +185,12 @@ pkszTHmain.getNewEvent = function()
 		pkszTHsv.logger("ERROR cordListSelectCD :"..pkszTHsv.curEvent.cordListSelectCD,true)
 		return
 	end
-	local setCordNo = ZombRand(#myCordList) + 1
 
-	-- print("myCordList[setCordNo] ",myCordList[1])
-
-	pkszTHsv.curEvent.Coordinate = myCordList[setCordNo]
-
--- next event debug
-	if pkszTHsv.nextEventDebug then
-		if pkszTHsv.nextEventCoordinate then
-			pkszTHsv.logger("nextEventDebug On " .. pkszTHsv.nextEventCoordinate,true)
-			pkszTHsv.curEvent.Coordinate = pkszTHsv.nextEventCoordinate
-		end
+	pkszTHsv.curEvent.Coordinate = pkszTHmain.sqCheck(myCordList)
+	if pkszTHsv.curEvent.Coordinate == nil then
+		pkszTHsv.logger("NOTIS Could not obtain positioning coordinates within 3 times. I'll try again on the next tick ",true)
+		return
 	end
-
-	pkszTHsv.logger("eventID :" ..myEventId,true)
-	pkszTHsv.logger("eventDescription :" ..pkszTHsv.curEvent.eventDescription,true)
-	pkszTHsv.logger("getCordList :" ..pkszTHsv.curEvent.cordListSelectCD.. " setCordNo = " ..setCordNo.. " / " ..#myCordList,true)
-	pkszTHsv.logger("getCoordinate :" ..pkszTHsv.curEvent.Coordinate,true)
-	pkszTHsv.logger("eventNote  :" ..pkszTHsv.curEvent.eventNote,true)
 
 	-- set coordinate vector3
 	pkszTHsv.curEvent.spawnVector = {}
@@ -212,6 +201,14 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.spawnRadius = tonumber(cords[4])
 	pkszTHsv.curEvent.outfitGrpCD = cords[5]
 	pkszTHsv.curEvent.spawnDesc = cords[6]
+
+	pkszTHsv.logger("getCoordinate :" ..pkszTHsv.curEvent.Coordinate,true)
+
+	-- set event timer
+	pkszTHsv.curEvent.startDateTime = pkszTHsv.getGameTime()
+	pkszTHsv.curEvent.startTick = pkszTHsv.mainTick
+	pkszTHsv.curEvent.endTick = pkszTHsv.mainTick + (pkszTHsv.curEvent.eventTimeout * timeAvg)
+	pkszTHsv.curEvent.phase = pkszTHsv.Phase
 
 	-- get load out
 	local tempLoadOut = pkszTHloadOut_copy(pkszTHsv.loadOut[pkszTHsv.curEvent.loadOutSelectCD])
@@ -295,7 +292,7 @@ pkszTHmain.getNewEvent = function()
 								cnt = cnt + 1
 							else
 								pkszTHsv.curEvent.LoadOut[cnt] = changeThis
-								logT = "random = [ItemTypes]"
+								logT = "random = ["..tempLoadOut[key]["num"].."]"
 								cnt = cnt + 1
 							end
 						end
@@ -329,7 +326,6 @@ pkszTHmain.getNewEvent = function()
 					local checkCnt = cnt - 1
 					if lastCnt ~= checkCnt then
 						lastCnt = checkCnt
-
 						-- flgEpic
 						-- The specification is that even if two Axes are specified as epic, only one will be made epic.
 						if flgEpic == true then
@@ -379,6 +375,37 @@ pkszTHmain.getNewEvent = function()
 	return true
 
 end
+
+pkszTHmain.sqCheck = function(myCordList)
+
+	for i=1,3 do
+
+		local setCordNo = ZombRand(#myCordList) + 1
+		local Coordinate = myCordList[setCordNo]
+
+		-- next event debug
+		if pkszTHsv.nextEventDebug == true then
+			if pkszTHsv.nextEventCoordinate ~= nil then
+				pkszTHsv.logger("nextEventDebug On " .. pkszTHsv.nextEventCoordinate,true)
+				Coordinate = pkszTHsv.nextEventCoordinate
+			end
+		end
+
+		local cords = pkszTHsv.strSplit(Coordinate,",")
+		local sq = getWorld():getCell():getGridSquare(tonumber(cords[1]), tonumber(cords[2]), 0);
+
+		if SafeHouse.getSafeHouse(sq) == nil then
+			pkszTHsv.logger("setCordNo = " ..setCordNo.. " / " ..#myCordList,true)
+			return Coordinate
+		else
+			pkszTHsv.logger("The coordinates I tried to place were a safe house. try "..i.." : "..Coordinate,true)
+		end
+	end
+
+	return nil
+
+end
+
 
 pkszTHmain.getAutoCategoryItem = function(data)
 
@@ -608,6 +635,18 @@ local function onServerCommand(module,command,player,args)
     end
 
     if command == "debugPrint" then
+
+		local square = getSquare(
+			player:getX(),
+			player:getY(),
+			player:getZ()
+		)
+
+		local spawnSpace = getWorld():getCell():getGridSquare(player:getX(), player:getY(), 0);
+		print(player:getX())
+		print(square)
+		print("safehouse ",SafeHouse.getSafeHouse(spawnSpace))
+
 		print("pkszTH debug monitor by Server ------------")
 		print("pkszTH progress = " .. pkszTHsv.Progress)
 		print("pkszTH mainTick = " .. pkszTHsv.mainTick)
@@ -745,22 +784,6 @@ pkszTHmain.dataConnect = function(act)
 		pkszTHsingle.toClient(player, "pkszTHctrl", act, pkszTHsv.curEvent);
 	end
 
-end
-
-
--- safehouseList
--- under develop now
-pkszTHmain.getSafehouseList = function()
-	-- print(" getSafehouseList ")
-	local safeVector = {}
-	for i=0,SafeHouse.getSafehouseList():size()-1 do
-		local safe = SafeHouse.getSafehouseList():get(i);
-		if safe:isRespawnInSafehouse(username) and (safe:getPlayers():contains(username) or (safe:getOwner() == username)) then
-			safeVector.x = safe:getX() + (safe:getH() / 2);
-			safeVector.y = safe:getX() + (safe:getH() / 2);
-			-- print("safe x=" ..safeVector.x.. " y=" ..safeVector.y)
-		end
-	end
 end
 
 pkszTHmain.saveEventHistory = function(mode)

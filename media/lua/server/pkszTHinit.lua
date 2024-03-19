@@ -2,9 +2,9 @@ pkszTHsv = {}
 if isClient() then return end
 
 pkszTHsv.nextEventDebug = false
-pkszTHsv.nextEventID = "cosplay1"
-pkszTHsv.nextEventCoordinate = nil
--- "10057,12751,1,1,None,2F Reading room"
+pkszTHsv.nextEventID = "foodaid"
+pkszTHsv.nextEventCoordinate = "13069,1207,0,1,None,2F Reading room"
+-- "13069,1207,0,1,None,2F Reading room"
 
 
 pkszTHsv.EventFileVer = "pkszTHv202403"
