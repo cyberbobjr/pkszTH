@@ -23,7 +23,7 @@ pkszTHsingle.toServer = function(player,module,command,args)
 		pkszTHsv.mainTick = 0
 		pkszTHsv.logger("Event Clear " ..pkszTHsv.curEvent.EventId,true)
 	    local username = player:getUsername();
-		pkszTHmain.saveEventHistory("Clear:"..username)
+		pkszTHlib.saveEventHistory("Clear:"..username)
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 

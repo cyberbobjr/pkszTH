@@ -20,6 +20,9 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventTickAverage = "Time average",
 	Sandbox_pkszTH_eventTickAverage_tooltip = "The event time limit is adjusted at the rate that in-game one day passes in two hours.<br>The higher the number, the longer the time limit.",
 
+	Sandbox_pkszTH_walkSpeedChange = "Enable walking speed change".
+	Sandbox_pkszTH_walkSpeedChange_tooltip = "True this will unlock zombie walking customization.<br>When False, zombie walking speed follows sandbox settings".
+
 	Sandbox_pkszTH_eventLogDivision = "LOG output to console",
 	Sandbox_pkszTH_eventLogDivision_tooltip = "Server logs are output to a dedicated file whenever possible,<br>but if checked, output to the console at the same time. ",
 
@@ -35,8 +38,6 @@ Sandbox_EN = {
 	Sandbox_pkszTH_PagerDropRateEnum_option4 = "normal (1/50)",
 	Sandbox_pkszTH_PagerDropRateEnum_option5 = "common (1/25)",
 	Sandbox_pkszTH_PagerDropRateEnum_option6 = "Debug (1/2)",
-
-
 
 	Sandbox_pkszEpic_nil = "",
 

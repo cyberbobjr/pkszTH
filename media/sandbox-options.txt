@@ -48,6 +48,14 @@ option pkszTHopt.eventTickAverage
     translation = pkszTH_eventTickAverage,
 }
 
+option pkszTHopt.walkSpeedChange
+{
+    type = boolean,
+    default = false,
+    page = pkszTH,
+    translation = pkszTH_walkSpeedChange,
+}
+
 option pkszTHopt.eventLogDivision
 {
     type = boolean,

@@ -20,8 +20,8 @@ Sandbox_EN = {
 	Sandbox_pkszTH_eventTickAverage = "Time average",
 	Sandbox_pkszTH_eventTickAverage_tooltip = "イベントのタイムリミットは2時間でゲーム1日の速度に調整されています<br>数字が大きいほどタイムリミットが長くなります",
 
-	Sandbox_pkszTH_eventLogDivision = "LOG output to console",
-	Sandbox_pkszTH_eventLogDivision_tooltip = "イベントサーバのログは可能な限り専用ファイルに出力されますが、<br>チェックするとコンソールにも同時に出力されます。",
+	Sandbox_pkszTH_walkSpeedChange = "Enable walking speed change".
+	Sandbox_pkszTH_walkSpeedChange_tooltip = "これを有効にすると、ゾンビの歩行速度変更が解除されます。<br>無効ならゾンビの歩行速度はサンドボックスの設定に従います。".
 
 	Sandbox_pkszTH_eventLogDivision = "LOG output to console",
 	Sandbox_pkszTH_eventLogDivision_tooltip = "イベントサーバのログは可能な限り専用ファイルに出力されますが、<br>チェックするとコンソールにも同時に出力されます。",

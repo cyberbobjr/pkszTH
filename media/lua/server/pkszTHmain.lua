@@ -2,6 +2,8 @@ pkszTHmain = {}
 
 pkszTHmain.loadedModCategory = {}
 
+pkszTHmain.enumWTSprint = {"slow3","5","sprint1"}
+
 pkszTHmain.tick = function()
 
 
@@ -47,7 +49,7 @@ pkszTHmain.tick = function()
 			pkszTHsv.Phase = "close"
 			pkszTHsv.Progress = 0
 			pkszTHsv.mainTick = 0
-			pkszTHmain.saveEventHistory("timeover")
+			pkszTHlib.saveEventHistory("timeover")
 			pkszTHmain.dataConnect('EventInfoShare')
 		end
 	end
@@ -57,7 +59,7 @@ pkszTHmain.tick = function()
 		local startEvent = pkszTHmain.newEventSetup()
 		if startEvent == "1" then
 			pkszTHsv.Phase = "open"
-			local sendStr = pkszTHmain.buildSendMessageFormat(pkszTHsv.curEvent)
+			local sendStr = pkszTHlib.buildSendMessageFormat(pkszTHsv.curEvent)
 			pkszTHsv.curEvent.massege = sendStr
 			pkszTHmain.dataConnect('IncomingPager')
 		end
@@ -77,20 +79,6 @@ pkszTHmain.tick = function()
 end
 Events.EveryTenMinutes.Add(pkszTHmain.tick)
 -- Events.EveryOneMinute.Add(pkszTHmain.tick)
-
-pkszTHmain.buildSendMessageFormat = function(cur)
-
-
-	local gameTime = pkszTHsv.getGameTime()
-	local sendString = {}
-	local cords = pkszTHsv.strSplit(cur.Coordinate,",")
-
-	sendString[1] = gameTime
-	sendString[2] = cur.eventDescription
-	sendString[3] = pkszTHsv.curEvent.eventNote
-
-	return sendString
-end
 
 pkszTHmain.newEventSetup = function()
 
@@ -113,7 +101,7 @@ pkszTHmain.newEventSetup = function()
 				-- LoadOut / pkszTHsv.curEvent.LoadOut
 				pkszTHsv.Progress = 1
 				pkszTHsv.Phase = "notice"
-				pkszTHmain.saveEventHistory("start")
+				pkszTHlib.saveEventHistory("start")
 			else
 				pkszTHsv.logger("Event setup failed.",true)
 				return "0"
@@ -203,6 +191,14 @@ pkszTHmain.getNewEvent = function()
 	pkszTHsv.curEvent.spawnDesc = cords[6]
 
 	pkszTHsv.logger("getCoordinate :" ..pkszTHsv.curEvent.Coordinate,true)
+
+	-- event type
+	if pkszTHsv.curEvent.eventType ~= "nomal" then
+		if pkszTHsv.curEvent.eventType ~= "Nomal" then
+			pkszTHlib.DetermEventTypeFlags(pkszTHsv.curEvent.eventType)
+		end
+	end
+
 
 	-- set event timer
 	pkszTHsv.curEvent.startDateTime = pkszTHsv.getGameTime()
@@ -406,7 +402,7 @@ pkszTHmain.sqCheck = function(myCordList)
 
 end
 
-
+-- Use of this feature is not recommended
 pkszTHmain.getAutoCategoryItem = function(data)
 
 	if not data then
@@ -611,7 +607,7 @@ local function onServerCommand(module,command,player,args)
 		pkszTHsv.mainTick = 0
 		pkszTHsv.logger("Event Clear " ..pkszTHsv.curEvent.EventId,true)
 	    local username = player:getUsername();
-		pkszTHmain.saveEventHistory("Clear:"..username)
+		pkszTHlib.saveEventHistory("Clear:"..username)
 		pkszTHmain.dataConnect('EventInfoShare')
     end
 
@@ -679,6 +675,35 @@ pkszTHmain.spawnZombie = function()
 	local LDOutfit = LDoutfits[LDoutfitNo]
 	addZombiesInOutfit(squareX, squareY, squareZ, 1,LDOutfit["item"], tonumber(LDOutfit["num"]), true, true, true, true, 1)
 
+	-- is eventType zombiewalk
+	local isCustomWalk = nil
+	local customWalk = {}
+	if SandboxVars.pkszTHopt.walkSpeedChange == true then
+		if pkszTHsv.curEvent.eventTags then
+			if pkszTHsv.curEvent.eventTags["zombiewalk"] then
+			pkszTHsv.logger("Enable Zombies walkspeed change ->"..pkszTHsv.curEvent.eventTags["zombiewalk"],true)
+				isCustomWalk = pkszTHsv.strSplit(pkszTHsv.curEvent.eventTags["zombiewalk"],",")
+				local walkSum = 0
+				if #isCustomWalk == 3 then
+					for i=1,#isCustomWalk do
+						walkSum = walkSum + tonumber(isCustomWalk[i])
+						customWalk[i] = tonumber(isCustomWalk[i])
+					end
+					local sumUp = 0
+					for i=1,#isCustomWalk do
+						if customWalk[i] > 0 then
+							customWalk[i] = math.floor(customWalk[i] * 100 / walkSum)
+							customWalk[i] = customWalk[i] + sumUp
+						else
+							customWalk[i] = 0
+						end
+						sumUp = customWalk[i]
+					end
+				end
+			end
+		end
+	end
+
 	local square = getSquare(
 		pkszTHsv.curEvent.spawnVector.x,
 		pkszTHsv.curEvent.spawnVector.y,
@@ -700,7 +725,24 @@ pkszTHmain.spawnZombie = function()
 			local x = ZombRand(squareX - radius, squareX + radius + 1)
 			local y = ZombRand(squareY - radius, squareY + radius + 1)
 			-- print("x= "..x.." y= "..y.." sqZ "..squareZ.." zed "..thisOutfit["item"].." femaleChance "..thisOutfit["num"])
-			addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
+			local zeds = addZombiesInOutfit(x, y, squareZ, 1, tostring(thisOutfit["item"]), tonumber(thisOutfit["num"]), false, false, false, false, 1)
+			local zed = zeds:get(0)
+
+			if isCustomWalk ~= nil then
+				local spdtag = ZombRand(100)
+				local spd = ""
+				for i=1,#isCustomWalk do
+					if customWalk[i] ~= 0 then
+						if spdtag <= customWalk[i] then
+							spd = pkszTHmain.enumWTSprint[i]
+							-- print("this speed "..customWalk[i].." / "..spdtag.." : "..spd)
+							zed:setWalkType(spd)
+							break
+						end
+					end
+				end
+			end
+
 		end
 	end
 
@@ -738,7 +780,7 @@ pkszTHmain.syncLoadout = function()
 								if epics[key]["name"] == valueB then
 									if pkszEpicMain.CreateItemNameWrap(inBag) then
 										epics[key]["newname"] = pkszEpicMain.CreateItemNameWrap(inBag)
-										print("get new name "..epics[key]["newname"])
+										-- print("get new name "..epics[key]["newname"])
 									end
 								end
 							end
@@ -783,37 +825,6 @@ pkszTHmain.dataConnect = function(act)
 	else
 		pkszTHsingle.toClient(player, "pkszTHctrl", act, pkszTHsv.curEvent);
 	end
-
-end
-
-pkszTHmain.saveEventHistory = function(mode)
-
-	local timestamp = getTimestamp();
-    local gameDate = pkszTHsv.getGameTime()
-
-	local str = ""
-
-	str = str .. timestamp .. ","
-	str = str .. gameDate .. ","
-	str = str .. pkszTHsv.curEvent.EventId .. ","
-	if mode == "start" then
-		str = str .. pkszTHsv.curEvent.startDateTime .. ","
-		str = str .. pkszTHsv.curEvent.Coordinate .. ","
-		str = str .. pkszTHsv.curEvent.HordeDensity .. ","
-		str = str .. pkszTHsv.curEvent.loadOutSelectCD .. ","
-		str = str .. pkszTHsv.curEvent.cordListSelectCD .. ","
-	else
-		str = str .. mode .. ","
-	end
-
-	-- str = str .. pkszTHsv.mainTick .. ","
-	-- str = str .. pkszTHsv.Phase .. ","
-	-- str = str .. pkszTHsv.curEvent.checkPlayer .. ","
-
-	-- pkszTHsv.logger("EventHistory //" ..str,true)
-	local dataFile = getFileWriter(pkszTHsv.Settings.historyFilename, true, true);
-	dataFile:write(str .. "\n");
-	dataFile:close();
 
 end
 

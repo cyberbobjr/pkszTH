@@ -50,6 +50,7 @@ pkszTHsv.curEvent.objBag = nil
 pkszTHsv.curEvent.zedSquare = nil
 pkszTHsv.curEvent.eventNote = ""
 pkszTHsv.curEvent.epics = nil
+pkszTHsv.curEvent.eventTags = nil
 
 pkszTHsv.restart = function()
 
